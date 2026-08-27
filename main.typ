@@ -43,18 +43,14 @@ O #abbrev("ifba", long: "Instituto Federal da Bahia") campus SAJ e o curso de #a
 
 #figura(
   source-diagram(
-    "class Produto {
-  private String nome;
-  private double preco;
-  public String getNome() {}
-}
-class Foo { 
-  private Produto produto; 
-}",
+    (
+      read("assets/codigos/Estoque.java"),
+      read("assets/codigos/Produto.java"),
+    ).join("\n\n"),
     grammar: "java",
     max-height: 8cm,
   ),
-  caption: [Arquitetura de microsserviços],
+  caption: [Relação Produtos e Estoque],
 ) <figura-source>
 
 #lorem(60)
