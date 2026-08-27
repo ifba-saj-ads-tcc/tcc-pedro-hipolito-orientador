@@ -2,6 +2,7 @@
 #import "assets/diagramas/arquitetura.typ": arquitetura
 #import "assets/graficos/pizza.typ": pizza
 #import "assets/graficos/barras.typ": barras
+#import "@preview/sourcecraft:0.1.0": source-diagram
 #show: template.with(
   titulo: "Desenvolvimento de um Sistema de TCC Autogerado para o IFBA SAJ",
   autor: "Sandro de Souza",
@@ -40,6 +41,22 @@ O #abbrev("ifba", long: "Instituto Federal da Bahia") campus SAJ e o curso de #a
 
 == Contextualização
 
+#figura(
+  source-diagram(
+    "class Produto {
+  private String nome;
+  private double preco;
+  public String getNome() {}
+}
+class Foo { 
+  private Produto produto; 
+}",
+    grammar: "java",
+    max-height: 8cm,
+  ),
+  caption: [Arquitetura de microsserviços],
+) <figura-source>
+
 #lorem(60)
 
 Ver @figura-logo e @figura-arquitetura.
@@ -67,30 +84,42 @@ Ver @figura-logo e @figura-arquitetura.
   align: (left, center, center),
   columns: (1fr, 1fr, 1fr),
   header: ([Módulo], [Tempo de Resposta (ms)], [Uso de CPU (%)]),
-  [Autenticação],table.cell(rowspan: 2,align: center + horizon, stroke:1pt)[1200],[12.4],
-  [Busca],[45.8],
-  [Relatórios],[3500],[88.1],
-  [Notificações],table.cell(colspan: 2, stroke:1pt)[24.7],
+  [Autenticação],
+  table.cell(rowspan: 2, align: center + horizon, stroke: 1pt)[1200],
+  [12.4],
+  [Busca],
+  [45.8],
+  [Relatórios],
+  [3500],
+  [88.1],
+  [Notificações],
+  table.cell(colspan: 2, stroke: 1pt)[24.7],
 ) <tabela-resultados-novo>
 
 #lorem(20)
 
 #align(center)[
   #table(
-    columns: (auto, 1fr, 1fr), // Define a largura das colunas
-    align: (left, center, center), // Alinhamento do texto
-    stroke: none, // Remove todas as bordas padrão (grades)
+    columns: (auto, 1fr, 1fr),
+    // Define a largura das colunas
+    align: (left, center, center),
+    // Alinhamento do texto
+    stroke: none,
+    // Remove todas as bordas padrão (grades)
 
     // Adiciona as linhas horizontais estilo IBGE manualmente
-    table.hline(stroke: 1.5pt), // Top rule (linha grossa superior)
+    table.hline(stroke: 1.5pt),
+    // Top rule (linha grossa superior)
     [Item], [Quantidade], [Preço],
-    table.hline(stroke: 0.8pt), // Mid rule (linha média sob o cabeçalho)
+    table.hline(stroke: 0.8pt),
+    // Mid rule (linha média sob o cabeçalho)
 
     [Produto A], [10], [R\$ 15,00],
     [Produto B], [5], [R\$ 30,00],
     [Produto C], [2], [R\$ 120,00],
-    
-    table.hline(stroke: 1.5pt) // Bottom rule (linha grossa inferior)
+
+    table.hline(stroke: 1.5pt),
+    // Bottom rule (linha grossa inferior)
   )
 ]
 
@@ -156,10 +185,10 @@ Estudos recentes apontam convergência #cite("martin2008", "sommerville2011", "n
 #lorem(30) A @figura-codigo mostra código real.
 
 #codigo(
-  lang: "javascript", 
-  caption: [Servidor Express], 
+  lang: "javascript",
+  caption: [Servidor Express],
   filename: "server.js",
-  read("assets/codigos/server.js")
+  read("assets/codigos/server.js"),
 ) <figura-codigo>
 
 #lorem(30) O algoritmo é o @algoritmo-busca.
