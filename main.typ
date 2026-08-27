@@ -1,4 +1,4 @@
-#import "../lib.typ": *
+#import "ifbasaj-tcc/imports.typ": *
 #import "assets/diagramas/arquitetura.typ": arquitetura
 #import "assets/graficos/pizza.typ": pizza
 #import "assets/graficos/barras.typ": barras
