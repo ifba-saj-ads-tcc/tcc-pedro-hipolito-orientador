@@ -179,6 +179,12 @@ Estudos recentes apontam convergência #cite("martin2008", "sommerville2011", "n
 
 #lorem(30) Ver @figura-arquitetura e @eq-euler.
 
+#figura(
+  image("assets/diagramas/diagramauml.svg"),
+  caption: [Imagem gerada pelo PlantUML ],
+) <figura-puml>
+
+
 #references()
 
 #glossario()
