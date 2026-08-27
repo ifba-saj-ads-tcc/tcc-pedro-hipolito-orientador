@@ -8,21 +8,32 @@ Modelo ABNT para Trabalho de Conclusão de Curso do **IFBA — campus Santo Ant�
 
 ## Sumário
 
-- [O que é](#o-que-é)
-- [Pré-requisitos](#pré-requisitos)
-- [Instalação](#instalação)
-- [Alternativa sem VS Code](#alternativa-sem-vs-code)
-- [Como começar](#como-começar)
-- [O que preencher — `template.with(...)`](#o-que-preencher--templatewith)
-- [Escrevendo seu TCC](#escrevendo-seu-tcc)
-- [Compilação — digital vs impressão](#compilação--digital-vs-impressão)
-- [Estrutura de pastas](#estrutura-de-pastas)
-- [FAQ / Troubleshooting](#faq--troubleshooting)
+- [ifba-saj-tcc — Modelo ABNT para TCC do IFBA SAJ (ADS)](#ifba-saj-tcc--modelo-abnt-para-tcc-do-ifba-saj-ads)
+  - [Sumário](#sumário)
+  - [O que é](#o-que-é)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Instalação](#instalação)
+    - [1. Typst](#1-typst)
+    - [2. VS Code + Tinymist](#2-vs-code--tinymist)
+  - [Alternativa sem VS Code](#alternativa-sem-vs-code)
+  - [Como começar](#como-começar)
+  - [O que preencher — `template.with(...)`](#o-que-preencher--templatewith)
+    - [Tabela de parâmetros](#tabela-de-parâmetros)
+    - [Exemplo mínimo copiável](#exemplo-mínimo-copiável)
+  - [Escrevendo seu TCC](#escrevendo-seu-tcc)
+    - [Figuras, tabelas, quadros](#figuras-tabelas-quadros)
+    - [Código e algoritmo](#código-e-algoritmo)
+    - [Equações e diagramas](#equações-e-diagramas)
+    - [Citações ABNT (NBR 10520:2023)](#citações-abnt-nbr-105202023)
+    - [Abreviaturas, glossário, apêndices e anexos](#abreviaturas-glossário-apêndices-e-anexos)
+  - [Compilação — digital vs impressão](#compilação--digital-vs-impressão)
+  - [Estrutura de pastas](#estrutura-de-pastas)
+  - [FAQ / Troubleshooting](#faq--troubleshooting)
 
 ## O que é
 
-- Pacote Typst (`lib.typ` como entrypoint) que formata automaticamente capa, folha de rosto, ficha catalográfica, errata, folha de aprovação, dedicatória, agradecimentos, epígrafe, resumos, listas automáticas (figuras, quadros, tabelas, códigos, algoritmos, equações, abreviaturas) e sumário conforme ABNT.
-- Exemplo completo e compilável em `example/main.typ` (variantes digital e impressão).
+- Este Repositório é um projeto Typst  que formata automaticamente capa, folha de rosto, ficha catalográfica, errata, folha de aprovação, dedicatória, agradecimentos, epígrafe, resumos, listas automáticas (figuras, quadros, tabelas, códigos, algoritmos, equações, abreviaturas) e sumário conforme ABNT.
+- Exemplo completo e compilável em `main.typ` (variantes digital e impressão).
 - Dependências `@preview`: `codly`, `codly-languages`, `cetz`, `cetz-plot`.
 
 ## Pré-requisitos
@@ -68,7 +79,7 @@ typst --version
 2. Abra a pasta do projeto — aceite instalar as extensões recomendadas, ou instale manualmente:
    - `myriad-dreamin.tinymist` (obrigatória)
    - `jebbs.plantuml` (opcional)
-3. Abra `example/main.typ` — o preview do Tinymist aparece automaticamente.
+3. Abra `main.typ` — o preview do Tinymist aparece automaticamente.
 
 <details>
 <summary>Linux / macOS</summary>
@@ -92,13 +103,13 @@ Você não precisa do VS Code para compilar:
 
 ```powershell
 # Compilar uma vez
-typst compile example/main.typ
+typst compile main.typ
 
 # Watch — recompila a cada salvamento
-typst watch example/main.typ
+typst watch main.typ
 
-# Saída padrão: example/main.pdf (ou passe o destino)
-typst compile example/main.typ saida.pdf
+# Saída padrão: main.pdf (ou passe o destino)
+typst compile main.typ saida.pdf
 ```
 
 Também é possível editar e compilar direto no [Typst App](https://typst.app).
@@ -113,19 +124,17 @@ Set-Location ifba-saj-tcc
 # 2. Abrir no VS Code
 code .
 
-# 3. Abrir example/main.typ — o PDF aparece no preview do Tinymist
+# 3. Abrir main.typ — o PDF aparece no preview do Tinymist
 # Ou compilar via CLI:
-typst compile example/main.typ
+typst compile main.typ
 ```
 
-- O arquivo para editar é `example/main.typ` — ele já contém um TCC de exemplo com todos os recursos.
-- Copie a pasta `example/` para começar seu TCC ou edite `main.typ` diretamente.
-
-> **Nota sobre imports:** `example/main.typ` usa `#import "../lib.typ": *` (desenvolvimento local). Quando o pacote for publicado em `@preview`, o import passará a ser `#import "@preview/ifba-saj-tcc:0.1.0": *`.
+- O arquivo para editar é `main.typ` — ele já contém um TCC de exemplo com todos os recursos.
+- Para começar seu TCC ou edite `main.typ` diretamente.
 
 ## O que preencher — `template.with(...)`
 
-Todo o documento é configurado no cabeçalho de `example/main.typ`:
+Todo o documento é configurado no cabeçalho de `main.typ`:
 
 ```typst
 #show: template.with(
@@ -197,7 +206,7 @@ Seu texto aqui...
 
 ## Escrevendo seu TCC
 
-API pública reexportada por `lib.typ` — todos os exemplos abaixo têm contrapartida em `example/main.typ`.
+API pública reexportada por `lib.typ` — todos os exemplos abaixo têm contrapartida em `main.typ`.
 
 ### Figuras, tabelas, quadros
 
@@ -217,16 +226,16 @@ Ver @fig-logo e @tab-metricas.
 #algoritmo(read("assets/algoritmos/busca.alg"), caption: [Busca linear]) <alg-busca>
 ```
 
-Ativos de exemplo: `example/assets/codigos/server.js`, `example/assets/algoritmos/busca.alg`. Requer `codly-habilitado: true` para syntax highlight.
+Ativos de exemplo: `assets/codigos/server.js`, `assets/algoritmos/busca.alg`. Requer `codly-habilitado: true` para syntax highlight.
 
 ### Equações e diagramas
 
 ```typst
 #equacao[$ e^(i pi) + 1 = 0 $] <eq-euler>
-#diagram(caption: [Arquitetura], ...) // ver src/diagrams.typ
+#diagram(caption: [Arquitetura], ...) // ver ifbasaj-tcc/diagrams.typ
 ```
 
-Gráficos: `example/assets/graficos/pizza.typ`, `example/assets/graficos/barras.typ` (via `cetz-plot`).
+Gráficos: `assets/graficos/pizza.typ`, `assets/graficos/barras.typ` (via `cetz-plot`).
 
 ### Citações ABNT (NBR 10520:2023)
 
@@ -253,7 +262,7 @@ Segundo o autor, #citacao-curta[código limpo é legível] #cite("martin2008", s
 #references()
 ```
 
-Fonte: `src/bibliography.typ` (`cite`, `prose`, `citacao-curta`, `citacao-longa`, `references`). Arquivo bib: `example/referencias.bib`.
+Fonte: `ifbasaj-tcc/bibliography.typ` (`cite`, `prose`, `citacao-curta`, `citacao-longa`, `references`). Arquivo bib: `referencias.bib`.
 
 ### Abreviaturas, glossário, apêndices e anexos
 
@@ -273,7 +282,7 @@ Conteúdo do apêndice...
 Conteúdo do anexo...
 ```
 
-Fonte: `src/gloss.typ` (`abbrev`, `gloss`, `lista-abreviaturas`, `glossario`), `src/annexes.typ` (`apendice`, `anexo`).
+Fonte: `ifbasaj-tcc/gloss.typ` (`abbrev`, `gloss`, `lista-abreviaturas`, `glossario`), `ifbasaj-tcc/annexes.typ` (`apendice`, `anexo`).
 
 ## Compilação — digital vs impressão
 
@@ -288,15 +297,15 @@ Fonte: `src/gloss.typ` (`abbrev`, `gloss`, `lista-abreviaturas`, `glossario`), `
 - `versao-impressao: false` — margens para leitura digital.
 - `versao-impressao: true` — margens ajustadas para impressão/encadernação.
 
-Recompile após trocar: `typst compile example/main.typ` ou aguarde o preview do Tinymist.
+Recompile após trocar: `typst compile main.typ` ou aguarde o preview do Tinymist.
 
 ## Estrutura de pastas
 
 ```
 .
-├── lib.typ                  # entrypoint público — reexporta src/*.typ
 ├── typst.toml               # manifesto (name, version, compiler = 0.15.1)
-├── src/
+├── ifbasaj-tcc/
+│   ├── imports.typ          # entrypoint público — reexporta ifbasaj-tcc/*.typ
 │   ├── layout.typ           # página, tipografia, headings ABNT
 │   ├── pre-textual.typ      # template() — capa, folha de rosto, listas, sumário
 │   ├── elements.typ         # figura, quadro, tabela, fonte
@@ -308,7 +317,7 @@ Recompile após trocar: `typst compile example/main.typ` ou aguarde o preview do
 │   ├── annexes.typ          # apendice, anexo
 │   ├── editor-tools.typ     # equacao
 │   └── config.typ           # get-autor, get-titulo, ...
-├── example/
+├── 
 │   ├── main.typ             # ← edite aqui — exemplo completo
 │   ├── referencias.bib
 │   ├── glossary.typ
@@ -330,4 +339,4 @@ Recompile após trocar: `typst compile example/main.typ` ou aguarde o preview do
 
 ---
 
-Dúvidas sobre ABNT? Consulte as NBRs e os comentários em `src/*.typ` e `example/main.typ`.
+Dúvidas sobre ABNT? Consulte as NBRs e os comentários em `ifbasaj-tcc/*.typ` e `main.typ`.
