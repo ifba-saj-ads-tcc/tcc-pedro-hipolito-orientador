@@ -13,7 +13,8 @@
     [Prof. Dr. (IFBA)],
     [Prof. Dr. (IFBA)],
   ),
-  ficha-catalografica: image("assets/ficha-exemplo.pdf", width: 100%, height: 100%, fit: "contain"),
+  //ficha-catalografica: image("assets/ficha-exemplo.pdf", width: 100%, height: 100%, fit: "contain"),
+  ficha-catalografica: [criação da ficha],
   bibliografia: read("referencias.bib"),
   versao-impressao: false,
 )

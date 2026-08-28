@@ -7,16 +7,7 @@
 #import "@preview/codly-languages:0.1.1": codly-languages
 #import "@preview/datify:1.3.0": display-date
 #let _pre-titulo(nome) = heading(level: 1, numbering: none, outlined: false, bookmarked: true, upper(nome))
-#let _logo() = {
-  rect(width: 2.7cm, height: 2.7cm, stroke: (paint: luma(45%), thickness: 1pt, dash: "dashed"), radius: 4pt, align(
-    center + horizon,
-    stack(dir: ttb, spacing: 4pt, text(fill: luma(45%), weight: "bold", size: 10pt)[LOGOTIPO], text(
-      fill: luma(45%),
-      weight: "bold",
-      size: 14pt,
-    )[IFBA]),
-  ))
-}
+#let _logo() = image("../assets/logo.png", height: 4cm) 
 #let _capa(logo, instituicao, autor, titulo, local, data) = {
   set align(center)
   set par(leading: 1.1em, first-line-indent: 0pt, justify: false)
@@ -76,7 +67,7 @@
   co-orientador: none,
   instituicao: [Instituto Federal de Educação, Ciência e Tecnologia da Bahia],
   curso: [Análise e Desenvolvimento de Sistemas],
-  local: "Santo Antônio de Jesus",
+  local: "Santo Antônio de Jesus - BA",
   data-banca: none,
   logo: none,
   ficha-catalografica: none,
