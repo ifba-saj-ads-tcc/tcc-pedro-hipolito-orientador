@@ -445,7 +445,15 @@ Com a prova de conceito desenvolvida, avaliou-se o comportamento dos sete modelo
 
 Os cenários representam: veículo no acostamento à noite (texto), árvore sobre fiação após tempestade (texto+imagem), gato atropelado (áudio) e residência alagada (áudio+imagem).
 
-#tabela(caption: [Cenários testados], columns: (1fr,1fr), header: ([Cenário],[Entrada]), [Primeiro],[Texto],[Segundo],[Texto e Imagem],[Terceiro],[Áudio],[Quarto],[Áudio e Imagem]) <tab:cenarios_testados>
+#tabela(
+  caption: [Cenários testados], 
+  columns: (1fr,1fr), 
+  width: 50%,
+  header: ([Cenário],[Entrada]), 
+  [Primeiro],[Texto],
+  [Segundo],[Texto e Imagem],
+  [Terceiro],[Áudio],
+  [Quarto],[Áudio e Imagem]) <tab:cenarios_testados>
 
 == Coleta e Comparações
 
