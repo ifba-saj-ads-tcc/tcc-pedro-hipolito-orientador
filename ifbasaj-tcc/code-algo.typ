@@ -33,6 +33,7 @@
   codly(languages: codly-languages)
   codly(display-icon: false)
   codly(display-name: false)
+  codly(lang-format:none)
 
   //codly-init já configura show rule para figure.where(kind: raw)
   //apenas ajustamos alinhamento e espaçamento

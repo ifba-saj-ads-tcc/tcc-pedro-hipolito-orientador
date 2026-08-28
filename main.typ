@@ -178,7 +178,7 @@ Estudos recentes apontam convergência #cite("martin2008", "sommerville2011", "n
 
 === Código e Algoritmo (para referência cruzada)
 
-#lorem(30) A @figura-codigo mostra código real.
+Exemplo de code inline `manifest.json` com formatação específica. #lorem(30) A @figura-codigo mostra código real.
 
 #codigo(
   lang: "javascript",
