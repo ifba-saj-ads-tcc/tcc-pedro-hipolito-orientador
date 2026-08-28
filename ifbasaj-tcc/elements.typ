@@ -78,21 +78,36 @@
   source: auto,
   columns: auto,
   align: auto,
+  font-size: 12pt, 
   header: none,
   ..rows,
 ) = {
   figure(
     {
+      set text(size: font-size)
       table(
         columns: columns,
         align: align,
-        stroke: none,
-        inset: (x: 6pt, y: 3pt),
+        stroke: none, // Remove as bordas padrão para não sobrepor
+        inset: (x: 6pt, y: 7pt), // Um pouco mais de espaço vertical melhora a leitura
+        
+        // Linha superior da tabela
         table.hline(stroke: 1.5pt),
-        ..if header != none {
-          (table.header(..header), table.hline(stroke: 0.8pt))
-        } else { () },
-        ..rows.pos().flatten(),
+        
+        // Estrutura do cabeçalho com sua linha divisória inferior
+        if header != none {
+          table.header(
+            ..header.map(h => [ *#h* ]) // Deixa o texto do cabeçalho em negrito automaticamente
+          )
+        },
+        
+        // Linha abaixo do cabeçalho (renderiza logo após a linha 0)
+        if header != none { table.hline(start: 0, stroke: 0.8pt) },
+        
+        // Dados da tabela
+        ..rows.pos(),
+        
+        // Linha inferior de fechamento
         table.hline(stroke: 1.5pt),
       )
       _render-source(source)

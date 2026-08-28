@@ -451,11 +451,29 @@ Os cenários representam: veículo no acostamento à noite (texto), árvore sobr
 
 Registrados `cost`, `response_time_ms`, `prompt_tokens`, `completion_tokens` e erros. Exemplo Nemotron em @tab:exemplo_retorno_nemotron.
 
-#tabela(caption: [Exemplo de métricas por modelo], columns: (1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr), header: ([Parâmetro],[GPT-5.5],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]), [cost],[0.107],[0.114],[0.006],[0.011],[0.012],[0.005],[0.005],[response_time_ms],[44059],[11028],[2634],[47734],[10398],[3910],[6445],[prompt_tokens],[15370],[19821],[3658],[3837],[524],[3982],[3655],[completion_tokens],[972],[227],[48],[2496],[1336],[351],[497]) <tab:exemplo_retorno_nemotron>
+#tabela(caption: [Exemplo de métricas por modelo], 
+  columns: (2fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr), 
+  align: (left, center),
+  font-size: 10pt, 
+  header: ([Parâmetro],[GPT-5.5],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]), 
+  [cost],[0.107],[0.114],[0.006],[0.011],[0.012],[0.005],[0.005],
+  [response_time_ms],[44059],[11028],[2634],[47734],[10398],[3910],[6445],
+  [prompt_tokens],[15370],[19821],[3658],[3837],[524],[3982],[3655],
+  [completion_tokens],[972],[227],[48],[2496],[1336],[351],[497]) <tab:exemplo_retorno_nemotron>
 
 Comparação isolada (uma requisição por modelo, sem transcrição auxiliar):
 
-#tabela(caption: [Comparação por critérios — modelo isolado], columns: (1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr), header: ([Critério],[GPT],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]), [Texto],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Texto+Imagem],[Sucesso],[Falha],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Falha],[Áudio],[Falha],[Falha],[Falha],[Falha],[Sucesso],[Falha],[Falha],[Áudio+Imagem],[Falha],[Falha],[Falha],[Falha],[Sucesso],[Falha],[Falha],[JSON],[Parcial],[Parcial],[Parcial],[Parcial],[Completo],[Parcial],[Parcial],[Resposta],[Boa],[Boa],[Boa],[Boa],[Excelente],[Regular],[Boa]) <tab:comparacao_modelos>
+#tabela(caption: [Comparação por critérios — modelo isolado], 
+columns: (2fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr), 
+  align: (left, center),
+  font-size: 10pt, 
+header: ([Critério],[GPT],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]), 
+[Texto],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],
+[Texto+Imagem],[Sucesso],[Falha],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Falha],
+[Áudio],[Falha],[Falha],[Falha],[Falha],[Sucesso],[Falha],[Falha],
+[Áudio+Imagem],[Falha],[Falha],[Falha],[Falha],[Sucesso],[Falha],[Falha],
+[JSON],[Parcial],[Parcial],[Parcial],[Parcial],[Completo],[Parcial],[Parcial],
+[Resposta],[Boa],[Boa],[Boa],[Boa],[Excelente],[Regular],[Boa]) <tab:comparacao_modelos>
 
 Apenas Gemini 3.5 Flash atendeu todos os cenários nativamente. Segunda análise (ecossistema sequencial: áudio→transcrição→classificação) viabilizou GPT e Llama para áudio via modelos auxiliares (GPT Audio, Muse Spark), aproximando cobertura de Gemini; Claude/Qwen permaneceram sem áudio, North só texto.
 
