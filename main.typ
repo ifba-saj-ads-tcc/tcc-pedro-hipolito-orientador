@@ -3,7 +3,7 @@
   titulo: "Centro de Ajuda: Sistema Inteligente de Redirecionamento de Comunicação em Situações Emergenciais",
   autor: "Pedro Victor Hipólito Cabral",
   orientador: "Prof. Leandro Costa Souza",
-  data-banca: datetime(year: 2026, month: 6, day: 10),
+  data-banca: datetime(year: 2026, month: 9, day: 18),
   resumo-conteudo: [Este trabalho apresenta o desenvolvimento de uma prova de conceito de um sistema inteligente para redirecionamento de solicitações emergenciais, denominado Centro de Ajuda, que utiliza inteligência artificial multimodal para interpretar relatos em texto, áudio e imagem e recomendar o serviço de emergência mais adequado.],
   resumo-palavras: ("Inteligência Artificial", "Emergência", "Multimodal", "LLM"),
   abstract-conteudo: [This work presents a proof of concept of an intelligent emergency redirection system called Centro de Ajuda, using multimodal AI to interpret text, audio and image reports and recommend the most appropriate emergency service.],
