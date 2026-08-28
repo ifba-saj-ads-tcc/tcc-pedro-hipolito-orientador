@@ -9,7 +9,7 @@
   abstract-conteudo: [This work presents a proof of concept of an intelligent emergency redirection system called Centro de Ajuda, using multimodal AI to interpret text, audio and image reports and recommend the most appropriate emergency service.],
   abstract-palavras: ("Artificial Intelligence", "Emergency", "Multimodal", "LLM"),
   banca: (
-    [Prof. Dr. (IFBA)],
+    [Prof. Mst. Leandro Costa Souza (IFBA)],
     [Prof. Dr. (IFBA)],
     [Prof. Dr. (IFBA)],
   ),
