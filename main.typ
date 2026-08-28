@@ -414,6 +414,71 @@ O servidor foi estruturado de forma modular (inicialização, rotas, processamen
 
 Endpoints carregados dinamicamente do diretório `endpoints/` (ex.: `help.js` → `/help`). Comunicação com Google Reverse Geocoding e plataforma de IAs via Fetch, com conversão Base64 para multimodal.
 
+== Construção do Prompt
+
+Antes da comunicação com o LLM, o servidor constrói três componentes: System Prompt (regras, formato JSON), Assistant Prompt (contexto dinâmico: horário, endereço via `assistantprompt(context)`) e mensagem do usuário (texto + imagem Base64 + áudio Base64). Essa separação reduz acoplamento e permite alterar regras sem afetar contexto.
+
+#codigo(lang: "javascript", caption: [System Prompt], filename: "systemprompt.js", read("assets/codigos/systemprompt.js"))
+#codigo(lang: "javascript", caption: [Assistant Prompt contextual], filename: "assistantprompt.js", read("assets/codigos/assistantprompt.js"))
+#codigo(lang: "javascript", caption: [Montagem conteúdo multimodal], filename: "multimodal.js", read("assets/codigos/multimodal.js"))
+
+=== Formato de Saída (JSON)
+
+O System Prompt exige resposta exclusivamente em JSON com `service_name`, `phone_number` e `emergency_context`. O servidor valida esses campos antes de encaminhar ao cliente, retornando erro 500 se inválido.
+
+== Integração com Modelos de Linguagem
+
+Utilizou-se o OpenRouter como gateway unificado. Comunicação via `POST https://openrouter.ai/api/v1/chat/completions` com `model: online`, `stream: false` e autenticação `Bearer OPENROUTERAPIKEY` via `dotenv`. São registrados `response_time_ms`, tokens e `cost` para benchmark.
+
+#codigo(lang: "javascript", caption: [Chamada OpenRouter], filename: "openrouter.js", read("assets/codigos/openrouter.js"))
+#codigo(lang: "javascript", caption: [Tratamento resultado e validação JSON], filename: "result.js", read("assets/codigos/result.js"))
+
+A arquitetura completa (cliente → `/help` → geocodificação/prompt → OpenRouter → validação) centraliza credenciais no backend e permite trocar modelo sem alterar o frontend, conforme @fig:arquitetura-geral.
+
+#figura(image("assets/imagens/arquitetura-geral.png", width: 90%), caption: [Arquitetura geral do sistema]) <fig:arquitetura-geral>
+
+= Análise dos Resultados
+
+Com a prova de conceito desenvolvida, avaliou-se o comportamento dos sete modelos (GPT-5.5, Claude Opus 4.8, Llama 4 Maverick, Qwen 3.6 Plus, Gemini 3.5 Flash, Nemotron 3 Nano Omni 30B, North Mini Code) via OpenRouter em quatro cenários: (1) texto, (2) texto+imagem, (3) áudio, (4) áudio+imagem — todos com coordenadas/horário.
+
+== Modelos e Cenários
+
+Os cenários representam: veículo no acostamento à noite (texto), árvore sobre fiação após tempestade (texto+imagem), gato atropelado (áudio) e residência alagada (áudio+imagem).
+
+#tabela(caption: [Cenários testados], columns: (1fr,1fr), header: ([Cenário],[Entrada]), [Primeiro],[Texto],[Segundo],[Texto e Imagem],[Terceiro],[Áudio],[Quarto],[Áudio e Imagem]) <tab:cenarios_testados>
+
+== Coleta e Comparações
+
+Registrados `cost`, `response_time_ms`, `prompt_tokens`, `completion_tokens` e erros. Exemplo Nemotron em @tab:exemplo_retorno_nemotron.
+
+#tabela(caption: [Exemplo de métricas por modelo], columns: (1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr), header: ([Parâmetro],[GPT-5.5],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]), [cost],[0.107],[0.114],[0.006],[0.011],[0.012],[0.005],[0.005],[response_time_ms],[44059],[11028],[2634],[47734],[10398],[3910],[6445],[prompt_tokens],[15370],[19821],[3658],[3837],[524],[3982],[3655],[completion_tokens],[972],[227],[48],[2496],[1336],[351],[497]) <tab:exemplo_retorno_nemotron>
+
+Comparação isolada (uma requisição por modelo, sem transcrição auxiliar):
+
+#tabela(caption: [Comparação por critérios — modelo isolado], columns: (1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr), header: ([Critério],[GPT],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]), [Texto],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Texto+Imagem],[Sucesso],[Falha],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Falha],[Áudio],[Falha],[Falha],[Falha],[Falha],[Sucesso],[Falha],[Falha],[Áudio+Imagem],[Falha],[Falha],[Falha],[Falha],[Sucesso],[Falha],[Falha],[JSON],[Parcial],[Parcial],[Parcial],[Parcial],[Completo],[Parcial],[Parcial],[Resposta],[Boa],[Boa],[Boa],[Boa],[Excelente],[Regular],[Boa]) <tab:comparacao_modelos>
+
+Apenas Gemini 3.5 Flash atendeu todos os cenários nativamente. Segunda análise (ecossistema sequencial: áudio→transcrição→classificação) viabilizou GPT e Llama para áudio via modelos auxiliares (GPT Audio, Muse Spark), aproximando cobertura de Gemini; Claude/Qwen permaneceram sem áudio, North só texto.
+
+#tabela(caption: [Viabilidade por ecossistema (composição sequencial)], columns: (1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr), header: ([Critério],[GPT],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]), [Texto],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Texto+Imagem],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Falha],[Áudio],[Sucesso],[Falha],[Sucesso],[Falha],[Sucesso],[Sucesso \*],[Falha],[Áudio+Imagem],[Sucesso],[Falha],[Sucesso],[Falha],[Sucesso],[Sucesso \*],[Falha]) <tab:comparacao_ecossistemas>
+
+Análises individuais detalhadas (recomendação, adequação, erros 404/400) confirmam diferenças de endpoints efetivamente disponíveis vs. capacidades anunciadas em interfaces de chat — ponto central do benchmark.
+
+= Conclusão
+
+O Centro de Ajuda demonstrou viabilidade técnica como apoio ao direcionamento emergencial, integrando entrada multimodal, geocodificação, prompts e OpenRouter para entregar `service_name`/`phone_number`/`emergency_context` com redirecionamento `tel:`.
+
+== Avaliação dos Modelos
+
+Apenas Gemini processou nativamente os quatro cenários; demais exigem composição ou ficam restritos a texto/imagem. A disponibilidade depende dos endpoints efetivamente expostos, não só do marketing da família.
+
+== Propostas Futuras
+
+Aperfeiçoamento da aplicação (segurança, acessibilidade, offline com cache validado), ampliação de cenários (ruído, sotaques, baixa luz), avaliação de modelos locais (Llama/Gemma/Qwen) e validação com profissionais das áreas para curadoria de base de contatos por localização.
+
+== Considerações Finais
+
+A prova de conceito integra interface, servidor, localização e LLMs, atendendo ao objetivo, mas não substitui centrais oficiais — é recurso intermediário para reduzir dúvidas e facilitar o acesso ao serviço adequado, com amplo campo de evolução.
+
 #references()
 
 #glossario()
