@@ -135,6 +135,13 @@
       }
     })
   }
+  show raw: set text(font: "DejaVu Sans Mono")
+  show raw.where(block: false): box.with(
+    fill: luma(245),
+    inset: (x: 4pt, y: 0pt),
+    outset: (y: 3pt),
+    radius: 3pt,
+  )
   body
 }
 
