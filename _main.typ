@@ -43,7 +43,7 @@ De acordo com a pesquisa de #prose("revistaUnijui2024"), a fragmentação dos n�
 
 Devido à existência de múltiplos números de emergência no Brasil e às dificuldades da população em diferenciar corretamente os serviços responsáveis por cada tipo de ocorrência, o presente trabalho tem como objetivo desenvolver uma prova de conceito de um sistema inteligente de redirecionamento de comunicação em situações emergenciais, denominado Centro de Ajuda. A proposta consiste em uma aplicação móvel, integrada a um servidor responsável pelo processamento das solicitações realizadas pelos usuários.
 
-A solução permite que o usuário envie relatos em formato textual, sonoro ou visual descrevendo a situação enfrentada, possibilitando que uma #abbrev("IA", long: "Inteligência Artificial") interprete o contexto da ocorrência e forneça informações relevantes sobre qual órgão ou serviço de emergência deve ser acionado. O sistema busca atuar como uma camada intermediária de apoio à decisão, reduzindo dúvidas relacionadas aos números emergenciais e auxiliando no direcionamento adequado da solicitação à entidade final.
+A solução permite que o usuário envie relatos em formato textual, sonoro ou visual descrevendo a situação enfrentada, possibilitando que uma inteligência artificial interprete o contexto da ocorrência e forneça informações relevantes sobre qual órgão ou serviço de emergência deve ser acionado. O sistema busca atuar como uma camada intermediária de apoio à decisão, reduzindo dúvidas relacionadas aos números emergenciais e auxiliando no direcionamento adequado da solicitação à entidade final.
 
 A lógica do projeto atribui à inteligência artificial a responsabilidade de analisar a situação utilizando diferentes dados contextuais, como localização geográfica, data, horário e descrição da ocorrência. A partir dessas informações, o sistema pode interpretar características regionais, buscar notícias com informações relevantes, compreender o contexto da emergência e identificar quais serviços possuem maior compatibilidade com a situação relatada. Dessa forma, busca-se reduzir ambiguidades no acionamento dos serviços emergenciais e melhorar a acessibilidade ao atendimento adequado.
 
@@ -136,7 +136,7 @@ Essa interpretação contextual desempenha papel fundamental no funcionamento do
 
 Para orientar essa interpretação, diferentes técnicas de engenharia de #emph[prompt], podem ser empregadas. Entre elas estão o #emph[zero-shot], no qual o modelo executa uma tarefa apenas com base na instrução fornecida; o #emph[few-shot] que apresenta exemplos de entrada e saída para demonstrar o comportamento esperado; e o #emph[chain-of-thought] que orienta a decomposição de problemas complexos em etapas intermediárias de raciocínio. Por exemplo, para classificar uma emergência, o #emph[prompt], pode apenas solicitar a classificação (#emph[zero-shot]), apresentar relatos previamente classificados (#emph[few-shot]) ou solicitar que os elementos da ocorrência sejam analisados antes da resposta final (#emph[chain-of-thought]) #cite("wei2022").
 
-Embora essas técnicas contribuam para orientar o modelo e tornar suas respostas mais previsíveis, elas não eliminam as limitações inerentes aos #abbrev("LLMs"). Pequenas alterações na estrutura textual da instrução podem gerar respostas significativamente diferentes, especialmente em tarefas complexas ou ambíguas. Além disso, modelos de linguagem podem produzir informações incorretas, fenômeno frequentemente chamado de  #emph[hallucination] ("alucinação") no qual o sistema gera conteúdos sintaticamente coerentes, porém factualmente incorretos ou inexistentes  #cite("openAIPromptGuide").
+Embora essas técnicas contribuam para orientar o modelo e tornar suas respostas mais previsíveis, elas não eliminam as limitações inerentes aos #abbrev("LLMs"). Pequenas alterações na estrutura textual da instrução podem gerar respostas significativamente diferentes, especialmente em tarefas complexas ou ambíguas. Além disso, modelos de linguagem podem produzir informações incorretas, fenômeno frequentemente chamado de  #emph[hallucination] no qual o sistema gera conteúdos sintaticamente coerentes, porém factualmente incorretos ou inexistentes  #cite("openAIPromptGuide").
 
 Devido a essas características, a construção de prompts tornou-se uma etapa essencial no desenvolvimento de aplicações baseadas em inteligência artificial generativa. Estratégias como definição explícita de contexto, utilização de exemplos, delimitação de regras e restrição de formato são frequentemente utilizadas para aumentar a previsibilidade das respostas produzidas pelos modelos #cite("openAIPromptGuide").
 
@@ -164,11 +164,11 @@ Embora modelos multimodais modernos não dependam exclusivamente de #abbrev("CNN
 
 O processamento de áudio em modelos multimodais permite que sistemas de inteligência artificial interpretem informações sonoras e relacionem esses dados ao contexto textual e visual fornecido durante a inferência. Essa capacidade tornou-se especialmente relevante em aplicações modernas envolvendo reconhecimento de fala, assistentes virtuais, transcrição automática e interpretação contextual de sons presentes no ambiente analisado.
 
-Diferente do processamento de imagens, no qual os elementos visuais podem ser examinados de forma espacial, o áudio é composto por informações distribuídas sequencialmente ao longo do tempo. Por esse motivo, modelos destinados à interpretação sonora precisam considerar tanto características individuais do sinal acústico quanto as dependências temporais existentes entre diferentes trechos da gravação. Segundo #prose("whisper2022"), sistemas modernos de processamento de áudio convertem sinais sonoros em representações numéricas adequadas ao processamento por redes neurais. Nesse procedimento, atributos como frequência, intensidade, duração e variações temporais são codificados em #emph[embeddings], possibilitando a associação dessas informações com outras modalidades presentes no sistema multimodal.
+Diferente do processamento de imagens, no qual os elementos visuais podem ser examinados de forma espacial, o áudio é composto por informações distribuídas sequencialmente ao longo do tempo. Por esse motivo, modelos destinados à interpretação sonora precisam considerar tanto características individuais do sinal acústico quanto as dependências temporais existentes entre diferentes trechos da gravação. Segundo #prose("whisper2022"), sistemas modernos de processamento de áudio convertem sinais sonoros em representações numéricas adequadas ao processamento por redes neurais. Nesse procedimento, atributos como frequência, intensidade, duração e variações temporais são codificados em embeddings, possibilitando a associação dessas informações com outras modalidades presentes no sistema multimodal.
 
-Grande parte das aplicações contemporâneas relacionadas à análise de áudio utiliza técnicas de reconhecimento automático de fala (#abbrev("ASR", long: "Automatic Speech Recognition"), responsáveis por transformar a linguagem falada em texto para posterior interpretação pelos modelos de linguagem. Esses sistemas normalmente executam etapas como aquisição do sinal acústico, extração de características relevantes e decodificação da fala reconhecida #prose("whisper2022"). Embora frequentemente integrem soluções baseadas em #abbrev("LLMs"), mecanismos de #abbrev("ASR") constituem componentes independentes e especializados, atuando como intermediários entre o conteúdo sonoro e os modelos responsáveis pela compreensão textual.
+Grande parte das aplicações contemporâneas relacionadas à análise de áudio utiliza técnicas de reconhecimento automático de fala (#emph[Automatic Speech Recognition] – ASR), responsáveis por transformar a linguagem falada em texto para posterior interpretação pelos modelos de linguagem. Esses sistemas normalmente executam etapas como aquisição do sinal acústico, extração de características relevantes e decodificação da fala reconhecida #prose("whisper2022"). Embora frequentemente integrem soluções baseadas em #abbrev("LLMs"), mecanismos de ASR constituem componentes independentes e especializados, atuando como intermediários entre o conteúdo sonoro e os modelos responsáveis pela compreensão textual.
 
-As primeiras aplicações modernas de reconhecimento de fala utilizaram fortemente arquiteturas recorrentes (#abbrev("RNNs", long: "Recurrent Neural Networks"), anteriormente citadas neste documento. Segundo #prose("goodfellow2016"), essas redes são capazes de preservar informações provenientes de etapas anteriores do processamento, característica especialmente útil para a modelagem de sequências temporais presentes na fala humana.
+As primeiras aplicações modernas de reconhecimento de fala utilizaram fortemente arquiteturas recorrentes (#emph[Recurrent Neural Networks] – RNNs), anteriormente citadas neste documento. Segundo #prose("goodfellow2016"), essas redes são capazes de preservar informações provenientes de etapas anteriores do processamento, característica especialmente útil para a modelagem de sequências temporais presentes na fala humana.
 
 === Processamento de Vídeo
 
@@ -245,7 +245,7 @@ De acordo com #prose("llama4maverick"), o Llama 4 Maverick oferece suporte ao pr
 
 Em relação à interpretação multimodal, o modelo permite analisar conjuntamente informações textuais e visuais, utilizando essas modalidades para produzir respostas contextualizadas. Apesar dessa capacidade, a ausência de suporte nativo ao processamento simultâneo de áudio impede que o modelo atenda integralmente ao requisito de multimodalidade adotado como critério de seleção. #cite("llama4maverick")
 
-A Meta disponibiliza o Llama 4 Maverick para utilização em infraestrutura de nuvem por meio de provedores e #abbrev("APIs") compatíveis, além de permitir sua integração com plataformas de distribuição de #abbrev("IAs", long: "Inteligências Artificiais"). Por sua utilização não depender da execução local do modelo, sua adoção é compatível com a arquitetura cliente-servidor proposta neste trabalho. #cite("llama4api")
+A Meta disponibiliza o Llama 4 Maverick para utilização em infraestrutura de nuvem por meio de provedores e #abbrev("APIs") compatíveis, além de permitir sua integração com plataformas de distribuição de IAs. Por sua utilização não depender da execução local do modelo, sua adoção é compatível com a arquitetura cliente-servidor proposta neste trabalho. #cite("llama4api")
 
 Quanto ao critério relacionado à pesquisa na internet, o Llama 4 Maverick pode ser integrado a ferramentas externas de busca e recuperação de informações, possibilitando que aplicações obtenham dados atualizados durante o processamento das solicitações. Essa funcionalidade depende da integração realizada pela aplicação, não sendo uma capacidade nativa do modelo. #cite("llama4maverick")
 
@@ -268,7 +268,7 @@ Segundo #prose("gemini35flash"), o Gemini 3.5 Flash oferece suporte nativo ao pr
 
 No que se refere à interpretação multimodal, o Gemini 3.5 Flash foi projetado para correlacionar simultaneamente informações provenientes das modalidades suportadas, possibilitando uma compreensão contextual unificada das entradas recebidas. Essa característica atende integralmente ao requisito de multimodalidade definido para o sistema proposto. #cite("gemini35flash")
 
-Além dos modelos anteriores, a documentação da Google também informa que o Gemini 3.5 Flash é disponibilizado por meio de #abbrev("APIs") executadas em infraestrutura de nuvem e está disponível em plataformas intermediárias. #cite("geminiAPI")
+Além dos modelos anteriores, a documentação da Google também informa que o Gemini 3.5 Flash é disponibilizado por meio de #abbrev("APIs") executadas em infraestrutura de nuvem e está disponível em plataformas intermediárias. \cite#cite("geminiAPI")
 
 Além disso, o Gemini 3.5 Flash disponibiliza recursos nativos de pesquisa na internet por meio das ferramentas da plataforma Gemini, permitindo consultar informações atualizadas durante o processamento das solicitações. Essa funcionalidade atende ao critério de acesso a informações externas estabelecido para a avaliação dos modelos. #cite("gemini35flash")
 
@@ -282,7 +282,7 @@ Em relação ao suporte à interpretação multimodal, o modelo foi projetado pa
 
 A NVIDIA disponibiliza o Nemotron 3 Nano Omni por meio de serviços executados em infraestrutura de nuvem, incluindo #abbrev("APIs") NVIDIA NIM e provedores parceiros. Essa abordagem possibilita sua integração à arquitetura cliente-servidor adotada neste trabalho sem exigir a execução local do modelo. #cite("nemotron3nano")
 
-Quanto ao critério de pesquisa na internet, o Nemotron 3 Nano Omni não disponibiliza um mecanismo nativo de consulta à #emph[web]. Entretanto, sua arquitetura permite integração com ferramentas externas responsáveis pela recuperação de informações atualizadas durante a execução da aplicação, possibilitando o atendimento deste requisito quando tais recursos são incorporados ao sistema. #cite("nemotron3nano")
+Quanto ao critério de pesquisa na internet, o Nemotron 3 Nano Omni não disponibiliza um mecanismo nativo de consulta à web. Entretanto, sua arquitetura permite integração com ferramentas externas responsáveis pela recuperação de informações atualizadas durante a execução da aplicação, possibilitando o atendimento deste requisito quando tais recursos são incorporados ao sistema. #cite("nemotron3nano")
 
 === North Mini Code
 
@@ -294,7 +294,7 @@ Quanto a sua interpretação multimodal, a ausência de suporte nativo a imagens
 
 O modelo é disponibilizado sob a licença Apache 2.0 e pode ser executado localmente, devido à quantidade reduzida de parâmetros ativos, ou acessado por serviços em nuvem oferecidos pela Cohere e por plataformas intermediárias. #cite("northMiniCode")
 
-Quanto ao critério de pesquisa na internet, o North Mini Code não possui um mecanismo nativo de consulta à #emph[web]. Entretanto, seu suporte ao uso de ferramentas permite que seja integrado a mecanismos externos de busca e recuperação de informações. Assim, o atendimento a esse critério depende dos recursos fornecidos pela aplicação, não constituindo uma capacidade nativa do modelo. #cite("northMiniCode")
+Quanto ao critério de pesquisa na internet, o North Mini Code não possui um mecanismo nativo de consulta à web. Entretanto, seu suporte ao uso de ferramentas permite que seja integrado a mecanismos externos de busca e recuperação de informações. Assim, o atendimento a esse critério depende dos recursos fornecidos pela aplicação, não constituindo uma capacidade nativa do modelo. #cite("northMiniCode")
 
 == Requisitos do Frontend
 
@@ -308,13 +308,13 @@ A interface do usuário é responsável pela apresentação visual da aplicaçã
 
 === Interface do Usuário
 
-A construção da interface da aplicação foi realizada utilizando HTML, CSS e JavaScript, tecnologias consolidadas como padrão para o desenvolvimento de aplicações #emph[web]. Sua adoção ocorreu devido à ampla compatibilidade entre navegadores, à extensa documentação disponível, ao ecossistema consolidado de ferramentas e à possibilidade de reutilização do código em soluções híbridas para dispositivos móveis, reduzindo o esforço de desenvolvimento e manutenção da aplicação.
+A construção da interface da aplicação foi realizada utilizando HTML, CSS e JavaScript, tecnologias consolidadas como padrão para o desenvolvimento de aplicações web. Sua adoção ocorreu devido à ampla compatibilidade entre navegadores, à extensa documentação disponível, ao ecossistema consolidado de ferramentas e à possibilidade de reutilização do código em soluções híbridas para dispositivos móveis, reduzindo o esforço de desenvolvimento e manutenção da aplicação.
 
 Nesse contexto, o HTML foi empregado para estruturar semanticamente a interface, o CSS para definir sua apresentação visual e adaptação a diferentes tamanhos de tela, enquanto o JavaScript foi utilizado para implementar a lógica da aplicação, gerenciar eventos, manipular dinamicamente os elementos da interface e realizar a comunicação com os serviços disponibilizados pelo #emph[backend].
 
 === Compatibilidade Multiplataforma
 
-A compatibilidade multiplataforma da aplicação é proporcionada pela utilização de tecnologias #emph[web], permitindo que a interface seja acessada em diferentes dispositivos e sistemas operacionais por meio de navegadores compatíveis. Essa abordagem evita a necessidade de desenvolver uma versão específica da aplicação para cada plataforma.
+A compatibilidade multiplataforma da aplicação é proporcionada pela utilização de tecnologias web, permitindo que a interface seja acessada em diferentes dispositivos e sistemas operacionais por meio de navegadores compatíveis. Essa abordagem evita a necessidade de desenvolver uma versão específica da aplicação para cada plataforma.
 
 Além disso, a aplicação pode ser disponibilizada como uma #abbrev("PWA", long: "Progressive Web App"). Uma #abbrev("PWA") consiste em uma aplicação web que incorpora características de aplicações instaláveis, podendo ser adicionada à tela inicial do dispositivo e executada em uma janela própria. Sua configuração básica utiliza recursos como um arquivo de manifesto, responsável por definir informações como nome, ícone e aparência da aplicação, e um #emph[Service Worker], que pode gerenciar o armazenamento de recursos e determinadas funcionalidades em segundo plano.
 
@@ -322,7 +322,7 @@ Essa abordagem mostrou-se adequada à prova de conceito por permitir sua utiliza
 
 === Comunicação Cliente-Servidor
 
-A comunicação entre #emph[frontend] e #emph[backend] foi implementada utilizando a #abbrev("API") Fetch, interface nativa disponibilizada pelos navegadores modernos para a realização de requisições HTTP assíncronas. Conforme apresentado em @fig:fetch-api, ao executar a função `fetch()`, a aplicação inicia a requisição HTTP e recebe imediatamente uma Promise, inicialmente em estado pendente. Enquanto a requisição é processada, a execução da interface permanece disponível, sem precisar aguardar de forma bloqueante pela resposta do servidor. Quando a comunicação é concluída com sucesso, a Promise é resolvida, permitindo o acesso à resposta e às informações retornadas pelo #emph[backend]. Caso ocorra uma falha que impeça a conclusão da requisição, a Promise é rejeitada, possibilitando que a aplicação identifique e trate o erro. Dessa forma, o uso da #abbrev("APIs") Fetch contribui para uma experiência de utilização mais fluida e responsiva.
+A comunicação entre #emph[frontend] e #emph[backend] foi implementada utilizando a #abbrev("API") Fetch, interface nativa disponibilizada pelos navegadores modernos para a realização de requisições HTTP assíncronas. Conforme apresentado em @fig:fetch-api, ao executar a função fetch(), a aplicação inicia a requisição HTTP e recebe imediatamente uma Promise, inicialmente em estado pendente. Enquanto a requisição é processada, a execução da interface permanece disponível, sem precisar aguardar de forma bloqueante pela resposta do servidor. Quando a comunicação é concluída com sucesso, a Promise é resolvida, permitindo o acesso à resposta e às informações retornadas pelo #emph[backend]. Caso ocorra uma falha que impeça a conclusão da requisição, a Promise é rejeitada, possibilitando que a aplicação identifique e trate o erro. Dessa forma, o uso da #abbrev("APIs") Fetch contribui para uma experiência de utilização mais fluida e responsiva.
 
 #figura(
   image("assets/imagens/fetch-api.png", width: 80%),
@@ -333,19 +333,19 @@ Nesse contexto, a #abbrev("API") Fetch é responsável pelo envio das informaç�
 
 == Requisitos do Backend
 
-O #emph[backend] concentra o processamento necessário para transformar os dados enviados pelo usuário em uma resposta utilizável pela aplicação. Para viabilizar a prova de conceito do sistema Centro de Ajuda, essa camada precisava cumprir quatro funções principais: receber solicitações contendo diferentes modalidades de entrada, complementar os dados com informações de localização, encaminhar o contexto da ocorrência ao modelo de linguagem e devolver ao #emph[frontend] uma resposta estruturada.
+O #emph[backend] concentra o processamento necessário para transformar os dados enviados pelo usuário em uma resposta utilizável pela aplicação. Para viabilizar a prova de conceito do sistema Centro de Ajuda, essa camada precisava cumprir quatro funções principais: receber solicitações contendo diferentes modalidades de entrada, complementar os dados com informações de localização, encaminhar o contexto da ocorrência ao modelo de linguagem e devolver ao #emph[frontend] uma resposta estruturada. 
 
 A centralização dessas operações no servidor evita que a aplicação cliente precise conhecer os serviços externos utilizados ou armazenar credenciais de acesso às #abbrev("APIs"). Dessa forma, o #emph[frontend] permanece responsável apenas pela coleta e apresentação das informações, enquanto validações, integrações e regras relacionadas à classificação das ocorrências são executadas no #emph[backend]. 
 
 === Infraestrutura Backend
 
-A infraestrutura foi construída como uma aplicação #emph[web] executada em servidor e organizada em torno de uma rota principal de atendimento. Essa rota recebe o relato do usuário, valida os dados enviados e coordena as etapas necessárias até a obtenção da classificação. Durante esse processo, o servidor comunica-se com o serviço de geolocalização, prepara o contexto utilizado na consulta ao modelo de linguagem e trata a resposta antes de devolvê-la à aplicação cliente. 
+A infraestrutura foi construída como uma aplicação web executada em servidor e organizada em torno de uma rota principal de atendimento. Essa rota recebe o relato do usuário, valida os dados enviados e coordena as etapas necessárias até a obtenção da classificação. Durante esse processo, o servidor comunica-se com o serviço de geolocalização, prepara o contexto utilizado na consulta ao modelo de linguagem e trata a resposta antes de devolvê-la à aplicação cliente. 
 
 Para implementar esse fluxo, foram utilizados o Node.js como ambiente de execução, o Express para definição e controle das rotas HTTP e a #abbrev("API") Fetch para comunicação com os serviços externos. Cada uma dessas tecnologias exerce uma função específica na infraestrutura, permitindo separar o recebimento da solicitação, o processamento interno e as integrações realizadas pela aplicação. 
 
 === Ambiente de Execução
 
-O #emph[backend] foi implementado em Node.js, possibilitando a utilização de JavaScript também no lado do servidor. Sua adoção permitiu manter uma base tecnológica próxima à utilizada no #emph[frontend] e simplificar a manipulação das estruturas JSON trocadas entre as camadas da aplicação. 
+O #emph[backend] foi implementado em Node.js, possibilitando a utilização de JavaScript também no lado do servidor. Além da familiaridade prévia com a linguagem, sua adoção permitiu manter uma base tecnológica próxima à utilizada no #emph[frontend] e simplificar a manipulação das estruturas JSON trocadas entre as camadas da aplicação. 
 
 O modelo assíncrono do Node.js foi especialmente relevante para a prova de conceito, pois parte significativa do tempo de processamento depende de serviços externos. Durante uma solicitação, o servidor pode aguardar a conversão das coordenadas geográficas e a resposta do modelo de linguagem sem bloquear completamente a execução de outras operações. Esse comportamento é adequado a uma aplicação cuja principal função consiste em coordenar requisições HTTP e organizar os resultados obtidos. 
 
@@ -373,7 +373,7 @@ O fluxo de comunicação inicia-se quando o #emph[frontend] envia uma solicitaç
 
 Ao receber a requisição, o #emph[backend] verifica os dados necessários para o processamento. As coordenadas são encaminhadas à #abbrev("API") Google Maps para realização da geocodificação reversa, resultando em uma descrição textual da localização. Posteriormente, essa descrição é combinada com o horário da solicitação e com o relato fornecido pelo usuário para compor o contexto encaminhado ao modelo de linguagem. 
 
-O conjunto formado pelos prompts, pela localização e pelas modalidades recebidas é enviado à plataforma de distribuição de #abbrev("IAs"), que realiza a comunicação com o modelo selecionado. As #abbrev("LLMs") interpretam a ocorrência e retornam uma resposta com o serviço indicado, o número de contato e um resumo do contexto identificado. 
+O conjunto formado pelos prompts, pela localização e pelas modalidades recebidas é enviado à plataforma de distribuição de IAs, que realiza a comunicação com o modelo selecionado. As #abbrev("LLMs") interpretam a ocorrência e retornam uma resposta com o serviço indicado, o número de contato e um resumo do contexto identificado. 
 
 Antes de devolver o resultado ao #emph[frontend], o #emph[backend] verifica e organiza o conteúdo retornado, preservando somente os campos esperados pela aplicação. Após essa etapa, a resposta é enviada ao cliente, que apresenta ao usuário a classificação da ocorrência e as informações necessárias para o contato com o serviço indicado. 
 
@@ -395,7 +395,7 @@ Neste capítulo são apresentados os detalhes de desenvolvimento do sistema Cent
 
 O desenvolvimento do sistema foi dividido em duas camadas principais: a aplicação cliente, responsável pela interação com o usuário, e a aplicação servidora, encarregada do processamento das solicitações e da comunicação com os modelos de linguagem. Essa separação permite isolar as responsabilidades de cada componente, facilitando a manutenção, a evolução da arquitetura e a substituição de tecnologias sem impactar os demais módulos.
 
-Nesta prova de conceito, o foco do desenvolvimento concentrou-se na implementação do #emph[backend] e na validação do fluxo completo de processamento das solicitações de emergência. O cliente móvel foi representado por um protótipo funcional de interface elaborado no Figma, plataforma de #emph[design] de interfaces, que foi utilizada para definir o fluxo de interação do usuário e demonstrar o comportamento esperado da aplicação. Dessa forma, embora as telas e a arquitetura do cliente tenham sido projetadas, sua implementação completa não fez parte do escopo desta etapa do trabalho.
+Nesta prova de conceito, o foco do desenvolvimento concentrou-se na implementação do #emph[backend] e na validação do fluxo completo de processamento das solicitações de emergência. O cliente móvel foi representado por um protótipo funcional de interface elaborado no Figma, utilizado para definir o fluxo de interação do usuário e demonstrar o comportamento esperado da aplicação. Dessa forma, embora as telas e a arquitetura do cliente tenham sido projetadas, sua implementação completa não fez parte do escopo desta etapa do trabalho.
 
 == Implementação da Aplicação Cliente
 
@@ -420,9 +420,9 @@ Conforme a @fig:diagrama_desenvolvimento_frontend_arquitetura, esses componentes
 
 === Tecnologias da Aplicação Cliente
 
-A interface da aplicação foi desenvolvida com tecnologias consolidadas no desenvolvimento #emph[web]. O HTML5 foi utilizado na estruturação das telas, enquanto o CSS3 foi empregado na estilização dos componentes. O JavaScript foi responsável pelo gerenciamento das interações, pela captura dos dados, pelo controle da navegação entre as telas e pela comunicação com o servidor.
+A interface da aplicação foi desenvolvida com tecnologias consolidadas no desenvolvimento web. O HTML5 foi utilizado na estruturação das telas, enquanto o CSS3 foi empregado na estilização dos componentes. O JavaScript foi responsável pelo gerenciamento das interações, pela captura dos dados, pelo controle da navegação entre as telas e pela comunicação com o servidor.
 
-O #emph[framework] Bootstrap foi utilizado para padronizar os elementos visuais e auxiliar na construção de uma interface responsiva, adequada às diferentes dimensões de tela dos dispositivos móveis.
+O framework Bootstrap foi utilizado para padronizar os elementos visuais e auxiliar na construção de uma interface responsiva, adequada às diferentes dimensões de tela dos dispositivos móveis.
 
 A comunicação entre a aplicação cliente e o #emph[backend] foi implementada por meio da Fetch #abbrev("API"). Após a coleta das informações da ocorrência, o JavaScript organiza os dados e realiza uma requisição HTTP ao servidor. A resposta recebida é interpretada pelo cliente e utilizada para preencher a tela de resultado.
 
@@ -430,9 +430,9 @@ A comunicação entre a aplicação cliente e o #emph[backend] foi implementada 
 
 Com o objetivo de facilitar o acesso ao sistema em dispositivos móveis, a aplicação cliente foi implementada como uma #abbrev("PWA") básica. Essa abordagem permite que o sistema seja executado diretamente pelo navegador e adicionado à tela inicial do dispositivo, oferecendo uma experiência semelhante à de uma aplicação instalada, sem exigir seu empacotamento como aplicativo nativo.
 
-A implementação da #abbrev("PWA") foi realizada por meio da inclusão de um arquivo de manifesto e de um #emph[Service Worker]. O arquivo `manifest.json` fornece ao navegador informações de identificação e apresentação da aplicação, como nome, ícones, cores, endereço inicial e modo de exibição. Entre suas configurações, a propriedade display, definida como standalone, permite que a aplicação seja executada em uma janela independente, sem os elementos convencionais de navegação do navegador. Os ícones especificados no manifesto são utilizados na tela inicial do dispositivo e em outros elementos de identificação da aplicação.
+A implementação da #abbrev("PWA") foi realizada por meio da inclusão de um arquivo de manifesto e de um #emph[Service Worker]. O arquivo manifest.json fornece ao navegador informações de identificação e apresentação da aplicação, como nome, ícones, cores, endereço inicial e modo de exibição. Entre suas configurações, a propriedade display, definida como standalone, permite que a aplicação seja executada em uma janela independente, sem os elementos convencionais de navegação do navegador. Os ícones especificados no manifesto são utilizados na tela inicial do dispositivo e em outros elementos de identificação da aplicação.
 
-Complementarmente, o #emph[Service Worker] consiste em um #emph[script] executado em segundo plano pelo navegador. Na aplicação desenvolvida, ele é responsável pelo armazenamento local dos arquivos essenciais da interface, possibilitando que esses recursos sejam recuperados sem a necessidade de serem baixados novamente a cada acesso. Em conjunto, o manifesto e o #emph[Service Worker] fornecem as funcionalidades necessárias para que a aplicação #emph[web] apresenta características semelhantes às de uma aplicação instalada no dispositivo.
+Complementarmente, o #emph[Service Worker] consiste em um script executado em segundo plano pelo navegador. Na aplicação desenvolvida, ele é responsável pelo armazenamento local dos arquivos essenciais da interface, possibilitando que esses recursos sejam recuperados sem a necessidade de serem baixados novamente a cada acesso. Em conjunto, o manifesto e o #emph[Service Worker] fornecem as funcionalidades necessárias para que a aplicação web apresenta características semelhantes às de uma aplicação instalada no dispositivo.
 
 === Tela Inicial
 
@@ -451,7 +451,7 @@ A organização desses elementos foi definida com o objetivo de reduzir a navega
 
 ==== Captura de texto
 
-A entrada textual foi implementada por meio de um elemento HTML do tipo `<textarea>`, no qual o usuário pode descrever a ocorrência em linguagem natural. O componente permite a inserção de textos com múltiplas linhas e limita o relato a 2.000 caracteres, evitando o envio de conteúdos excessivamente longos. 
+A entrada textual foi implementada por meio de um elemento HTML do tipo <textarea>, no qual o usuário pode descrever a ocorrência em linguagem natural. O componente permite a inserção de textos com múltiplas linhas e limita o relato a 2.000 caracteres, evitando o envio de conteúdos excessivamente longos. 
 
 #codigo(
   lang: "html",
@@ -462,7 +462,7 @@ A entrada textual foi implementada por meio de um elemento HTML do tipo `<textar
 
 O campo não foi definido como obrigatório porque a aplicação também permite o envio de solicitações compostas apenas por áudio ou imagem. A verificação da presença de pelo menos uma forma de entrada é realizada posteriormente, antes do envio da solicitação.
 
-Quando o usuário confirma o envio, o conteúdo do campo é acessado pelo JavaScript por meio da #abbrev("DOM", long: "Document Object Model"). O método `document.getElementById()` localiza o elemento a partir de seu identificador, enquanto a propriedade value recupera o texto inserido. Em seguida, o método `trim()` remove espaços em branco desnecessários do início e do final do relato.
+Quando o usuário confirma o envio, o conteúdo do campo é acessado pelo JavaScript por meio da Document Object Model (DOM). O método document.getElementById() localiza o elemento a partir de seu identificador, enquanto a propriedade value recupera o texto inserido. Em seguida, o método trim() remove espaços em branco desnecessários do início e do final do relato.
 
 #codigo(
   lang: "javascript",
@@ -471,7 +471,7 @@ Quando o usuário confirma o envio, o conteúdo do campo é acessado pelo JavaSc
   read("assets/codigos/capture.js"),
 )
 
-Quando o campo está vazio ou contém apenas espaços, a função retorna `null`. Caso exista conteúdo válido, o texto é retornado para posteriormente ser incorporado à solicitação encaminhada ao servidor. 
+Quando o campo está vazio ou contém apenas espaços, a função retorna null. Caso exista conteúdo válido, o texto é retornado para posteriormente ser incorporado à solicitação encaminhada ao servidor. 
 
 ==== Captura de áudio
 
@@ -484,9 +484,9 @@ A captura de áudio foi implementada com a MediaDevices #abbrev("API"). Quando o
   read("assets/codigos/audio.js"),
 )
 
-Caso o usuário recuse a permissão ou o dispositivo não possua um microfone disponível, a função retorna `null`, permitindo que a aplicação informe o erro sem interromper as demais formas de entrada.
+Caso o usuário recuse a permissão ou o dispositivo não possua um microfone disponível, a função retorna null, permitindo que a aplicação informe o erro sem interromper as demais formas de entrada.
 
-A gravação é realizada por meio da `MediaRecorder` #abbrev("API"), que recebe o fluxo fornecido pelo microfone. Durante a gravação, os dados de áudio são disponibilizados em pequenos blocos, denominados #emph[chunks], e armazenados temporariamente em um vetor. Quando a gravação é encerrada, esses blocos são reunidos em um objeto #emph[blob], preservando o formato de áudio selecionado pelo navegador.
+A gravação é realizada por meio da MediaRecorder #abbrev("API"), que recebe o fluxo fornecido pelo microfone. Durante a gravação, os dados de áudio são disponibilizados em pequenos blocos, denominados #emph[chunks], e armazenados temporariamente em um vetor. Quando a gravação é encerrada, esses blocos são reunidos em um objeto #emph[blob], preservando o formato de áudio selecionado pelo navegador.
 
 #codigo(
   lang: "javascript",
@@ -495,13 +495,13 @@ A gravação é realizada por meio da `MediaRecorder` #abbrev("API"), que recebe
   read("assets/codigos/recorder.js"),
 )
 
-O objeto `audioBlob` resultante permanece armazenado na aplicação até a confirmação do envio. Posteriormente, ele pode ser anexado diretamente à solicitação por meio da interface FormData, juntamente com as demais informações da ocorrência. 
+O objeto audioBlob resultante permanece armazenado na aplicação até a confirmação do envio. Posteriormente, ele pode ser anexado diretamente à solicitação por meio da interface FormData, juntamente com as demais informações da ocorrência. 
 
 ==== Captura de imagens
 
 A captura de imagens foi implementada com os recursos disponibilizados pelo próprio navegador, sem a utilização de plugins ou integração direta com código nativo. Para isso, foi utilizado um campo de seleção de arquivos configurado para aceitar somente imagens.
 
-Esse campo de seleção possui o atributo `capture="environment"`, que indica ao navegador a preferência pelo uso da câmera traseira do dispositivo. Entretanto, seu comportamento pode variar de acordo com o navegador e o sistema operacional, que também podem permitir a escolha de uma imagem já armazenada no dispositivo. Após a captura ou seleção, o navegador disponibiliza a imagem como um objeto do tipo `File`. O JavaScript obtém esse arquivo por meio da propriedade files do campo de entrada e verifica se o conteúdo selecionado corresponde a uma imagem.
+Esse campo de seleção possui o atributo `capture="environment"`, que indica ao navegador a preferência pelo uso da câmera traseira do dispositivo. Entretanto, seu comportamento pode variar de acordo com o navegador e o sistema operacional, que também podem permitir a escolha de uma imagem já armazenada no dispositivo.Após a captura ou seleção, o navegador disponibiliza a imagem como um objeto do tipo `File`. O JavaScript obtém esse arquivo por meio da propriedade files do campo de entrada e verifica se o conteúdo selecionado corresponde a uma imagem.
 
 A #abbrev("API") `FileReader` é utilizada para gerar uma representação da imagem no formato `Data URI`, permitindo sua exibição na interface antes do envio. O arquivo original, contudo, permanece armazenado no objeto `imageFile` e será posteriormente anexado à solicitação por meio da interface `BodyParser`.
 
@@ -516,9 +516,9 @@ A #abbrev("API") `FileReader` é utilizada para gerar uma representação da ima
 
 Após a coleta das informações fornecidas pelo usuário, a aplicação reúne os dados da ocorrência em uma única solicitação destinada ao servidor. Dependendo das formas de entrada utilizadas, a solicitação pode conter um relato textual, um arquivo de áudio, uma imagem ou uma combinação desses conteúdos.
 
-Os dados são organizados por meio da interface `BodyParser`, adequada ao envio conjunto de campos textuais e arquivos. O texto é adicionado somente quando estiver preenchido, enquanto o áudio e a imagem são anexados diretamente como objetos `Blob` e `File`, respectivamente.
+Os dados são organizados por meio da interface `BodyParser`, adequada ao envio conjunto de campos textuais e arquivos. O texto é adicionado somente quando estiver preenchido, enquanto o áudio e a imagem são anexados diretamente como objetos Blob e File, respectivamente.
 
-A comunicação entre a aplicação cliente e o #emph[backend] é realizada por meio da Fetch #abbrev("API"), utilizando uma requisição HTTP do tipo POST. O objeto que representa a ocorrência é convertido para JSON com o método `JSON.stringify()`. Nesse caso, o cabeçalho `Content-Type` deve ser definido como `application/json`, informando ao servidor o formato do corpo da requisição.
+A comunicação entre a aplicação cliente e o #emph[backend] é realizada por meio da Fetch #abbrev("API"), utilizando uma requisição HTTP do tipo POST. O objeto que representa a ocorrência é convertido para JSON com o método `JSON.stringify()`. Nesse caso, o cabeçalho Content-Type deve ser definido como `application/json`, informando ao servidor o formato do corpo da requisição.
 
 Antes do envio, a aplicação verifica se pelo menos uma forma de entrada foi fornecida. Caso não exista texto, áudio ou imagem, a solicitação é interrompida e uma mensagem é apresentada ao usuário. Uma variável de controle também impede que uma nova requisição seja iniciada enquanto a anterior ainda estiver em processamento.
 
@@ -529,9 +529,9 @@ Antes do envio, a aplicação verifica se pelo menos uma forma de entrada foi fo
   read("assets/codigos/submit.js"),
 )
 
-Após o envio da solicitação pela aplicação cliente, o #emph[backend] recebe o corpo da requisição em formato JSON. O #emph[middleware] `bodyParser.json()` é responsável por interpretar esse conteúdo e disponibilizá-lo no objeto `req.body`. O limite de tamanho aceito pelo #emph[middleware] foi ampliado devido à presença dos arquivos de áudio e imagem codificados em Base64, representação que aumenta o volume de dados transmitidos.
+Após o envio da solicitação pela aplicação cliente, o #emph[backend] recebe o corpo da requisição em formato JSON. O middleware `bodyParser`.json() é responsável por interpretar esse conteúdo e disponibilizá-lo no objeto req.body. O limite de tamanho aceito pelo middleware foi ampliado devido à presença dos arquivos de áudio e imagem codificados em Base64, representação que aumenta o volume de dados transmitidos.
 
-Depois da interpretação do corpo da requisição, o endpoint extrai de `req.body` os dados enviados pela aplicação cliente. Esses dados incluem o relato textual, o áudio, a imagem, as coordenadas geográficas e o horário da ocorrência.
+Depois da interpretação do corpo da requisição, o endpoint extrai de req.body os dados enviados pela aplicação cliente. Esses dados incluem o relato textual, o áudio, a imagem, as coordenadas geográficas e o horário da ocorrência.
 
 === Tela de Espera
 
@@ -559,7 +559,7 @@ A tela exibe o nome do serviço recomendado, seu respectivo número telefônico 
 
 ==== Recebimento da Resposta
 
-O recebimento da resposta ocorre após a conclusão da requisição HTTP iniciada durante o envio da solicitação. Quando o servidor conclui o processamento, a aplicação interpreta o corpo da resposta por meio do método `response.json()`, que converte o conteúdo JSON recebido em um objeto `JavaScript`.
+O recebimento da resposta ocorre após a conclusão da requisição HTTP iniciada durante o envio da solicitação. Quando o servidor conclui o processamento, a aplicação interpreta o corpo da resposta por meio do método response.json(), que converte o conteúdo JSON recebido em um objeto JavaScript.
 
 Uma resposta válida deve conter os campos `service_name`, `phone_number` e `emergency_context`, correspondentes, respectivamente, ao serviço de emergência recomendado, ao número de telefone e ao resumo da ocorrência identificado pelo modelo. Antes de apresentar o resultado, a aplicação verifica a existência e o tipo desses campos.
 
@@ -574,11 +574,11 @@ Caso a resposta seja válida, os elementos da interface são atualizados dinamic
 
 ==== Redirecionamento para Ligação
 
-Após a apresentação da recomendação, o usuário pode iniciar o contato com o serviço de emergência por meio do botão “Ligar Agora”. A funcionalidade utiliza o esquema de #abbrev("URI", long: "Uniform Resource Identifier") `tel`, reconhecido pelos navegadores e pelos dispositivos móveis.
+Após a apresentação da recomendação, o usuário pode iniciar o contato com o serviço de emergência por meio do botão “Ligar Agora”. A funcionalidade utiliza o esquema de URI tel:, reconhecido pelos navegadores e pelos dispositivos móveis.
 
 Ao acionar o botão, a aplicação abre o discador do dispositivo com o número recomendado previamente preenchido. A ligação não é realizada automaticamente, pois ainda depende da confirmação do usuário no aplicativo de chamadas.
 
-O endereço do botão é definido somente após o recebimento e a validação da resposta do servidor. Antes de construir a #abbrev("URI"), caracteres que não representam dígitos são removidos do número recebido. 
+O endereço do botão é definido somente após o recebimento e a validação da resposta do servidor. Antes de construir a URI, caracteres que não representam dígitos são removidos do número recebido. 
 
 #codigo(
   lang: "javascript",
@@ -595,7 +595,7 @@ O servidor foi estruturado de forma modular, separando a inicialização da apli
 
 A inicialização do sistema ocorre no arquivo principal da aplicação, responsável por carregar o módulo HTTP e iniciar o servidor na porta 27020. O serviço é configurado para aceitar conexões em todas as interfaces de rede disponíveis, por meio do endereço 0.0.0.0, possibilitando o acesso ao #emph[backend] a partir de outros dispositivos conectados à rede ou de uma infraestrutura remota.
 
-A camada de comunicação HTTP foi implementada com o #emph[framework] Express. Nela são configurados os #emph[middlewares] responsáveis pela interpretação dos corpos das requisições nos formatos JSON e URL encoded. Também foi habilitado o #abbrev("CORS", long: "Cross-Origin Resource Sharing"), permitindo que aplicações executadas em origens distintas realizem requisições ao servidor. Essa configuração é necessária porque a aplicação cliente e o #emph[backend] podem ser executados em dispositivos ou endereços diferentes.
+A camada de comunicação HTTP foi implementada com o framework Express. Nela são configurados os middlewares responsáveis pela interpretação dos corpos das requisições nos formatos JSON e URL encoded. Também foi habilitado o Cross-Origin Resource Sharing (CORS), permitindo que aplicações executadas em origens distintas realizem requisições ao servidor. Essa configuração é necessária porque a aplicação cliente e o #emph[backend] podem ser executados em dispositivos ou endereços diferentes.
 
 #codigo(
   lang: "javascript",
@@ -611,9 +611,10 @@ A camada de comunicação HTTP foi implementada com o #emph[framework] Express. 
   read("assets/codigos/express.js"),
 )
 
-Os endpoints da aplicação são carregados automaticamente a partir do diretório destinado às rotas do servidor. Durante a inicialização, o sistema percorre os arquivos JavaScript presentes nesse diretório, importa seus respectivos módulos e registra uma rota HTTP do tipo `POST` com o mesmo nome de cada arquivo. Dessa forma, o arquivo `help.js` é disponibilizado como o #emph[endpoint] `/help`, responsável pelo recebimento e pelo processamento das solicitações de emergência.
+Os endpoints da aplicação são carregados automaticamente a partir do diretório destinado às rotas do servidor. Durante a inicialização, o sistema percorre os arquivos JavaScript presentes nesse diretório, importa seus respectivos módulos e registra uma rota HTTP do tipo POST com o mesmo nome de cada arquivo. Dessa forma, o arquivo help.js é disponibilizado como o endpoint /help, responsável pelo recebimento e pelo processamento das solicitações de emergência.
 
-Antes de encaminhar a requisição ao endpoint correspondente, a camada Express registra o endereço de origem da conexão, verifica a existência do corpo da requisição e define o tipo de conteúdo da resposta como JSON com codificação UTF-8. Após essas verificações, o controle é transferido ao módulo responsável pela rota solicitada.
+Antes de encaminhar a requisição ao endpoint correspondente, a camada Express 
+registra o endereço de origem da conexão, verifica a existência do corpo da requisição e define o tipo de conteúdo da resposta como JSON com codificação UTF-8. Após essas verificações, o controle é transferido ao módulo responsável pela rota solicitada.
 
 #codigo(
   lang: "javascript",
@@ -622,11 +623,11 @@ Antes de encaminhar a requisição ao endpoint correspondente, a camada Express 
   read("assets/codigos/handleendpoint.js"),
 )
 
-O #emph[endpoint] `/help` concentra a coordenação do fluxo de atendimento. Esse módulo recebe os dados enviados pelo cliente, valida a presença das coordenadas geográficas, obtém a localização aproximada da ocorrência, organiza as informações em uma estrutura de contexto, constrói os #emph[prompts] e solicita o processamento ao modelo de linguagem. Ao final, o resultado estruturado é devolvido à aplicação cliente por meio da resposta HTTP.
+O endpoint /help concentra a coordenação do fluxo de atendimento. Esse módulo recebe os dados enviados pelo cliente, valida a presença das coordenadas geográficas, obtém a localização aproximada da ocorrência, organiza as informações em uma estrutura de contexto, constrói os prompts e solicita o processamento ao modelo de linguagem. Ao final, o resultado estruturado é devolvido à aplicação cliente por meio da resposta HTTP.
 
 A comunicação com o serviço de geocodificação foi isolada em um módulo responsável pelas requisições de rede. Esse componente realiza a consulta à #abbrev("API") Google Reverse Geocoding, utilizada para converter as coordenadas geográficas da ocorrência em informações textuais de localização. Esse processo permite complementar os dados de latitude e longitude com elementos de endereço mais compreensíveis e relevantes para a análise da ocorrência.
 
-Para realizar a consulta, o servidor insere as coordenadas recebidas no endereço da #abbrev("API") e envia uma requisição HTTP. Após o recebimento da resposta em formato JSON, os dados são encaminhados à função `extractLocation()`, responsável por percorrer os componentes do endereço e identificar os campos utilizados pelo sistema, como rua, bairro, cidade, estado, país e código postal. Ao final do processamento, essas informações são organizadas em um objeto e posteriormente incorporadas ao contexto da ocorrência.
+Para realizar a consulta, o servidor insere as coordenadas recebidas no endereço da #abbrev("API") e envia uma requisição HTTP. Após o recebimento da resposta em formato JSON, os dados são encaminhados à função extractLocation(), responsável por percorrer os componentes do endereço e identificar os campos utilizados pelo sistema, como rua, bairro, cidade, estado, país e código postal. Ao final do processamento, essas informações são organizadas em um objeto e posteriormente incorporadas ao contexto da ocorrência.
 
 #codigo(
   lang: "javascript",
@@ -637,11 +638,11 @@ Para realizar a consulta, o servidor insere as coordenadas recebidas no endereç
 
 Na comunicação com a plataforma de distribuição de modelos, o servidor organiza a requisição de acordo com o formato de mensagens utilizado pela #abbrev("API"). São incluídas uma mensagem de sistema, uma mensagem de contextualização e uma mensagem contendo os dados fornecidos pelo usuário. Quando arquivos de imagem ou áudio estão presentes, eles são lidos do diretório de recursos, convertidos para Base64 e incorporados ao conteúdo multimodal da requisição.
 
-A resposta retornada pelo modelo também é tratada nessa camada. Além do conteúdo gerado, o módulo registra informações relacionadas à execução, como tempo de resposta, quantidade de tokens de entrada e saída e custo informado pela #abbrev("API"). O conteúdo produzido pelo modelo é encaminhado à função `extraction()`, responsável por remover eventuais marcações de bloco de código e convertê-lo em um objeto `JSON` válido.
+A resposta retornada pelo modelo também é tratada nessa camada. Além do conteúdo gerado, o módulo registra informações relacionadas à execução, como tempo de resposta, quantidade de tokens de entrada e saída e custo informado pela #abbrev("API"). O conteúdo produzido pelo modelo é encaminhado à função extraction(), responsável por remover eventuais marcações de bloco de código e convertê-lo em um objeto JSON válido.
 
-As funções utilitárias também foram reunidas em um módulo próprio. Entre elas estão a criação e localização de arquivos, o registro persistente de #emph[logs], a formatação das mensagens exibidas no terminal, a conversão de arquivos para Base64, a extração de objetos `JSON` e a interpretação dos dados retornados pelo serviço de geocodificação.
+As funções utilitárias também foram reunidas em um módulo próprio. Entre elas estão a criação e localização de arquivos, o registro persistente de logs, a formatação das mensagens exibidas no terminal, a conversão de arquivos para Base64, a extração de objetos JSON e a interpretação dos dados retornados pelo serviço de geocodificação.
 
-A função `fileToBase64()` realiza a leitura síncrona do arquivo e converte seu conteúdo para uma sequência Base64. A função `extractJson()`, por sua vez, tenta interpretar diretamente a resposta como `JSON`. Caso existam textos ou marcações adicionais, a função localiza o primeiro objeto delimitado por chaves e realiza uma nova tentativa de conversão.
+A função fileToBase64() realiza a leitura síncrona do arquivo e converte seu conteúdo para uma sequência Base64. A função extractJson(), por sua vez, tenta interpretar diretamente a resposta como JSON. Caso existam textos ou marcações adicionais, a função localiza o primeiro objeto delimitado por chaves e realiza uma nova tentativa de conversão.
 
 #codigo(
   lang: "javascript",
@@ -650,43 +651,43 @@ A função `fileToBase64()` realiza a leitura síncrona do arquivo e converte se
   read("assets/codigos/tobase64.js"),
 )
 
-A @fig:arquitetura-geral apresenta a relação entre os principais componentes da arquitetura. A aplicação cliente envia a solicitação ao #emph[endpoint] `/help`, que coordena o processamento e utiliza os módulos de prompt, geocodificação e comunicação com o modelo. Após a interpretação e validação da resposta, o resultado estruturado é devolvido ao cliente.
+A @fig:arquitetura-geral apresenta a relação entre os principais componentes da arquitetura. A aplicação cliente envia a solicitação ao endpoint /help, que coordena o processamento e utiliza os módulos de prompt, geocodificação e comunicação com o modelo. Após a interpretação e validação da resposta, o resultado estruturado é devolvido ao cliente
 
 #figura(image("assets/imagens/arquitetura-geral.png", width: 90%), caption: [Arquitetura geral do sistema]) <fig:arquitetura-geral>
 
-A separação adotada também evita que as credenciais de acesso sejam expostas na aplicação cliente, uma vez que as chaves utilizadas pelo Google Maps e pelo modelo #abbrev("IA") permanecem armazenadas nas variáveis de ambiente do servidor. Além disso, a centralização das integrações no #emph[backend] permite alterar o modelo de linguagem, os #emph[prompts] ou os serviços externos sem exigir modificações diretas na interface da aplicação.
+A separação adotada também evita que as credenciais de acesso sejam expostas na aplicação cliente, uma vez que as chaves utilizadas pelo Google Maps e pelo modelo IA permanecem armazenadas nas variáveis de ambiente do servidor. Além disso, a centralização das integrações no #emph[backend] permite alterar o modelo de linguagem, os prompts ou os serviços externos sem exigir modificações diretas na interface da aplicação.
 
 == Construção do Prompt
 
-Antes de realizar a comunicação com o modelo de linguagem, o servidor constrói o conjunto de mensagens que será encaminhado à #abbrev("API") do Open Router. Esse conjunto, denominado #emph[prompt], define tanto o comportamento esperado do modelo quanto às informações específicas da ocorrência que deverão ser consideradas durante a classificação.
+Antes de realizar a comunicação com o modelo de linguagem, o servidor constrói o conjunto de mensagens que será encaminhado à #abbrev("API") do Open Router. Esse conjunto, denominado prompt, define tanto o comportamento esperado do modelo quanto às informações específicas da ocorrência que deverão ser consideradas durante a classificação.
 
 Em vez de encaminhar apenas o relato fornecido pelo usuário, o sistema complementa a solicitação com informações contextuais obtidas automaticamente durante o processamento, como localização geográfica e horário da ocorrência. Essa estratégia reduz ambiguidades e fornece ao modelo mais elementos para identificar o serviço de emergência adequado.
 
-Na implementação desenvolvida, o prompt é organizado em três componentes: #emph[System Prompt], #emph[Assistant Prompt] e mensagem do usuário. Cada componente é enviado com um papel diferente na estrutura de mensagens utilizada pela #abbrev("API").
+Na implementação desenvolvida, o prompt é organizado em três componentes: System Prompt, Assistant Prompt e mensagem do usuário. Cada componente é enviado com um papel diferente na estrutura de mensagens utilizada pela #abbrev("API").
 
-O #emph[System Prompt] estabelece a função do modelo, o processo de análise, as restrições da classificação e o formato obrigatório da resposta. Entre as regras definidas estão a consideração conjunta das modalidades de entrada, a escolha de apenas um serviço, a priorização de órgãos oficiais, a proibição de inventar informações e a exigência de uma resposta em `JSON`.
+O System Prompt estabelece a função do modelo, o processo de análise, as restrições da classificação e o formato obrigatório da resposta. Entre as regras definidas estão a consideração conjunta das modalidades de entrada, a escolha de apenas um serviço, a priorização de órgãos oficiais, a proibição de inventar informações e a exigência de uma resposta em JSON.
 
 #codigo(lang: "javascript", caption: [System Prompt], filename: "systemprompt.js", read("assets/codigos/systemprompt.js"))
 
-O segundo componente corresponde ao #emph[Assistant Prompt], gerado dinamicamente para cada requisição. Diferentemente do #emph[System Prompt], esse componente apresenta informações específicas da ocorrência, como horário, rua, bairro, cidade, estado, país e código postal.
+O segundo componente corresponde ao Assistant Prompt, gerado dinamicamente para cada requisição. Diferentemente do System Prompt, esse componente apresenta informações específicas da ocorrência, como horário, rua, bairro, cidade, estado, país e código postal.
 
-Essas informações são obtidas a partir do objeto de contexto construído pelo #emph[endpoint] `/help`. Dessa forma, cada solicitação recebe sua própria contextualização antes de ser encaminhada ao modelo.
+Essas informações são obtidas a partir do objeto de contexto construído pelo endpoint /help. Dessa forma, cada solicitação recebe sua própria contextualização antes de ser encaminhada ao modelo.
 
 #codigo(lang: "javascript", caption: [Assistant Prompt contextual], filename: "assistantprompt.js", read("assets/codigos/assistantprompt.js"))
 
 O terceiro componente corresponde à mensagem do usuário. Ela reúne o conteúdo efetivamente fornecido pela aplicação cliente e pode conter texto, imagem, áudio ou uma combinação dessas modalidades.
 
-O relato textual é inserido como conteúdo do tipo text. As imagens são convertidas para Base64 e incorporadas como `Data URI` no campo `image_url`. Os arquivos de áudio também são convertidos para Base64 e adicionados como conteúdo do tipo `input_audio`, acompanhado da identificação de seu formato.
+O relato textual é inserido como conteúdo do tipo text. As imagens são convertidas para Base64 e incorporadas como `Data URI` no campo image_url. Os arquivos de áudio também são convertidos para Base64 e adicionados como conteúdo do tipo input_audio, acompanhado da identificação de seu formato.
 
 #codigo(lang: "javascript", caption: [Criação do content], filename: "buildcontent.js", read("assets/codigos/buildcontent.js"))
 
-Após a preparação dos três componentes, as mensagens são organizadas conforme os papéis esperados pela #abbrev("API"). As regras de classificação são enviadas com o papel #emph[system], a contextualização da ocorrência com o papel #emph[assistant] e os dados fornecidos pelo usuário com o papel #emph[user].
+Após a preparação dos três componentes, as mensagens são organizadas conforme os papéis esperados pela #abbrev("API"). As regras de classificação são enviadas com o papel system, a contextualização da ocorrência com o papel assistant e os dados fornecidos pelo usuário com o papel user.
 
 === Contextualização da Ocorrência
 
 Uma característica importante da implementação é que o modelo de linguagem não recebe apenas o relato informado pelo usuário. Antes da comunicação com a #abbrev("API"), o servidor realiza uma etapa de enriquecimento da solicitação, incorporando informações adicionais obtidas durante o processamento da requisição.
 
-Entre esses dados encontram-se a latitude e longitude fornecidas pelo dispositivo móvel, o endereço aproximado obtido por meio do Google Reverse Geocoding e o horário em que a solicitação foi realizada. Essas informações são reunidas no objeto de contexto da aplicação e utilizadas para compor o #emph[Assistant Prompt].
+Entre esses dados encontram-se a latitude e longitude fornecidas pelo dispositivo móvel, o endereço aproximado obtido por meio do Google Reverse Geocoding e o horário em que a solicitação foi realizada. Essas informações são reunidas no objeto de contexto da aplicação e utilizadas para compor o Assistant Prompt.
 
 A inclusão desse contexto permite reduzir ambiguidades presentes em descrições curtas ou incompletas. Por exemplo, um usuário pode informar apenas "há um incêndio próximo de casa". Embora essa descrição indique a natureza da ocorrência, ela não fornece qualquer informação sobre sua localização. Ao incorporar automaticamente o endereço aproximado da ocorrência, o servidor fornece ao modelo elementos adicionais para interpretar a situação de maneira mais consistente e selecionar o serviço de emergência adequado.
 
@@ -694,17 +695,17 @@ Além das informações geográficas, o sistema também encaminha os conteúdos 
 
 === Formato de Saída (JSON)
 
-Após concluir a análise da ocorrência, o modelo deve produzir uma resposta estruturada em formato `JSON`. A utilização de um formato padronizado elimina a necessidade de interpretar respostas em linguagem natural e reduz a possibilidade de ambiguidades durante a comunicação entre o servidor e a aplicação cliente.
+Após concluir a análise da ocorrência, o modelo deve produzir uma resposta estruturada em formato JSON. A utilização de um formato padronizado elimina a necessidade de interpretar respostas em linguagem natural e reduz a possibilidade de ambiguidades durante a comunicação entre o servidor e a aplicação cliente.
 
-O #emph[System Prompt] instrui explicitamente o modelo a responder exclusivamente com um objeto `JSON` válido, sem comentários, blocos de código ou qualquer texto adicional. Essa restrição simplifica o processamento realizado pelo servidor, que pode converter diretamente a resposta recebida em um objeto da aplicação.
+O System Prompt instrui explicitamente o modelo a responder exclusivamente com um objeto JSON válido, sem comentários, blocos de código ou qualquer texto adicional. Essa restrição simplifica o processamento realizado pelo servidor, que pode converter diretamente a resposta recebida em um objeto da aplicação.
 
-Na implementação atual, o `JSON` contém três campos obrigatórios: `service_name`, responsável por identificar o órgão de atendimento recomendado; `phone_number`, contendo o número telefônico correspondente; e `emergency_context`, que apresenta um resumo objetivo da interpretação realizada pelo modelo.
+Na implementação atual, o JSON contém três campos obrigatórios: `service_name`, responsável por identificar o órgão de atendimento recomendado; `phone_number`, contendo o número telefônico correspondente; e `emergency_context`, que apresenta um resumo objetivo da interpretação realizada pelo modelo.
 
 Após o recebimento da resposta, o servidor verifica se esses campos estão presentes antes de encaminhar o resultado à aplicação cliente. Caso a estrutura não esteja de acordo com o formato esperado, a resposta é considerada inválida e uma mensagem de erro é retornada ao cliente. Essa validação reduz falhas de integração e garante que apenas respostas compatíveis com a arquitetura da aplicação sejam utilizadas durante o atendimento das ocorrências.
 
 == Integração com Modelos de Linguagem
 
-Para realizar a integração com Modelos de Linguagem, foi utilizado o OpenRouter, uma plataforma que centraliza o acesso a modelos de #abbrev("IA") desenvolvidos e disponibilizados por diferentes provedores. Por meio de uma interface de programação unificada, a plataforma atua como intermediária entre a aplicação e os modelos selecionados, padronizando o formato das requisições e respostas.
+Para realizar a integração com Modelos de Linguagem, foi utilizado o OpenRouter, uma plataforma que centraliza o acesso a modelos de inteligência artificial desenvolvidos e disponibilizados por diferentes provedores. Por meio de uma interface de programação unificada, a plataforma atua como intermediária entre a aplicação e os modelos selecionados, padronizando o formato das requisições e respostas.
 
 Essa abordagem simplifica a implementação do servidor, uma vez que as requisições seguem uma estrutura comum independentemente do modelo selecionado. Além disso, a interface unificada facilita a substituição ou inclusão de novos modelos durante o desenvolvimento e a realização dos experimentos.
 
@@ -719,13 +720,13 @@ Após a construção dos prompts e a preparação dos conteúdos multimodais, o 
 
 A chave utilizada na autenticação não é incorporada diretamente ao código-fonte. Ela é obtida por meio do pacote dotenv, que carrega as variáveis definidas no ambiente de execução do servidor. Essa abordagem evita que a credencial seja exposta na aplicação cliente ou registrada diretamente nos arquivos da aplicação. 
 
-Após o processamento realizado pelo modelo, o OpenRouter retorna um objeto `JSON` contendo o conteúdo gerado e informações relacionadas à execução da requisição. O servidor registra o tempo decorrido entre o envio e o recebimento da resposta, além da quantidade de tokens de entrada, saída e total, e do custo informado pela #abbrev("API").
+Após o processamento realizado pelo modelo, o OpenRouter retorna um objeto JSON contendo o conteúdo gerado e informações relacionadas à execução da requisição. O servidor registra o tempo decorrido entre o envio e o recebimento da resposta, além da quantidade de tokens de entrada, saída e total, e do custo informado pela #abbrev("API").
 
 Essas informações são armazenadas juntamente com o resultado e utilizadas durante o #emph[benchmark] para comparar o comportamento dos modelos avaliados. O tempo registrado representa a duração total observada pelo servidor durante a comunicação, incluindo o processamento remoto e a transmissão da resposta.
 
 #codigo(lang: "javascript", caption: [Criação do content], filename: "openrouteres.js", read("assets/codigos/openrouteres.js"))
 
-Antes de encaminhar a recomendação à aplicação cliente, o servidor verifica se o conteúdo retornado foi convertido em um objeto `JSON` e se apresenta os três campos obrigatórios: `service_name`, `phone_number` e `emergency_context`.
+Antes de encaminhar a recomendação à aplicação cliente, o servidor verifica se o conteúdo retornado foi convertido em um objeto JSON e se apresenta os três campos obrigatórios: `service_name`, `phone_number` e `emergency_context`.
 
 Caso a resposta não possua a estrutura esperada, o resultado é considerado inválido e o servidor retorna uma mensagem de erro. Quando a validação é concluída com sucesso, somente os campos necessários à tela de resposta são encaminhados ao cliente.
 
@@ -829,7 +830,7 @@ A consideração dos ecossistemas modificou os resultados da comparação, pois 
 
 Para aprofundar as duas comparações anteriores, cada modelo foi analisado individualmente tanto em relação aos resultados obtidos no #emph[benchmark] quanto às possibilidades oferecidas por seu ecossistema no OpenRouter. Dessa forma, a análise considera primeiro o comportamento do modelo utilizado isoladamente e, em seguida, verifica se suas limitações podem ser contornadas com o uso de modelos auxiliares.
 
-Foram considerados seis critérios: processamento textual, processamento de imagem, processamento de áudio, processamento conjunto de áudio e imagem, geração do `JSON` esperado e adequação da recomendação produzida. Na análise dos ecossistemas, também foram observadas a disponibilidade de modelos especializados e a possibilidade de executar múltiplos modelos em sequência.
+Foram considerados seis critérios: processamento textual, processamento de imagem, processamento de áudio, processamento conjunto de áudio e imagem, geração do JSON esperado e adequação da recomendação produzida. Na análise dos ecossistemas, também foram observadas a disponibilidade de modelos especializados e a possibilidade de executar múltiplos modelos em sequência.
 
 O processamento de uma modalidade foi considerado bem-sucedido quando a requisição foi aceita pelo provedor e produziu uma resposta associada ao conteúdo enviado. Portanto, o simples fato de a #abbrev("API") aceitar um arquivo não significa que seu conteúdo tenha sido corretamente compreendido. Essa diferença é especialmente importante na análise do Nemotron, que aceitou uma das solicitações contendo áudio, mas não identificou adequadamente a ocorrência relatada.
 
@@ -841,7 +842,7 @@ O GPT-5.5 concluiu os dois cenários que não continham áudio. No cenário text
 
 No cenário composto por texto e imagem, o modelo recomendou o Corpo de Bombeiros, por meio do número 193, para a árvore caída sobre fios elétricos. A recomendação foi considerada satisfatória, pois a ocorrência envolvia risco de choque, faíscas e bloqueio da via.
 
-Entretanto, os dois cenários que continham áudio falharam antes da inferência. Em ambos os casos, o OpenRouter retornou o código 404 e a mensagem `No endpoints found that support input audio`. Portanto, a falha não ocorreu na interpretação semântica do áudio, mas na indisponibilidade de um #emph[endpoint] compatível com essa modalidade para o modelo e a rota utilizados.
+Entretanto, os dois cenários que continham áudio falharam antes da inferência. Em ambos os casos, o OpenRouter retornou o código 404 e a mensagem `No endpoints found that support input audio`. Portanto, a falha não ocorreu na interpretação semântica do áudio, mas na indisponibilidade de um endpoint compatível com essa modalidade para o modelo e a rota utilizados.
 
 Por não conseguir atender a todos os cenários por meio de um único modelo, o GPT-5.5 foi uma das alternativas que exigiu a utilização de um modelo auxiliar. Para os cenários com áudio, foi utilizado o GPT Audio, responsável por processar o arquivo e produzir uma representação textual do relato. Esse conteúdo foi posteriormente encaminhado ao GPT-5.5, que realizou a classificação da ocorrência e gerou a resposta no formato esperado. No cenário com áudio e imagem, a representação textual produzida pelo GPT Audio foi enviada ao GPT-5.5 juntamente com a imagem.
 
@@ -861,9 +862,9 @@ O Llama 4 Maverick concluiu os cenários textual e visual. No primeiro, recomend
 
 No cenário da árvore sobre a fiação, o modelo recomendou a Coelba e apresentou o número 0800 071 0909. A decisão de acionar a concessionária de energia foi compatível com o risco elétrico descrito e o resumo reconheceu as faíscas e a obstrução da rua. A resposta foi formalmente válida e utilizou as informações da ocorrência.
 
-Os dois cenários com áudio retornaram o código 404 e a mensagem `No endpoints found that support input audio`. Assim, o modelo não foi testado semanticamente nessas ocorrências, pois a integração não encontrou um #emph[endpoint] que aceitasse essa modalidade.
+Os dois cenários com áudio retornaram o código 404 e a mensagem `No endpoints found that support input audio`. Assim, o modelo não foi testado semanticamente nessas ocorrências, pois a integração não encontrou um endpoint que aceitasse essa modalidade.
 
-Na segunda análise, a limitação relacionada ao áudio foi contornada com a utilização do Muse Spark 1.2, modelo do ecossistema da Meta capaz de receber entradas sonoras e visuais. O modelo auxiliar foi responsável por interpretar o áudio e produzir uma representação textual da ocorrência, posteriormente encaminhada ao Llama 4 Maverick para classificação e geração do `JSON`. No cenário com áudio e imagem, ambos os conteúdos foram inicialmente processados pelo Muse Spark antes do envio das informações extraídas ao modelo principal. Dessa forma, a composição permitiu incluir os quatro cenários na avaliação do ecossistema. 
+Na segunda análise, a limitação relacionada ao áudio foi contornada com a utilização do Muse Spark 1.2, modelo do ecossistema da Meta capaz de receber entradas sonoras e visuais. O modelo auxiliar foi responsável por interpretar o áudio e produzir uma representação textual da ocorrência, posteriormente encaminhada ao Llama 4 Maverick para classificação e geração do JSON. No cenário com áudio e imagem, ambos os conteúdos foram inicialmente processados pelo Muse Spark antes do envio das informações extraídas ao modelo principal. Dessa forma, a composição permitiu incluir os quatro cenários na avaliação do ecossistema. 
 
 === Qwen 3.6 Plus
 
@@ -899,15 +900,15 @@ No cenário com texto e imagem, recomendou “Neoenergia” e apresentou o telef
 
 No cenário de áudio, a requisição foi tecnicamente aceita, diferentemente do que ocorreu com a maioria dos modelos. Entretanto, a resposta indicou a Polícia Militar, pelo número 190, e afirmou que a ocorrência não havia sido especificada. O áudio relatava um gato atropelado. Portanto, o modelo demonstrou compatibilidade técnica com o arquivo sonoro, mas não conseguiu compreender seu conteúdo. Esse resultado deve ser classificado como falha semântica, não como sucesso do cenário.
 
-No cenário com áudio e imagem, o registro ficou vazio: não houve serviço, telefone, contexto, código de erro ou métricas. Isso indica que a execução não produziu um resultado aproveitável, mas o arquivo `CSV` não permite determinar se houve interrupção da chamada, falha na gravação do resultado ou retorno vazio do provedor.
+No cenário com áudio e imagem, o registro ficou vazio: não houve serviço, telefone, contexto, código de erro ou métricas. Isso indica que a execução não produziu um resultado aproveitável, mas o arquivo CSV não permite determinar se houve interrupção da chamada, falha na gravação do resultado ou retorno vazio do provedor.
 
-Na segunda análise, o Nemotron 3 Nano Omni deixou de ser utilizado como único responsável por interpretar as entradas e classificar a ocorrência. O modelo passou a atuar como componente de percepção, encarregado de extrair as informações do áudio e da imagem, enquanto o conteúdo textual resultante foi encaminhado a outro modelo Nemotron para classificação e geração do `JSON`. Essa separação buscou reduzir a quantidade de tarefas atribuídas a uma única execução. Entretanto, como o problema observado estava justamente na compreensão do áudio, a eficácia da composição permaneceu condicionada à qualidade da interpretação produzida pelo Nano Omni. 
+Na segunda análise, o Nemotron 3 Nano Omni deixou de ser utilizado como único responsável por interpretar as entradas e classificar a ocorrência. O modelo passou a atuar como componente de percepção, encarregado de extrair as informações do áudio e da imagem, enquanto o conteúdo textual resultante foi encaminhado a outro modelo Nemotron para classificação e geração do JSON. Essa separação buscou reduzir a quantidade de tarefas atribuídas a uma única execução. Entretanto, como o problema observado estava justamente na compreensão do áudio, a eficácia da composição permaneceu condicionada à qualidade da interpretação produzida pelo Nano Omni. 
 
 === North Mini Code
 
-O North Mini Code concluiu apenas o cenário textual. A resposta recomendou a Polícia Militar, informou o número 190 e resumiu adequadamente o veículo parado, o anoitecer, a presença da passageira idosa e a insegurança. Embora simples, a resposta cumpriu a estrutura `JSON` exigida e foi considerada satisfatória para essa entrada.
+O North Mini Code concluiu apenas o cenário textual. A resposta recomendou a Polícia Militar, informou o número 190 e resumiu adequadamente o veículo parado, o anoitecer, a presença da passageira idosa e a insegurança. Embora simples, a resposta cumpriu a estrutura JSON exigida e foi considerada satisfatória para essa entrada.
 
-No cenário com imagem, o OpenRouter retornou o código 404 e a mensagem `No endpoints found that support image input`. Essa mensagem demonstra explicitamente que nenhum endpoint disponível para aquela rota aceitava conteúdo visual.
+No cenário com imagem, o OpenRouter retornou o código 404 e a mensagem No endpoints found that support image input. Essa mensagem demonstra explicitamente que nenhum endpoint disponível para aquela rota aceitava conteúdo visual.
 
 O cenário exclusivamente sonoro retornou o código 404 com `No endpoints found that support input audio`. Já o cenário contendo áudio e imagem voltou a apresentar incompatibilidade com imagem. Dessa forma, o modelo demonstrou suporte apenas à entrada textual na integração utilizada.
 
@@ -917,7 +918,7 @@ Na segunda análise, não foram identificados no OpenRouter modelos do ecossiste
 
 == Conclusão do Benchmarking
 
-O desenvolvimento do Centro de Ajuda também ampliou a compreensão sobre o funcionamento de modelos multimodais em aplicações integradas por #abbrev("API"). Durante a implementação e a realização dos testes, foi possível identificar que a multimodalidade apresentada nas interfaces de conversação dos diferentes ecossistemas nem sempre corresponde às capacidades disponíveis diretamente em seus modelos ou #emph[endpoints].
+O desenvolvimento do Centro de Ajuda também ampliou a compreensão sobre o funcionamento de modelos multimodais em aplicações integradas por #abbrev("API"). Durante a implementação e a realização dos testes, foi possível identificar que a multimodalidade apresentada nas interfaces de conversação dos diferentes ecossistemas nem sempre corresponde às capacidades disponíveis diretamente em seus modelos ou endpoints.
 
 Em alguns casos, as interfaces disponibilizadas pelos desenvolvedores combinam diferentes modelos e ferramentas para receber texto, áudio e imagem. Essa composição pode transmitir a impressão de que um único modelo processa todas as modalidades, embora parte do conteúdo seja tratada previamente por componentes especializados. Quando o modelo é acessado isoladamente por #abbrev("API"), essas funcionalidades podem não estar disponíveis na mesma requisição.
 
@@ -927,12 +928,12 @@ A análise dos ecossistemas demonstrou que algumas dessas limitações podem ser
 
 = Conclusão
 
-O Centro de Ajuda demonstrou viabilidade técnica como apoio ao direcionamento emergencial, integrando entrada multimodal, geocodificação, #emph[prompts] e OpenRouter para entregar `service_name`/`phone_number`/`emergency_context` com redirecionamento `tel:`.
+O Centro de Ajuda demonstrou viabilidade técnica como apoio ao direcionamento emergencial, integrando entrada multimodal, geocodificação, prompts e OpenRouter para entregar `service_name`/`phone_number`/`emergency_context` com redirecionamento `tel:`.
 
 == Avaliação dos Modelos
 
 A avaliação realizada por meio do #emph[benchmark] permitiu observar diferenças importantes entre os modelos quanto à compatibilidade com texto, áudio e imagem, à geração de respostas estruturadas, à adequação das recomendações, ao tempo de processamento e ao custo. Entre os modelos avaliados, apenas o Gemini 3.5 Flash processou diretamente as entradas de texto, imagem e áudio nos quatro cenários propostos. Os demais apresentaram limitações de compatibilidade com uma ou mais modalidades, exigindo, para uma eventual utilização no sistema, o emprego de modelos especializados ou de etapas adicionais de processamento.
-Os testes também demonstraram que a disponibilidade de uma modalidade depende não apenas das capacidades anunciadas para cada família, mas dos modelos e #emph[endpoints] efetivamente acessíveis durante a integração. A análise dos ecossistemas complementou essa avaliação ao considerar a possibilidade de utilizar modelos especializados em diferentes etapas do processamento.
+Os testes também demonstraram que a disponibilidade de uma modalidade depende não apenas das capacidades anunciadas para cada família, mas dos modelos e endpoints efetivamente acessíveis durante a integração. A análise dos ecossistemas complementou essa avaliação ao considerar a possibilidade de utilizar modelos especializados em diferentes etapas do processamento.
 
 == Propostas Futuras
 
