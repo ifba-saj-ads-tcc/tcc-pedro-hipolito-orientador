@@ -4,9 +4,13 @@
   autor: "Pedro Victor Hipólito Cabral",
   orientador: "Prof. Leandro Costa Souza",
   data-banca: datetime(year: 2026, month: 9, day: 18),
-  resumo-conteudo: [Este trabalho apresenta o desenvolvimento de uma prova de conceito de um sistema inteligente para redirecionamento de solicitações emergenciais, denominado Centro de Ajuda, que utiliza inteligência artificial multimodal para interpretar relatos em texto, áudio e imagem e recomendar o serviço de emergência mais adequado.],
+  resumo-conteudo: [
+    Este trabalho apresenta o Centro de Ajuda, uma proposta desenvolvida para facilitar o acesso da população aos serviços de emergência. O projeto parte da dificuldade de identificar qual órgão deve ser acionado diante da existência de diferentes números e áreas de atendimento no Brasil, problema que pode se tornar ainda mais relevante em momentos de medo, estresse ou urgência. A solução busca oferecer uma forma mais simples e acessível de solicitar orientação, permitindo que o usuário descreva a situação enfrentada e receba uma indicação compatível com sua necessidade. Para isso, são exploradas as possibilidades da inteligência artificial na interpretação de relatos e no direcionamento das solicitações. O desenvolvimento e a avaliação da prova de conceito demonstraram o potencial da proposta, mas também revelaram limitações que precisam ser consideradas, especialmente quanto à confiabilidade das informações e à capacidade de interpretar diferentes formas de comunicação.
+  ],
   resumo-palavras: ("Inteligência Artificial", "Emergência", "Multimodal", "LLM"),
-  abstract-conteudo: [This work presents a proof of concept of an intelligent emergency redirection system called Centro de Ajuda, using multimodal AI to interpret text, audio and image reports and recommend the most appropriate emergency service.],
+  abstract-conteudo: [
+    This work presents Centro de Ajuda, a proposal developed to make emergency services more accessible to the public. The project addresses the difficulty of identifying which service should be contacted due to the existence of different emergency numbers and areas of responsibility in Brazil, a problem that may become even more significant in moments of fear, stress, or urgency. The proposed solution seeks to provide a simpler and more accessible way to obtain guidance by allowing users to describe the situation they are facing and receive a recommendation suited to their needs. To achieve this purpose, the project explores the potential of artificial intelligence to interpret reports and direct requests. The development and evaluation of the proof of concept demonstrated the potential of the proposal while also revealing limitations that must be considered, particularly regarding the reliability of information and the interpretation of different forms of communication.
+  ],
   abstract-palavras: ("Artificial Intelligence", "Emergency", "Multimodal", "LLM"),
   banca: (
     [Prof. Mst. Leandro Costa Souza (IFBA)],
