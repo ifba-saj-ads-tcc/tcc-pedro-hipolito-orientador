@@ -36,6 +36,7 @@
   body,
   caption: none,
   source: auto,
+  placement: none,
 ) = {
   figure(
     {
@@ -43,6 +44,7 @@
       _render-source(source)
     },
     caption: caption,
+    placement: placement,
     numbering: "1",
     kind: image,
     supplement: [Figura],
@@ -80,6 +82,7 @@
   align: auto,
   font-size: 11pt,
   header: none,
+  placement: none,
   width: auto,
   ..rows,
 ) = {
@@ -104,6 +107,7 @@
       #_render-source(source)]
     },
     caption: caption,
+    placement: placement,
     numbering: "1",
     kind: table,
     supplement: [Tabela],
