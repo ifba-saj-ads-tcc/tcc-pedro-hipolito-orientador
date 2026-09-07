@@ -727,13 +727,13 @@ Após o processamento realizado pelo modelo, o OpenRouter retorna um objeto `JSO
 
 Essas informações são armazenadas juntamente com o resultado e utilizadas durante o #emph[benchmark] para comparar o comportamento dos modelos avaliados. O tempo registrado representa a duração total observada pelo servidor durante a comunicação, incluindo o processamento remoto e a transmissão da resposta.
 
-#codigo(lang: "javascript", caption: [Criação do content], filename: "openrouteres.js", read("assets/codigos/openrouteres.js"))
+#codigo(lang: "javascript", caption: [Registro do content], filename: "openrouteres.js", read("assets/codigos/openrouteres.js"))
 
 Antes de encaminhar a recomendação à aplicação cliente, o servidor verifica se o conteúdo retornado foi convertido em um objeto `JSON` e se apresenta os três campos obrigatórios: `service_name`, `phone_number` e `emergency_context`.
 
 Caso a resposta não possua a estrutura esperada, o resultado é considerado inválido e o servidor retorna uma mensagem de erro. Quando a validação é concluída com sucesso, somente os campos necessários à tela de resposta são encaminhados ao cliente.
 
-#codigo(lang: "javascript", caption: [Criação do content], filename: "validateopenrouter.js", read("assets/codigos/validateopenrouter.js"))
+#codigo(lang: "javascript", caption: [Validação do content], filename: "validateopenrouter.js", read("assets/codigos/validateopenrouter.js"))
 
 = Análise dos Resultados
 
