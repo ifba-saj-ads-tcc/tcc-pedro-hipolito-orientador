@@ -3,6 +3,7 @@
 // Adaptado de classic-ppgsi para ifba-saj-tcc.
 // ============================================================================
 
+#import "@preview/datify:0.1.3": custom-date-format
 #import "layout.typ": _text-color
 
 #let _CM = <ifba-cite-mark>
@@ -371,7 +372,21 @@
     if _g(f, "howpublished") != "" { out += [. #_g(f, "howpublished")] }
     if yr != "" { out += [, #yr] }
     out += [.]
-    if _g(f, "url") != "" { out += [ Disponível em: <#_g(f, "url")>.] }
+    if _g(f, "url") != "" {
+      out += [ Disponível em: <#_g(f, "url")>.]
+      let acesso = _g(f, "urldate")
+      if acesso == "" { acesso = _g(f, "note") }
+      if acesso != "" {
+        if lower(acesso).contains("acesso") { out += [ #acesso.] }
+        else if acesso.match(regex("^\d{4}-\d{2}-\d{2}$")) != none {
+          let parts = acesso.split("-")
+          let d = datetime(year: int(parts.at(0)), month: int(parts.at(1)), day: int(parts.at(2)))
+          out += [ Acesso em: #custom-date-format(d, "DD MMM YYYY").]
+        } else { out += [ Acesso em: #acesso.] }
+      } else {
+        out += [ Acesso em: #custom-date-format(datetime.today(), "DD MMM YYYY").]
+      }
+    }
     out
   }
 }
