@@ -1,6 +1,6 @@
 #import "ifbasaj-tcc/imports.typ": *
 #show: template.with(
-  titulo: "Centro de Ajuda: Sistema Inteligente de Redirecionamento de Comunicação em Situações Emergenciais",
+  titulo: "Centro de Ajuda: Sistema Inteligente de Recomendação de Comunicação em Situações Emergenciais",
   autor: "Pedro Victor Hipólito Cabral",
   orientador: "Prof. Leandro Costa Souza",
   data-banca: datetime(year: 2026, month: 9, day: 18),
@@ -19,33 +19,58 @@
   versao-impressao: false,
 )
 
+// Mantém código inline no parágrafo, sem aplicar o bloco visual de listagens.
+#show raw.where(block: false): it => text(font: "Consolas", size: 0.85em, it.text)
+
 = Introdução
 
-O acionamento de serviços de emergência no Brasil ainda é marcado pela descentralização dos recursos públicos e privados, causando confusão pública, falhas de acesso, dentre outros fatores que comprometem a qualidade das respostas dos órgãos competentes. Este capítulo define o que é o número de emergência universal, qual tipo de problema é causado quando o serviço não é disponibilizado para a população, e como esse problema pode ser resolvido através de um aplicativo, especialmente quando a máquina pública não disponibiliza tais ferramentas.
+Identificar o serviço adequado é uma etapa necessária para solicitar ajuda em uma situação de emergência. No Brasil, a existência de números distintos para diferentes órgãos exige que o cidadão reconheça a natureza da ocorrência e saiba a quem recorrer. A dificuldade de diferenciar esses serviços, documentada por #prose("revistaUnijui2024"), motiva a investigação de recursos que auxiliem essa escolha.
 
-== Justificativa
+Este trabalho apresenta o Centro de Ajuda, uma prova de conceito que utiliza inteligência artificial para interpretar relatos em texto, áudio e imagem e recomendar um serviço de atendimento. A introdução delimita o contexto e o problema investigado, justifica a proposta, apresenta seus objetivos e sintetiza os resultados obtidos.
 
-Para definir uma estratégia, primeiro é necessário entender os principais desafios que as motivam, nesse cenário, com ênfase às limitações enfrentadas pela população diante do baixo nível de preparo e acesso à informação.
+== Contextualização
 
-=== O que é o número de emergência universal
+=== Número de emergência universal
 
-Segundo #prose("mossEloise"), o número de emergência universal é, essencialmente, um identificador telefônico único criado para centralizar o acesso a qualquer tipo de urgência. Sua função é permitir que uma pessoa consiga, em qualquer situação crítica, acionar socorro imediato sem precisar distinguir qual órgão é responsável pelo atendimento. Em vez de vários números de emergência competindo por espaço, existe um ponto único centralizado capaz de encaminhar a chamada, através de informações atualizadas e localizadas, criando um canal simples, memorável e intuitivo. A autora descreve o número de emergência universal como um mecanismo que unifica a porta de entrada do sistema, reduzindo barreiras cognitivas, consequentemente facilitando o acionamento rápido e preciso do serviço.
+Segundo #prose("mossEloise"), um número de emergência universal centraliza o acesso a diferentes serviços de socorro em um único identificador telefônico. Nesse modelo, o cidadão não precisa escolher previamente entre os números de cada órgão: a central recebe a solicitação e a encaminha conforme a natureza da ocorrência.
 
-De acordo com #prose("mossEloise"), diversos países adotaram modelos de números de emergência universal ao longo das décadas, estruturando sistemas nacionais centralizados de emergência que operam a partir de um único canal de acesso. O Reino Unido, por exemplo, implementou o número 999 como sistema nacional de emergência, enquanto os Estados Unidos consolidaram o uso do famoso 911 para o acionamento de polícia, bombeiros e serviços médicos. No entanto, a implementação dessa ferramenta não ocorreu de forma uniforme em todos os países, existindo diferenças estruturais, tecnológicas e administrativas que impactaram a possibilidade de integração dos serviços unificados de emergência #cite("mossEloise").
+O Reino Unido, com o número 999, e os Estados Unidos, com o 911, exemplificam a adoção desse modelo. A centralização do acesso, contudo, depende da organização dos serviços de atendimento e de sua integração institucional e tecnológica, que variam entre os países #cite("mossEloise").
 
 === Números de emergência no Brasil
 
-No ambiente brasileiro, o atendimento emergencial permanece distribuído entre diversos diferentes números especializados, cada um associado a um órgão que socorre tipos específicos de ocorrência. Entre os principais exemplos estão o 190, destinado ao acionamento da Polícia Militar em situações de violência, crimes e ameaças à segurança pública; o 192, responsável pelo #abbrev("SAMU", long: "Serviço de Atendimento Móvel de Urgência"), voltando para emergências médicas; e o 193, destinado ao Corpo de Bombeiros para casos de incêndios, acidentes e resgates. Esse modelo fragmentado busca especializar o atendimento conforme a natureza da ocorrência, concluindo que o cidadão possui plena consciência da existência de múltiplos números de emergência #cite("anatel2025").
+No Brasil, o acesso ao atendimento emergencial é distribuído entre números associados a diferentes órgãos. Entre eles estão o 190, da Polícia Militar; o 192, do #abbrev("SAMU", long: "Serviço de Atendimento Móvel de Urgência"); e o 193, do Corpo de Bombeiros. Essa organização diferencia os serviços conforme suas atribuições, mas exige que a população conheça os canais disponíveis e identifique qual deles corresponde à situação enfrentada #cite("anatel2025").
 
-De acordo com a pesquisa de #prose("revistaUnijui2024"), a fragmentação dos números de emergência brasileiros ainda gera dificuldades significativas no reconhecimento e diferenciação dos serviços pela população brasileira. O estudo publicado identificou que, embora o número 190 apresente alto índice de reconhecimento correto (92.2%), há considerável confusão em relação às atribuições do #abbrev("SAMU") (192) e do Corpo de Bombeiros (193), que apresentaram índices de reconhecimento correto de apenas 72.6% e 70.8%, respectivamente. Além disso, o estudo aponta que 23% dos entrevistados associaram incorretamente o número 192 ao Corpo de Bombeiros, enquanto 24.2% relacionaram equivocadamente o número 193 ao #abbrev("SAMU"). A pesquisa conclui que parte da população não consegue diferenciar adequadamente os serviços disponíveis, especialmente em situações de estresse, o que pode retardar o acionamento do socorro adequado, consequentemente agravando a ocorrência. Os autores apontam que a unificação dos núcleos de atendimento é uma forte possibilidade para reduzir dúvidas e simplificar o acesso aos serviços emergenciais.
+A pesquisa de #prose("revistaUnijui2024") identificou diferenças no reconhecimento desses números entre os participantes. O 190 apresentou 92,2% de reconhecimento correto, enquanto o 192 e o 193 alcançaram 72,6% e 70,8%, respectivamente. No mesmo estudo, 23% dos entrevistados associaram incorretamente o 192 ao Corpo de Bombeiros, e 24,2% relacionaram o 193 ao #abbrev("SAMU"). Esses resultados evidenciam dificuldades de diferenciação dos serviços na amostra investigada.
 
-== Objetivo
+== Problema de Pesquisa
 
-Devido à existência de múltiplos números de emergência no Brasil e às dificuldades da população em diferenciar corretamente os serviços responsáveis por cada tipo de ocorrência, o presente trabalho tem como objetivo desenvolver uma prova de conceito de um sistema inteligente de redirecionamento de comunicação em situações emergenciais, denominado Centro de Ajuda. A proposta consiste em uma aplicação móvel, integrada a um servidor responsável pelo processamento das solicitações realizadas pelos usuários.
+A existência de canais especializados não garante que o cidadão consiga selecionar o atendimento adequado. Relatos podem ser incompletos, envolver mais de um tipo de risco ou ser apresentados em condições de estresse. Além disso, a necessidade de identificar um serviço local pode exigir informações que vão além da memorização dos números nacionais.
 
-A solução permite que o usuário envie relatos em formato textual, sonoro ou visual descrevendo a situação enfrentada, possibilitando que uma inteligência artificial interprete o contexto da ocorrência e forneça informações relevantes sobre qual órgão ou serviço de emergência deve ser acionado. O sistema busca atuar como uma camada intermediária de apoio à decisão, reduzindo dúvidas relacionadas aos números emergenciais e auxiliando no direcionamento adequado da solicitação à entidade final.
+Diante desse problema, este trabalho investiga a seguinte questão: em que medida uma prova de conceito baseada em modelos de linguagem pode interpretar relatos emergenciais em texto, áudio e imagem, considerando sua localização, e produzir uma recomendação estruturada de serviço e contato?
 
-A lógica do projeto atribui à inteligência artificial a responsabilidade de analisar a situação utilizando diferentes dados contextuais, como localização geográfica, data, horário e descrição da ocorrência. A partir dessas informações, o sistema pode interpretar características regionais, buscar notícias com informações relevantes, compreender o contexto da emergência e identificar quais serviços possuem maior compatibilidade com a situação relatada. Dessa forma, busca-se reduzir ambiguidades no acionamento dos serviços emergenciais e melhorar a acessibilidade ao atendimento adequado.
+A investigação limita-se à viabilidade técnica da interpretação e da recomendação. Não abrange o despacho de equipes, a integração operacional com centrais oficiais ou a comprovação de redução do tempo de atendimento em ocorrências reais.
+
+== Justificativa
+
+As dificuldades de reconhecimento dos números de emergência identificadas por #prose("revistaUnijui2024") justificam o estudo de mecanismos que auxiliem o cidadão a identificar um canal de atendimento. Uma interface que aceite diferentes formas de relato pode ampliar as possibilidades de comunicação, enquanto a inclusão da localização permite contextualizar a recomendação.
+
+Do ponto de vista técnico, a proposta permite examinar se as capacidades multimodais dos modelos estão efetivamente disponíveis nas interfaces utilizadas pela aplicação. Também permite distinguir três aspectos que não são equivalentes: a aceitação de uma requisição, a compreensão do relato e a adequação do serviço recomendado.
+
+A contribuição pretendida é fornecer uma base experimental para o desenvolvimento de ferramentas de apoio ao direcionamento de solicitações. Eventuais benefícios para a população dependem de avaliações posteriores de usabilidade, confiabilidade e segurança em condições de uso real.
+
+=== Trabalhos Relacionados
+
+O #emph[RapidSOS] utiliza dados provenientes de dispositivos e aplicações para complementar as informações disponíveis às centrais de atendimento emergencial, incluindo localização e outros elementos contextuais #cite("rapidSOS2025"). Sua relação com este trabalho está no uso de informações adicionais para apoiar o atendimento. O Centro de Ajuda concentra-se na etapa de interpretação do relato e apresentação de uma recomendação ao usuário.
+
+Os sistemas 911 e 112, por sua vez, constituem referências de centralização do acesso aos serviços emergenciais. Eles organizam o contato com diferentes órgãos por um canal telefônico comum, apoiado na infraestrutura das centrais responsáveis #cite("nena911", "eena112"). A proposta aqui investigada atua como uma camada de apoio anterior ao contato, sem implementar uma central universal ou substituir a estrutura pública de atendimento.
+
+== Proposta e Objetivos
+
+=== Objetivo Geral
+
+Desenvolver e avaliar uma prova de conceito do Centro de Ajuda, capaz de utilizar modelos de linguagem para interpretar relatos emergenciais em texto, áudio e imagem e retornar uma recomendação estruturada de serviço, telefone e contexto da ocorrência.
+
+A solução foi organizada em uma arquitetura cliente-servidor. O cliente reúne as informações fornecidas pelo usuário, enquanto o servidor prepara o contexto, realiza a integração com os serviços externos e processa a resposta do modelo. A localização geográfica e o horário complementam o relato. A recomendação serve como apoio à decisão, permanecendo o contato com o serviço sob responsabilidade do usuário.
 
 O fluxo geral de interação entre usuário, servidor e inteligência artificial pode ser visualizado na @fig:diagrama_introducao_objetivo_interacao.
 
@@ -56,27 +81,18 @@ O fluxo geral de interação entre usuário, servidor e inteligência artificial
 
 === Objetivos Específicos
 
-Com esse objetivo definido, este trabalho consiste em desenvolver uma aplicação móvel capaz de permitir o envio de relatos emergenciais em formato textual, sonoro e visual; implementar um servidor responsável pelo recebimento, processamento e gerenciamento das informações enviadas pelos usuários; integrar modelos de inteligência artificial para interpretação contextual das ocorrências relatadas; utilizar dados complementares, como localização geográfica, data e horário, para auxiliar na análise contextual das emergências; identificar e recomendar o órgão ou serviço de emergência mais adequado para cada situação reportada; reduzir ambiguidades relacionadas à diferenciação dos números de emergência existentes no Brasil; avaliar a viabilidade da utilização de inteligência artificial como ferramenta de apoio ao redirecionamento de solicitações emergenciais; e desenvolver uma prova de conceito funcional capaz de demonstrar o fluxo completo de comunicação entre usuário, servidor e sistema inteligente.
++ definir o fluxo de interação e os requisitos de uma interface para relatos em texto, áudio e imagem;
++ implementar o servidor responsável pelo recebimento das solicitações e pela integração com os serviços externos;
++ incorporar localização geográfica e horário ao contexto enviado aos modelos;
++ estruturar os prompts e o tratamento da resposta nos campos de serviço, telefone e resumo da ocorrência;
++ comparar sete modelos em quatro cenários padronizados, considerando compatibilidade, estrutura da resposta, interpretação, tempo e custo;
++ identificar limitações observadas nas execuções e possibilidades de composição com modelos auxiliares.
 
-== Correlatos
+== Síntese dos Resultados
 
-Para justificar a proposta apresentada anteriormente, torna-se necessário compreender o estado atual das tecnologias e sistemas relacionados ao atendimento emergencial. No cenário contemporâneo, é possível identificar tanto iniciativas privadas desenvolvidas com o objetivo de complementar limitações estruturais dos sistemas públicos de emergência, quanto modelos públicos integrados criados para centralizar e otimizar o acionamento de serviços emergenciais. Essas soluções buscam reduzir o tempo de resposta, melhorar a disponibilidade de informações contextuais e aumentar a eficiência na comunicação entre cidadãos e órgãos responsáveis pelo socorro.
+O trabalho resultou na implementação do processamento no servidor e na avaliação de sete modelos por meio do OpenRouter. Nos quatro cenários utilizados, o Gemini 3.5 Flash foi o único modelo isolado que produziu respostas estruturadas e interpretações compatíveis com todas as combinações de entrada. Os demais apresentaram restrições de modalidade, erros de execução ou problemas de compreensão, detalhados no capítulo de análise dos resultados.
 
-=== RapidSOS
-
-Representando a iniciativa privada, o #emph[RapidSOS] consiste em uma plataforma voltada para integração tecnológica entre dispositivos móveis e centrais de atendimento emergencial. A solução foi desenvolvida com o objetivo de fornecer informações adicionais durante chamadas de emergência, permitindo que operadores tenham acesso a dados como localização, informações médicas e vídeos. A proposta da plataforma busca reduzir limitações em sistemas tradicionais de emergência, aumentando a disponibilidade de informações para as equipes responsáveis pelo atendimento e resposta às ocorrências #cite("rapidSOS2025").
-
-Apesar de ampliar a quantidade de dados disponíveis para os operadores, o #emph[RapidSOS] não possui foco direto na interpretação automatizada da situação enfrentada pelo usuário através de inteligência artificial voltada ao redirecionamento contextual da ocorrência. Sua atuação está concentrada principalmente no compartilhamento de dados entre dispositivos e centrais emergenciais #cite("rapidSOS2025").
-
-A relação entre o #emph[RapidSOS] e a proposta deste trabalho encontra-se principalmente na utilização de dados contextuais para auxiliar situações emergenciais. Ambos utilizam informações contextuais como localização geográfica, horário e descrição da ocorrência para auxiliar no direcionamento adequado da solicitação emergencial.
-
-=== 911 e 112
-
-Representando modelos públicos integrados de emergência, os sistemas 911 e 112 constituem alguns dos principais exemplos de números universais de emergência utilizados internacionalmente. O número 911 é amplamente utilizado nos Estados Unidos e Canadá como canal centralizado para acionamento de polícia, bombeiros e serviços médicos emergenciais, enquanto o 112 foi adotado como número padrão de emergência em diversos países da União Europeia #cite("nena911", "eena112").
-
-Esses modelos possuem como principal característica a centralização do acesso aos serviços emergenciais através de um único número telefônico, reduzindo ambiguidades relacionadas à identificação do órgão responsável pela ocorrência. Além disso, sistemas modernos baseados em 911 e 112 passaram a incorporar recursos tecnológicos complementares, como compartilhamento automático de localização, integração digital entre centrais, suporte a comunicação multimodal e encaminhamento inteligente de chamadas #cite("nena911", "eena112").
-
-Embora apresentem elevado nível de integração estrutural, esses sistemas dependem diretamente da infraestrutura pública de emergência existente em cada país, além de exigirem elevado nível de padronização tecnológica e administrativa para seu funcionamento eficiente. A relação entre esses sistemas e a proposta deste trabalho encontra-se principalmente na tentativa de centralizar e simplificar o acesso aos serviços emergenciais, reduzindo dificuldades relacionadas à identificação do órgão responsável pela ocorrência. Entretanto, diferentemente dos modelos tradicionais de 911 e 112, o projeto Centro de Ajuda propõe a utilização de inteligência artificial para interpretar contextualmente a situação relatada pelo usuário antes do direcionamento emergencial.
+Esses resultados sustentam a viabilidade técnica inicial da proposta nas condições avaliadas. Não comprovam a exatidão de todos os contatos recomendados, a eficácia em situações reais ou a conclusão integral da aplicação cliente. A análise de possíveis composições entre modelos complementa os testes, mas exige validação experimental própria antes de permitir conclusões sobre desempenho.
 
 = Revisão Bibliográfica
 
@@ -183,6 +199,8 @@ Arquiteturas modernas baseadas em #emph[Transformers] multimodais demonstraram e
 // ========== METODOLOGIA ==========
 = Metodologia
 
+Este trabalho apresenta uma pesquisa aplicada, de caráter exploratório, voltada ao desenvolvimento e à avaliação de uma prova de conceito. A análise combina medidas quantitativas de tempo, custo e consumo de tokens com a avaliação qualitativa da interpretação das ocorrências e das recomendações produzidas.
+
 A metodologia utilizada neste trabalho consiste na análise de requisitos para o desenvolvimento de uma prova de conceito funcional de um sistema inteligente voltado ao auxílio no redirecionamento de solicitações emergenciais. A proposta envolve a construção de uma aplicação móvel integrada a um servidor responsável pelo recebimento, processamento e encaminhamento contextual das informações enviadas pelo usuário. O sistema foi estruturado utilizando arquitetura cliente-servidor, permitindo separar as responsabilidades relacionadas à interface da aplicação, processamento das requisições e integração com modelos de inteligência artificial. 
 
 == Critérios de Escolha para o(s) Modelo(s) LLM
@@ -195,23 +213,33 @@ Outro critério analisado foi a disponibilidade de utilização em infraestrutur
 
 Também foi avaliada a capacidade de realização de pesquisas na internet. Embora a interpretação inicial das ocorrências seja baseada nas informações fornecidas pelo usuário, determinadas situações podem exigir a consulta de informações atualizadas durante o processamento da solicitação. Serviços de atendimento, unidades de saúde e demais recursos de apoio podem sofrer alterações temporárias de funcionamento, indisponibilidade, mudanças de endereço, contatos ou outras condições que não estão necessariamente presentes na base de conhecimento do modelo. Dessa forma, a capacidade de realizar pesquisas na internet permite complementar a resposta com informações mais recentes e potencialmente mais adequadas ao contexto da ocorrência. 
 
-Entre os modelos analisados destacam-se o GPT-5.5, desenvolvido pela OpenAI; o Claude Opus 4.8, desenvolvido pela Anthropic; o Gemini 3.5 Flash, desenvolvido pela Google; o Llama 4 Maverick, disponibilizado pela Meta; o Qwen 3.6 Plus, desenvolvido pela Alibaba Cloud; o Nemotron 3 Nano Omni 30B, desenvolvido pela NVIDIA; e o North Mini Code, desenvolvido pela Cohere. As informações apresentadas e as comparações entre os modelos correspondem à análise realizada em 10 de junho de 2026.
+Entre os modelos analisados destacam-se:
 
-A seleção inicial desses modelos ocorreu devido à relevância no cenário atual da inteligência artificial generativa, ao suporte parcial ou completo às funcionalidades exigidas pelo projeto e à disponibilidade de integração por meio de #abbrev("APIs") comerciais compatíveis com aplicações executadas em nuvem. Entretanto, nem todos os modelos avaliados atenderam integralmente aos critérios técnicos estabelecidos para a proposta desenvolvida neste trabalho. Por fim, esses critérios serviram como base para a análise comparativa apresentada nas subseções seguintes, nas quais cada modelo foi avaliado quanto ao atendimento dos requisitos técnicos definidos para o sistema.
++ GPT-5.5, desenvolvido pela OpenAI; 
++ Claude Opus 4.8, desenvolvido pela Anthropic; 
++ Gemini 3.5 Flash, desenvolvido pela Google; 
++ Llama 4 Maverick, disponibilizado pela Meta; 
++ Qwen 3.6 Plus, desenvolvido pela Alibaba Cloud; 
++ Nemotron 3 Nano Omni 30B, desenvolvido pela NVIDIA; 
++ North Mini Code, desenvolvido pela Cohere. 
 
-A partir dos critérios estabelecidos, foi elaborada uma comparação preliminar entre os modelos selecionados. A tabela a seguir apresenta uma síntese do atendimento de cada modelo aos requisitos de multimodalidade, disponibilidade em nuvem e capacidade de pesquisa na internet, permitindo visualizar as principais diferenças identificadas antes do detalhamento individual.
+As informações apresentadas e as comparações entre os modelos correspondem à análise realizada em 10 de junho de 2026.
+
+A seleção inicial desses modelos ocorreu devido à relevância no cenário atual da inteligência artificial generativa, ao suporte parcial ou completo às funcionalidades exigidas pelo projeto e à disponibilidade de integração por meio de #abbrev("APIs") comerciais compatíveis com aplicações executadas em nuvem. Nem todos os modelos avaliados atenderam integralmente aos critérios técnicos estabelecidos para a proposta desenvolvida neste trabalho, porém foram testados individualmente e suas comparações serão apresentadas para a justificativa do modelo considerado mais apto a ser utilizado.
+
+A partir dos critérios estabelecidos, foi elaborada uma comparação preliminar com base nas fontes citadas nas subseções de cada modelo. A tabela sintetiza as modalidades descritas nessas fontes, a disponibilidade em nuvem e a forma de integração com pesquisa na internet. Trata-se de uma análise documental, distinta dos resultados das requisições realizadas no benchmark.
 
 #tabela(
   caption: [Comparação de modelos quanto aos critérios técnicos],
   columns: (2fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
   align: center,
   header: ([Critério], [GPT], [Claude], [Llama], [Qwen], [Gemini], [Nemotron], [North]),
-  [Multimodal], [Parcial], [Parcial], [Parcial], [Parcial], [Sim], [Parcial], [Não],
+  [Multimodal], [Parcial], [Parcial], [Parcial], [Parcial], [Sim], [Sim], [Não],
   [Nuvem], [Sim], [Sim], [Sim], [Sim], [Sim], [Sim], [Sim],
-  [Pesquisa], [Sim], [Sim], [Sim], [Sim], [Sim], [Não], [Não],
+  [Busca: integração], [Plataforma], [Plataforma], [Externa], [Externa], [Plataforma], [Externa], [Externa],
 ) <tab:criterios-llm>
 
-Os resultados sintetizados na tabela oferecem uma visão geral das capacidades identificadas, mas não demonstram isoladamente as particularidades e limitações de cada modelo. Por esse motivo, as subseções seguintes apresentam as análises individuais, descrevendo como cada solução atende total ou parcialmente aos critérios estabelecidos e justificando as classificações atribuídas na comparação.
+Na @tab:criterios-llm, a multimodalidade considera o conjunto de texto, imagem e áudio: “Sim” indica suporte descrito para as três modalidades, “Parcial” indica cobertura incompleta e “Não” indica apenas entrada textual. Por isso, o Nemotron recebe “Sim” na comparação documental, embora apresente falha de compreensão sonora nos experimentos. Em nuvem, “Sim” indica uma forma de acesso remoto. Para busca, “Plataforma” indica recursos oferecidos no ambiente do fabricante e “Externa” indica dependência de uma ferramenta integrada pela aplicação. Nenhuma dessas categorias comprova que uma consulta à internet tenha sido executada no benchmark. As subseções seguintes identificam as fontes e as particularidades de cada alternativa.
 
 === GPT-5.5
 
@@ -386,6 +414,46 @@ Esse fluxo mantém as integrações externas e o processamento da ocorrência co
   caption: [Fluxo de comunicação entre frontend, backend e APIs externas],
 ) <fig:diagrama_metodologia_backend>
 
+== Métodos de Avaliação e Análise <sec:metodos-avaliacao>
+
+A avaliação combinou medidas quantitativas de execução com análise qualitativa das respostas. A unidade de análise foi cada combinação entre modelo e cenário. A aceitação da requisição, o conteúdo retornado, a estrutura JSON e os erros registrados foram examinados separadamente, evitando interpretar uma resposta formalmente válida como evidência suficiente de compreensão da ocorrência.
+
+As classificações foram atribuídas neste trabalho a partir dos registros do #emph[benchmark], descritos no capítulo de resultados, e da comparação entre as entradas e as respostas apresentadas. Elas não correspondem a notas fornecidas pelos fabricantes, a um ranking externo ou a uma validação por especialistas. Para tornar essa análise verificável, foram adotadas as seguintes definições:
+
++ *Processamento da entrada:* “Sucesso” indica que a execução retornou uma resposta que reconheceu o conteúdo central do cenário; “Falha” indica erro de execução ou ausência dessa compreensão; “Sem resultado” identifica um registro vazio, cuja causa não pode ser determinada.
++ *Estrutura JSON:* “Completo” indica a presença dos campos `service_name`, `phone_number` e `emergency_context` nos quatro cenários; “Parcial” indica que a estrutura foi obtida apenas em parte deles. Esse critério não atesta a correção factual do conteúdo.
++ *Adequação da recomendação:* a análise verifica a correspondência entre o relato, o resumo e o serviço indicado, a presença de ambiguidades e a introdução de informações não sustentadas pela entrada. As ressalvas são descritas por modelo, sem converter essa avaliação exploratória em uma nota global.
++ *Tempo, custo e tokens:* foram considerados o tempo total observado pelo servidor e os valores disponíveis no retorno da integração. Esses indicadores descrevem as execuções registradas e não constituem médias ou estimativas de desempenho geral.
+
+A interpretação esperada decorre dos elementos de cada cenário: veículo parado e insegurança no acostamento; árvore sobre a fiação e risco elétrico; animal atropelado; e entrada de água em uma residência. Esses elementos permitem verificar se o resumo corresponde à entrada, mas não estabelecem, por si só, um único serviço correto para todos os casos. A escolha de um órgão específico e a validade de um telefone local exigem verificação adicional.
+
+A comparação das modalidades refere-se à combinação efetivamente enviada. Uma resposta coerente no cenário de texto e imagem não demonstra, isoladamente, quanto cada modalidade contribuiu para a interpretação, pois não foi descrito um experimento de remoção alternada das entradas.
+
+== Procedimentos Experimentais
+
+O procedimento experimental foi organizado nas seguintes etapas:
+
++ selecionar os sete modelos e preparar quatro cenários: texto, texto com imagem, áudio e áudio com imagem;
++ reunir os relatos, os arquivos correspondentes, as coordenadas e o horário de cada cenário;
++ complementar a localização por geocodificação reversa e construir as mensagens com as regras da tarefa, o contexto e a entrada do usuário;
++ submeter os mesmos cenários aos modelos por meio do OpenRouter, sem modelos auxiliares na comparação principal;
++ registrar a resposta ou o erro de cada execução, juntamente com as métricas disponíveis;
++ verificar a estrutura retornada e comparar seu conteúdo com o cenário, aplicando os critérios definidos em @sec:metodos-avaliacao.
+
+A comparação principal abrange sete modelos e quatro cenários, totalizando 28 combinações previstas. Uma combinação sem resposta aproveitável permanece registrada como tal; não é convertida em sucesso nem excluída silenciosamente da análise.
+
+Em uma etapa complementar, foram examinadas possibilidades de composição sequencial de modelos, nas quais um componente interpreta áudio ou imagem e encaminha uma representação textual ao classificador. Essa análise de viabilidade é apresentada separadamente, pois a disponibilidade de componentes não comprova o funcionamento, o custo ou a qualidade do fluxo completo.
+
+== Limitações do Estudo
+
+A avaliação utiliza quatro cenários e não apresenta uma série de repetições suficiente para estimar variabilidade, intervalos de confiança ou diferenças estatisticamente significativas. Os resultados são exploratórios e restritos aos modelos, rotas e condições de execução descritos. O tempo observado inclui comunicação e processamento remoto, e pode variar com a disponibilidade e a carga dos provedores.
+
+Não foi estabelecido um conjunto de respostas de referência validado por profissionais de atendimento emergencial. A adequação foi examinada a partir do conteúdo dos cenários e das respostas, sem validação independente de todos os serviços e telefones locais. Assim, coerência textual e conformidade com o JSON não equivalem à segurança da recomendação para uso real.
+
+Falhas de integração também limitam a interpretação dos resultados. Uma mensagem explícita de incompatibilidade permite identificar uma modalidade não aceita pela rota utilizada; um erro genérico ou um registro vazio não permite determinar a causa da falha nem concluir que a família inteira de modelos seja incapaz de processar aquela entrada.
+
+O levantamento de recursos de pesquisa na internet e de modelos auxiliares não comprova que essas funcionalidades tenham sido acionadas com sucesso nas requisições avaliadas. A análise complementar dos ecossistemas não substitui testes completos das composições. Por fim, não foram demonstrados benefícios operacionais, redução do tempo de socorro ou validação da aplicação por usuários em emergências reais.
+
 // ========== DESENVOLVIMENTO ==========
 = Desenvolvimento
 
@@ -395,7 +463,7 @@ Neste capítulo são apresentados os detalhes de desenvolvimento do sistema Cent
 
 O desenvolvimento do sistema foi dividido em duas camadas principais: a aplicação cliente, responsável pela interação com o usuário, e a aplicação servidora, encarregada do processamento das solicitações e da comunicação com os modelos de linguagem. Essa separação permite isolar as responsabilidades de cada componente, facilitando a manutenção, a evolução da arquitetura e a substituição de tecnologias sem impactar os demais módulos.
 
-Nesta prova de conceito, o foco do desenvolvimento concentrou-se na implementação do #emph[backend] e na validação do fluxo completo de processamento das solicitações de emergência. O cliente móvel foi representado por um protótipo funcional de interface elaborado no Figma, utilizado para definir o fluxo de interação do usuário e demonstrar o comportamento esperado da aplicação. Dessa forma, embora as telas e a arquitetura do cliente tenham sido projetadas, sua implementação completa não fez parte do escopo desta etapa do trabalho.
+Nesta prova de conceito, o foco do desenvolvimento concentrou-se na implementação do #emph[backend] e na validação do fluxo completo de processamento das solicitações de emergência. A parte responsável pelo #emph[frontend] do cliente móvel foi representada por um protótipo funcional de interface elaborado no Figma, utilizado para definir o fluxo de interação do usuário e demonstrar o comportamento esperado da aplicação. Dessa forma, embora as telas e a arquitetura do cliente tenham sido projetadas, sua implementação completa não fez parte do escopo desta etapa do trabalho.
 
 == Implementação da Aplicação Cliente
 
@@ -774,57 +842,86 @@ O quarto cenário combina áudio e imagem, representando uma residência sendo i
 
 Ao término de cada execução, o #emph[benchmark] registra integralmente os dados utilizados durante a solicitação e a resposta produzida pelo modelo. Inicialmente essas informações são armazenadas no arquivo `benchmark.txt`, preservando tanto os dados de entrada quanto o objeto retornado pela integração com o OpenRouter.
 
-Além da resposta produzida pelo modelo, também são registrados indicadores técnicos fornecidos pela #abbrev("API"), incluindo o tempo de resposta, o custo estimado da requisição e as quantidades de #emph[tokens] de entrada, de saída e total. Quando a execução não é concluída com sucesso, o código e a mensagem de erro retornados pelo provedor também são armazenados. A tabela abaixo apresenta, como exemplo, um dos dados gerados e registrados em uma das execuções realizadas com o modelo Nemotron 3 Nano Omni 30B. 
+Além da resposta produzida pelo modelo, também são registrados indicadores técnicos fornecidos pela #abbrev("API"), incluindo o tempo de resposta, o custo estimado da requisição e as quantidades de #emph[tokens] de entrada, de saída e total. Quando a execução não é concluída com sucesso, o código e a mensagem de erro retornados pelo provedor também são armazenados. A tabela abaixo reúne exemplos de métricas registradas para os sete modelos. Como ela não identifica o cenário correspondente a cada coluna nem apresenta repetições, seus valores são descritivos e não fundamentam um ranking de custo ou desempenho. 
 
 #tabela(caption: [Exemplo de métricas por modelo], 
-  columns: (2fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr), 
+  columns: (7fr, 2fr, 2fr, 2fr, 2fr, 3fr, 4fr, 1fr), 
   align: (left, center),
   font-size: 10pt, 
   header: ([Parâmetro],[GPT-5.5],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]), 
-  [cost],[0.107],[0.114],[0.006],[0.011],[0.012],[0.005],[0.005],
-  [response_time_ms],[44059],[11028],[2634],[47734],[10398],[3910],[6445],
-  [prompt_tokens],[15370],[19821],[3658],[3837],[524],[3982],[3655],
-  [completion_tokens],[972],[227],[48],[2496],[1336],[351],[497]) <tab:exemplo_retorno_nemotron>
+  [cost (dólares)],[0.107],[0.114],[0.006],[0.011],[0.012],[0.005],[0.005],
+  [response_time_ms (ms)],[44059],[11028],[2634],[47734],[10398],[3910],[6445],
+  [prompt_tokens (tokens)],[15370],[19821],[3658],[3837],[524],[3982],[3655],
+  [completion_tokens (tokens)],[972],[227],[48],[2496],[1336],[351],[497]) <tab:exemplo_retorno_nemotron>
 
 == Comparação por Critérios
 
-Nesta primeira análise, os modelos foram avaliados de forma isolada, considerando exclusivamente as modalidades de entrada processadas diretamente por cada modelo em uma única requisição. Portanto, não foram utilizados modelos auxiliares para transcrição de áudio, interpretação de imagens ou conversão prévia dos conteúdos. Essa abordagem permitiu identificar as capacidades multimodais nativas de cada modelo e verificar sua compatibilidade direta com os requisitos da aplicação.
+Nesta primeira análise, os modelos foram avaliados isoladamente, sem transcrição ou interpretação prévia por modelos auxiliares. Os resultados se referem às rotas e às requisições utilizadas no OpenRouter, e não a todas as funcionalidades disponíveis nas plataformas dos fabricantes.
 
-Os modelos foram comparados segundo os principais critérios adotados durante o #emph[benchmark]. A tabela abaixo apresenta uma síntese do comportamento observado nos quatro cenários, permitindo visualizar a compatibilidade de cada modelo com as modalidades de entrada e a qualidade geral das respostas produzidas.
+As classificações da @tab:comparacao_modelos foram atribuídas a partir das respostas, mensagens de erro e ausências de resultado descritas na análise individual, conforme as definições de @sec:metodos-avaliacao. “Sucesso” exige uma resposta que reconheça a ocorrência; “Falha” abrange erro de execução ou incompreensão do conteúdo; “Sem resultado” preserva a incerteza de um registro vazio. No critério JSON, a presença dos três campos obrigatórios é avaliada separadamente da correção de seus valores.
 
-Os critérios consideram tanto aspectos técnicos da integração quanto a adequação das recomendações. O processamento de uma modalidade foi considerado bem-sucedido quando a requisição foi aceita pelo provedor e produziu uma resposta coerente com o conteúdo enviado. Portanto, a simples aceitação de um arquivo não foi considerada suficiente quando o modelo não demonstrou compreender seu conteúdo.
-
-O critério “JSON válido” indica se as respostas apresentaram os três campos obrigatórios (`service_name`, `phone_number` e `emergency_context`). A classificação “Completo” foi atribuída ao modelo que retornou a estrutura esperada nos quatro cenários, enquanto “Parcial” indica que apenas parte das execuções produziu o JSON exigido. A “Adequação da resposta” corresponde à avaliação qualitativa da relação entre a ocorrência apresentada, o serviço recomendado, o telefone informado e o resumo produzido.
-
-#tabela(caption: [Comparação por critérios — modelo isolado], 
-columns: (2fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr), 
+#tabela(
+  caption: [Resultados por critério e cobertura das respostas — modelo isolado],
+  columns: (2fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr),
   align: (left, center),
-  font-size: 10pt, 
-header: ([Critério],[GPT],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]), 
-[Texto],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],
-[Texto+Imagem],[Sucesso],[Falha],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Falha],
-[Áudio],[Falha],[Falha],[Falha],[Falha],[Sucesso],[Falha],[Falha],
-[Áudio+Imagem],[Falha],[Falha],[Falha],[Falha],[Sucesso],[Falha],[Falha],
-[JSON],[Parcial],[Parcial],[Parcial],[Parcial],[Completo],[Parcial],[Parcial],
-[Resposta],[Boa],[Boa],[Boa],[Boa],[Excelente],[Regular],[Boa]) <tab:comparacao_modelos>
+  font-size: 10pt,
+  header: ([Critério],[GPT],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]),
+  [Texto],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],
+  [Texto + imagem],[Sucesso],[Falha],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Falha],
+  [Áudio],[Falha],[Falha],[Falha],[Falha],[Sucesso],[Falha],[Falha],
+  [Áudio + imagem],[Falha],[Falha],[Falha],[Falha],[Sucesso],[Sem resultado],[Falha],
+  [JSON],[Parcial],[Parcial],[Parcial],[Parcial],[Completo],[Parcial],[Parcial],
+  [Cenários com interpretação compatível],[2/4],[1/4],[2/4],[2/4],[4/4],[2/4],[1/4],
+) <tab:comparacao_modelos>
 
-Observa-se que apenas o Gemini 3.5 Flash atendeu integralmente aos requisitos da aplicação, processando todas as modalidades de entrada e retornando respostas válidas em todos os cenários. GPT-5.5, Llama 4 Maverick e Qwen 3.6 Plus apresentaram comportamento semelhante, produzindo respostas satisfatórias para texto e imagem, porém sem compatibilidade com entradas contendo áudio. O Claude Opus 4.8 demonstrou limitações adicionais durante o processamento de imagens, enquanto o North Mini Code restringiu-se ao processamento textual. O Nemotron destacou-se por aceitar parte das entradas de áudio, entretanto a interpretação produzida mostrou-se insuficiente para caracterizar um processamento multimodal efetivo.
+Fonte: elaboração própria a partir das execuções descritas neste trabalho. A cobertura expressa o número de cenários com reconhecimento do conteúdo central da ocorrência; não representa uma taxa de acerto validada dos serviços ou dos telefones recomendados.
 
-=== Segunda Análise
+=== Origem e Motivos das Falhas
 
-Os resultados obtidos na primeira análise não foram considerados satisfatórios para uma comparação definitiva entre as alternativas avaliadas. Ao utilizar cada modelo isoladamente, a análise ficou restrita às modalidades aceitas diretamente pelo modelo principal. Consequentemente, modelos com bom desempenho na classificação das ocorrências foram prejudicados por não processarem determinados tipos de entrada, principalmente áudio, mesmo quando seus respectivos ecossistemas disponibilizam modelos auxiliares capazes de realizar esse processamento.
+No *GPT-5.5*, os cenários com áudio retornaram o código 404 e a mensagem `No endpoints found that support input audio`. A falha ocorreu na seleção de uma rota compatível, antes da interpretação. Texto e texto com imagem produziram respostas, mas o JSON foi classificado como parcial porque não houve a estrutura esperada nos dois casos com áudio.
 
-Essa limitação também tornou a comparação desigual. Enquanto alguns modelos possuem suporte multimodal nativo e conseguem interpretar texto, áudio e imagem em uma única requisição, outros foram projetados para atuar em conjunto com modelos especializados. Nesses casos, um modelo pode transcrever o áudio ou interpretar a imagem, enquanto outro recebe o conteúdo processado e realiza a classificação final da ocorrência.
+No *Claude Opus 4.8*, texto com imagem retornou o código 400 e a mensagem `Provider returned error`. Esse registro identifica uma falha de execução, mas não esclarece sua causa. Os dois cenários com áudio retornaram o erro 404 de incompatibilidade com essa modalidade. Como apenas o cenário textual produziu a resposta esperada, a cobertura foi de um cenário e o JSON foi parcial.
 
-Diante disso, foi realizada uma segunda análise considerando o ecossistema de modelos disponível no OpenRouter. Nessa abordagem, diferentes modelos de um mesmo ecossistema podem ser executados sequencialmente. Um arquivo de áudio, por exemplo, pode ser inicialmente enviado a um modelo especializado, responsável por produzir sua transcrição ou interpretação textual. Em seguida, esse conteúdo é encaminhado ao modelo principal juntamente com as demais informações da ocorrência.
+No *Llama 4 Maverick* e no *Qwen 3.6 Plus*, os dois cenários sem áudio produziram respostas compatíveis com o conteúdo central das entradas. Os cenários com áudio retornaram o código 404 por ausência de endpoint compatível. Por isso, ambos tiveram cobertura de dois cenários e JSON parcial; não houve evidência de avaliação semântica do áudio nessas execuções.
 
-A segunda análise busca, portanto, avaliar se as limitações observadas anteriormente podem ser compensadas por meio da composição de modelos. Além da compatibilidade com as modalidades de entrada, essa abordagem permite analisar os possíveis impactos da utilização de múltiplas etapas sobre o tempo de resposta, o custo e a qualidade da recomendação produzida.
+No *Gemini 3.5 Flash*, os quatro cenários produziram os campos exigidos e resumos compatíveis com as ocorrências. Não foi registrada falha de processamento nessas combinações, justificando a cobertura de quatro cenários e o JSON completo. Esse resultado não elimina a necessidade de verificar os contatos locais apresentados pelo modelo.
 
-A tabela abaixo apresenta a viabilidade das combinações identificadas no catálogo do OpenRouter. Nessa comparação, a classificação “Viável” indica que o ecossistema apresenta os componentes necessários para processar a modalidade, diretamente ou por meio da execução sequencial de modelos. Essa classificação representa a viabilidade técnica da composição, não necessariamente seu desempenho efetivo, que ainda deve ser verificado experimentalmente.
+No *Nemotron 3 Nano Omni*, o áudio foi aceito, mas a resposta afirmou que a ocorrência não havia sido especificada, embora a gravação descrevesse um animal atropelado. Trata-se de falha de compreensão, e não de incompatibilidade técnica demonstrada. No cenário com áudio e imagem, o registro vazio não permite identificar se a interrupção ocorreu na chamada, no retorno ou na gravação do resultado. O JSON foi parcial e apenas os dois cenários sem áudio apresentaram interpretação compatível.
 
-#tabela(caption: [Viabilidade por ecossistema (composição sequencial)], columns: (1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr), header: ([Critério],[GPT],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]), [Texto],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Texto+Imagem],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Sucesso],[Falha],[Áudio],[Sucesso],[Falha],[Sucesso],[Falha],[Sucesso],[Sucesso \*],[Falha],[Áudio+Imagem],[Sucesso],[Falha],[Sucesso],[Falha],[Sucesso],[Sucesso \*],[Falha]) <tab:comparacao_ecossistemas>
+No *North Mini Code*, texto com imagem retornou o código 404 com a mensagem `No endpoints found that support image input`; o cenário de áudio apresentou incompatibilidade com entrada sonora; e áudio com imagem voltou a apresentar incompatibilidade com imagem. Como apenas texto produziu resposta, o JSON foi parcial e a cobertura ficou restrita a um cenário.
 
-A consideração dos ecossistemas modificou os resultados da comparação, pois permitiu superar algumas das limitações encontradas durante a avaliação isolada. Com o auxílio de outros modelos disponíveis no OpenRouter, os ecossistemas GPT e Llama passaram a contemplar os cenários com áudio, aproximando-se da cobertura oferecida pelo Gemini. O Nemotron também apresentou recursos para compor um fluxo multimodal, embora sua aplicação ainda dependa da validação da interpretação dos conteúdos sonoros. Em contrapartida, a ausência de alternativas para o processamento de áudio manteve Claude e Qwen com cobertura parcial, enquanto o North permaneceu limitado às entradas textuais. 
+=== Adequação das Recomendações
+
+A adequação foi examinada separadamente da cobertura, pois reconhecer uma ocorrência não garante a escolha correta do órgão ou do telefone. No cenário textual, GPT e Llama indicaram, respectivamente, atendimento rodoviário estadual e federal, embora a jurisdição da via não estivesse estabelecida. Claude e Qwen reuniram órgãos distintos no nome do serviço, mas apresentaram apenas um telefone. Essas respostas reconheceram o relato, porém apresentaram ressalvas quanto à precisão institucional.
+
+No cenário da árvore sobre a fiação, as respostas de GPT, Llama e Qwen foram relacionadas ao risco descrito, mas o contato local informado pelo Llama não foi validado externamente nesta avaliação. O Gemini reconheceu os quatro cenários, incluindo o relato sonoro, mas o estabelecimento veterinário e seu telefone também permaneceram sujeitos a confirmação. No Nemotron, somaram-se a suposição de jurisdição rodoviária, a baixa confiabilidade do telefone apresentado para a concessionária e a incompreensão do áudio. O North apresentou uma resposta textual compatível, sem cobertura das demais entradas.
+
+Por essas razões, a comparação utiliza descrições das evidências e das ressalvas, em lugar de notas globais como “Boa”, “Excelente” ou “Regular”. Sem uma escala validada e respostas de referência, esses adjetivos poderiam sugerir uma precisão que o experimento não oferece.
+
+
+=== Segunda Análise: Viabilidade de Composição
+
+A avaliação isolada verifica se uma única rota atende às entradas previstas pela aplicação. Para examinar alternativas às limitações observadas, foi realizado um levantamento complementar de possíveis composições entre modelos disponíveis no OpenRouter. Nesse fluxo, um modelo auxiliar interpreta áudio ou imagem e encaminha uma representação textual ao modelo responsável pela classificação.
+
+A @tab:comparacao_ecossistemas sintetiza as possibilidades descritas no levantamento. “Viável” indica a identificação de componentes para formar o fluxo; “Não identificada” indica que não foi encontrada uma composição correspondente no recorte consultado; e “Condicional” destaca uma possibilidade cuja etapa de percepção apresentou problemas nos testes. Essas classificações não são resultados de execuções completas das composições.
+
+#tabela(
+  caption: [Viabilidade de composição por ecossistema],
+  columns: (2fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr),
+  font-size: 9pt,
+  header: ([Entrada],[GPT],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]),
+  [Texto],[Viável],[Viável],[Viável],[Viável],[Viável],[Viável],[Viável],
+  [Texto + imagem],[Viável],[Viável],[Viável],[Viável],[Viável],[Viável],[Não identificada],
+  [Áudio],[Viável],[Não identificada],[Viável],[Não identificada],[Viável],[Condicional],[Não identificada],
+  [Áudio + imagem],[Viável],[Não identificada],[Viável],[Não identificada],[Viável],[Condicional],[Não identificada],
+) <tab:comparacao_ecossistemas>
+
+Fonte: elaboração própria a partir do levantamento de composições descrito neste trabalho. A indicação de viabilidade não altera a cobertura medida na avaliação dos modelos isolados.
+
+Os fluxos considerados para GPT e Llama acrescentam uma etapa de interpretação sonora antes da classificação. Para Claude, foi considerada a descrição da imagem por um componente auxiliar, sem alternativa sonora identificada. Qwen permaneceu sem uma composição sonora identificada, e North sem alternativas multimodais no recorte consultado. No caso do Nemotron, a separação entre percepção e classificação não resolve automaticamente o erro de compreensão observado no áudio.
+
+O levantamento não fornece métricas comparáveis de custo, latência ou qualidade final das composições. Esses aspectos precisam ser medidos em novas execuções, com registro das saídas intermediárias, pois erros de transcrição ou descrição podem ser propagados ao classificador.
+
 
 == Análise Individual dos Modelos
 
@@ -838,13 +935,13 @@ A adequação da resposta foi examinada considerando a correspondência entre a 
 
 === GPT-5.5
 
-O GPT-5.5 concluiu os dois cenários que não continham áudio. No cenário textual, referente ao veículo parado no acostamento, recomendou a Polícia Rodoviária Estadual da Bahia e informou o número 198. A resposta considerou corretamente a presença de uma passageira idosa, o anoitecer e a sensação de insegurança. O contexto produzido foi coerente com a entrada e apresentou todos os campos exigidos.
+O GPT-5.5 concluiu os dois cenários que não continham áudio. No cenário textual, referente ao veículo parado no acostamento, recomendou a Polícia Rodoviária Estadual da Bahia e informou o número 198. A resposta considerou corretamente a presença de uma passageira idosa, o anoitecer e a sensação de insegurança. O contexto produzido foi coerente com a entrada e apresentou todos os campos exigidos. Entretanto, a jurisdição estadual da rodovia não estava estabelecida no cenário, de modo que essa especificidade da recomendação não foi confirmada pelos dados fornecidos.
 
 No cenário composto por texto e imagem, o modelo recomendou o Corpo de Bombeiros, por meio do número 193, para a árvore caída sobre fios elétricos. A recomendação foi considerada satisfatória, pois a ocorrência envolvia risco de choque, faíscas e bloqueio da via.
 
 Entretanto, os dois cenários que continham áudio falharam antes da inferência. Em ambos os casos, o OpenRouter retornou o código 404 e a mensagem `No endpoints found that support input audio`. Portanto, a falha não ocorreu na interpretação semântica do áudio, mas na indisponibilidade de um endpoint compatível com essa modalidade para o modelo e a rota utilizados.
 
-Por não conseguir atender a todos os cenários por meio de um único modelo, o GPT-5.5 foi uma das alternativas que exigiu a utilização de um modelo auxiliar. Para os cenários com áudio, foi utilizado o GPT Audio, responsável por processar o arquivo e produzir uma representação textual do relato. Esse conteúdo foi posteriormente encaminhado ao GPT-5.5, que realizou a classificação da ocorrência e gerou a resposta no formato esperado. No cenário com áudio e imagem, a representação textual produzida pelo GPT Audio foi enviada ao GPT-5.5 juntamente com a imagem.
+Na análise complementar, foi considerado um fluxo em que o GPT Audio interpreta o arquivo sonoro e produz uma representação textual para o GPT-5.5. No cenário com áudio e imagem, essa representação poderia ser enviada juntamente com a imagem ao classificador. Trata-se de uma possibilidade de composição; os registros apresentados não demonstram o desempenho completo desse fluxo nem ampliam a cobertura medida para o GPT-5.5 isolado.
 
 === Claude Opus 4.8
 
@@ -854,17 +951,17 @@ No cenário de texto e imagem, o provedor retornou o código 400 e a mensagem Pr
 
 Nos dois testes contendo áudio, o resultado foi o código 404 com a mensagem `No endpoints found that support input audio`. Dessa forma, não houve processamento do áudio nem da combinação entre áudio e imagem.
 
-Por não concluir o cenário visual na configuração inicial, o Claude Opus 4.8 também foi avaliado considerando os demais modelos de seu ecossistema. A disponibilidade de modelos Claude com suporte a imagens permitiu utilizar um modelo auxiliar para interpretar o conteúdo visual e encaminhar sua descrição textual ao Claude Opus 4.8. Entretanto, não foi identificado no OpenRouter um modelo do ecossistema Claude capaz de processar áudio. Dessa forma, a composição permitiu atender ao cenário de texto e imagem, mas os dois cenários contendo áudio permaneceram sem processamento. 
+Na análise complementar, foi considerada a possibilidade de um modelo Claude com suporte visual descrever a imagem antes de encaminhar o texto ao Claude Opus 4.8. O levantamento não identificou uma alternativa sonora no mesmo ecossistema e recorte do OpenRouter. A composição visual exige teste próprio e não esclarece, por si só, a causa do erro 400 observado na execução original. 
 
 === Llama 4 Maverick
 
-O Llama 4 Maverick concluiu os cenários textual e visual. No primeiro, recomendou a Polícia Rodoviária Federal e informou o número 191. A resposta identificou corretamente o risco de permanecer no acostamento com uma pessoa idosa durante o anoitecer. Entretanto, a entrada não indicava que o veículo estava em uma rodovia federal. Dessa forma, a escolha da #abbrev("PRF", long: "Policial Rodoviário Federal") foi considerada parcialmente adequada, pois introduziu uma especificidade que não estava confirmada pelo contexto.
+O Llama 4 Maverick concluiu os cenários textual e visual. No primeiro, recomendou a Polícia Rodoviária Federal e informou o número 191. A resposta identificou corretamente o risco de permanecer no acostamento com uma pessoa idosa durante o anoitecer. Entretanto, a entrada não indicava que o veículo estava em uma rodovia federal. Dessa forma, a escolha da #abbrev("PRF", long: "Polícia Rodoviária Federal") foi considerada parcialmente adequada, pois introduziu uma especificidade que não estava confirmada pelo contexto.
 
 No cenário da árvore sobre a fiação, o modelo recomendou a Coelba e apresentou o número 0800 071 0909. A decisão de acionar a concessionária de energia foi compatível com o risco elétrico descrito e o resumo reconheceu as faíscas e a obstrução da rua. A resposta foi formalmente válida e utilizou as informações da ocorrência.
 
 Os dois cenários com áudio retornaram o código 404 e a mensagem `No endpoints found that support input audio`. Assim, o modelo não foi testado semanticamente nessas ocorrências, pois a integração não encontrou um endpoint que aceitasse essa modalidade.
 
-Na segunda análise, a limitação relacionada ao áudio foi contornada com a utilização do Muse Spark 1.2, modelo do ecossistema da Meta capaz de receber entradas sonoras e visuais. O modelo auxiliar foi responsável por interpretar o áudio e produzir uma representação textual da ocorrência, posteriormente encaminhada ao Llama 4 Maverick para classificação e geração do JSON. No cenário com áudio e imagem, ambos os conteúdos foram inicialmente processados pelo Muse Spark antes do envio das informações extraídas ao modelo principal. Dessa forma, a composição permitiu incluir os quatro cenários na avaliação do ecossistema. 
+Na análise complementar, o levantamento considerou o Muse Spark 1.2 como possível componente de percepção para produzir uma representação textual das entradas sonoras e visuais antes da classificação pelo Llama 4 Maverick. Essa composição é uma alternativa a investigar; sem resultados completos e métricas de suas etapas, não se pode afirmar que ela tenha superado experimentalmente as falhas dos cenários com áudio. 
 
 === Qwen 3.6 Plus
 
@@ -902,7 +999,7 @@ No cenário de áudio, a requisição foi tecnicamente aceita, diferentemente do
 
 No cenário com áudio e imagem, o registro ficou vazio: não houve serviço, telefone, contexto, código de erro ou métricas. Isso indica que a execução não produziu um resultado aproveitável, mas o arquivo CSV não permite determinar se houve interrupção da chamada, falha na gravação do resultado ou retorno vazio do provedor.
 
-Na segunda análise, o Nemotron 3 Nano Omni deixou de ser utilizado como único responsável por interpretar as entradas e classificar a ocorrência. O modelo passou a atuar como componente de percepção, encarregado de extrair as informações do áudio e da imagem, enquanto o conteúdo textual resultante foi encaminhado a outro modelo Nemotron para classificação e geração do JSON. Essa separação buscou reduzir a quantidade de tarefas atribuídas a uma única execução. Entretanto, como o problema observado estava justamente na compreensão do áudio, a eficácia da composição permaneceu condicionada à qualidade da interpretação produzida pelo Nano Omni. 
+Na análise complementar, foi considerada a possibilidade de separar percepção e classificação, utilizando o Nano Omni para extrair informações e outro modelo Nemotron para produzir a recomendação. A viabilidade foi classificada como condicional porque o erro observado ocorreu justamente na compreensão do áudio. A separação das tarefas não comprova a correção dessa interpretação e requer a avaliação das saídas intermediárias e da resposta final. 
 
 === North Mini Code
 
@@ -924,11 +1021,11 @@ Em alguns casos, as interfaces disponibilizadas pelos desenvolvedores combinam d
 
 Essa diferença foi observada no #emph[benchmark] realizado por meio do OpenRouter. Entre os modelos avaliados isoladamente, apenas o Gemini 3.5 Flash processou diretamente texto, imagem e áudio nos quatro cenários. Os demais apresentaram diferentes níveis de compatibilidade, variando entre o suporte a texto e imagem, a limitação exclusiva ao texto e a aceitação técnica de arquivos sem a compreensão adequada de seu conteúdo.
 
-A análise dos ecossistemas demonstrou que algumas dessas limitações podem ser contornadas pela execução sequencial de modelos especializados. Nesse tipo de fluxo, um modelo pode interpretar determinada modalidade e encaminhar o conteúdo extraído ao modelo responsável pela classificação final. Portanto, a adoção de inteligência artificial em aplicações multimodais exige a verificação das capacidades efetivamente disponibilizadas pela #abbrev("API"), não sendo suficiente considerar apenas os recursos presentes nas interfaces de chat ou descritos de maneira geral para cada ecossistema.
+A análise dos ecossistemas identificou possibilidades de contornar algumas dessas limitações pela execução sequencial de modelos especializados, sem comprovar o desempenho das composições. Nesse tipo de fluxo, um modelo pode interpretar determinada modalidade e encaminhar o conteúdo extraído ao modelo responsável pela classificação final. Portanto, a adoção de inteligência artificial em aplicações multimodais exige a verificação das capacidades efetivamente disponibilizadas pela #abbrev("API"), não sendo suficiente considerar apenas os recursos presentes nas interfaces de chat ou descritos de maneira geral para cada ecossistema.
 
 = Conclusão
 
-O Centro de Ajuda demonstrou viabilidade técnica como apoio ao direcionamento emergencial, integrando entrada multimodal, geocodificação, prompts e OpenRouter para entregar `service_name`/`phone_number`/`emergency_context` com redirecionamento `tel:`.
+O Centro de Ajuda demonstrou viabilidade técnica inicial para interpretar relatos emergenciais e produzir recomendações estruturadas nas condições avaliadas. O servidor integrou entradas multimodais, geocodificação, prompts e OpenRouter para retornar os campos `service_name`, `phone_number` e `emergency_context`. O fluxo projetado da interface prevê o acesso ao discador por meio do esquema `tel:`, permanecendo a conclusão e a validação da aplicação cliente como etapas de continuidade.
 
 == Avaliação dos Modelos
 
@@ -966,7 +1063,7 @@ A utilização contínua do sistema também poderia contribuir para a formação
 == Considerações Finais
 
 Dessa forma, os resultados obtidos indicam que o Centro de Ajuda é tecnicamente viável como uma ferramenta de apoio ao direcionamento de solicitações emergenciais. A avaliação demonstrou que os modelos de inteligência artificial podem interpretar as informações fornecidas e contribuir para a classificação e o direcionamento das ocorrências, embora sua utilização dependa da compatibilidade das interfaces, da validação dos contatos recomendados e da adoção de mecanismos para tratar erros e indisponibilidades.
-A prova de conceito conseguiu demonstrar a integração entre a interface, o servidor, os serviços de localização e os modelos de inteligência artificial, atendendo ao objetivo estabelecido para o trabalho. Entretanto, a solução não deve ser compreendida como substituta das centrais oficiais ou da avaliação humana, mas como um recurso intermediário destinado a reduzir dúvidas e facilitar o acesso ao serviço considerado mais adequado.
+A prova de conceito demonstrou o processamento no servidor, a integração com os serviços de localização e os modelos de inteligência artificial, além de apresentar o fluxo previsto para a interface. Esses resultados atendem ao recorte de viabilidade técnica investigado, sem comprovar a conclusão e a validação integral da aplicação cliente. Entretanto, a solução não deve ser compreendida como substituta das centrais oficiais ou da avaliação humana, mas como um recurso intermediário destinado a reduzir dúvidas e facilitar o acesso ao serviço considerado mais adequado.
 Os resultados alcançados representam, portanto, uma etapa inicial do desenvolvimento da proposta. As possibilidades apresentadas para sua continuidade demonstram que o Centro de Ajuda ainda possui um amplo campo de evolução, tanto em sua implementação quanto na avaliação e na confiabilidade das recomendações. Assim, este trabalho estabelece uma base para novos estudos e aperfeiçoamentos que poderão aproximar a proposta de uma aplicação mais segura, abrangente e adequada a situações reais.
 
 #references()
