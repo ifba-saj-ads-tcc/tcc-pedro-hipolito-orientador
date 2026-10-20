@@ -1,12 +1,12 @@
 #import "ifbasaj-tcc/imports.typ": *
 #show: template.with(
-  titulo: "Centro de Ajuda: Sistema Inteligente de Recomendação de Comunicação em Situações Emergenciais",
+  titulo: "Centro de Ajuda: Serviço Inteligente de Recomendação em Situações Emergenciais",
   autor: "Pedro Victor Hipólito Cabral",
   orientador: "Prof. Leandro Costa Souza",
   data-banca: datetime(year: 2026, month: 9, day: 18),
-  resumo-conteudo: [Este trabalho apresenta o desenvolvimento de uma prova de conceito de um sistema inteligente para redirecionamento de solicitações emergenciais, denominado Centro de Ajuda, que utiliza inteligência artificial multimodal para interpretar relatos em texto, áudio e imagem e recomendar o serviço de emergência mais adequado.],
+  resumo-conteudo: [A dificuldade de identificar qual serviço procurar em uma emergência motiva o desenvolvimento do Centro de Ajuda, uma prova de conceito de um serviço de recomendação baseado em inteligência artificial multimodal. O objetivo é interpretar relatos em texto, áudio e imagem, contextualizados por localização e horário, e retornar serviço, telefone e resumo da ocorrência. A pesquisa é aplicada e exploratória, com arquitetura cliente-servidor e avaliação qualitativa de quatro cenários. O servidor integra geocodificação e modelos acessados pelo OpenRouter; o cliente web é representado por um protótipo de interação e listagens, sem interface completa validada. O trabalho relata uma execução por combinação de sete modelos e quatro cenários. Entre os arquivos disponíveis, foram localizadas quatro respostas brutas do Gemini, compatíveis com os elementos centrais dos cenários, mas sem validação independente dos contatos. Os demais resultados permanecem limitados aos relatos apresentados no texto. As observações sugerem potencial técnico do protótipo, sem comprovar eficácia ou segurança da recomendação em situações reais. A continuidade exige ampliar os testes, validar os contatos e avaliar o tratamento de dados pessoais.],
   resumo-palavras: ("Inteligência Artificial", "Emergência", "Multimodal", "LLM"),
-  abstract-conteudo: [This work presents a proof of concept of an intelligent emergency redirection system called Centro de Ajuda, using multimodal AI to interpret text, audio and image reports and recommend the most appropriate emergency service.],
+  abstract-conteudo: [Difficulty identifying which service to contact in an emergency motivates Centro de Ajuda, a proof of concept for a multimodal AI recommendation service. Its objective is to interpret text, audio and image reports with location and time context and return a service, phone number and incident summary. This applied, exploratory study adopts a client-server architecture and a qualitative evaluation of four scenarios. The server integrates reverse geocoding and models accessed through OpenRouter; the web client is represented by an interaction prototype and code listings, without a complete validated interface. The study reports one execution for each combination of seven models and four scenarios. The available files include four raw Gemini responses consistent with the central scenario elements, without independent validation of the contacts. Other results remain limited to the accounts presented in the text. These observations suggest technical potential for the prototype, without establishing effectiveness or safety in real emergencies. Further work requires broader testing, contact validation and assessment of personal data processing.],
   abstract-palavras: ("Artificial Intelligence", "Emergency", "Multimodal", "LLM"),
   banca: (
     [Prof. Mst. Leandro Costa Souza (IFBA)],
@@ -58,12 +58,6 @@ Do ponto de vista técnico, a proposta permite examinar se as capacidades multim
 
 A contribuição pretendida é fornecer uma base experimental para o desenvolvimento de ferramentas de apoio ao direcionamento de solicitações. Eventuais benefícios para a população dependem de avaliações posteriores de usabilidade, confiabilidade e segurança em condições de uso real.
 
-=== Trabalhos Relacionados
-
-O #emph[RapidSOS] utiliza dados provenientes de dispositivos e aplicações para complementar as informações disponíveis às centrais de atendimento emergencial, incluindo localização e outros elementos contextuais #cite("rapidSOS2025"). Sua relação com este trabalho está no uso de informações adicionais para apoiar o atendimento. O Centro de Ajuda concentra-se na etapa de interpretação do relato e apresentação de uma recomendação ao usuário.
-
-Os sistemas 911 e 112, por sua vez, constituem referências de centralização do acesso aos serviços emergenciais. Eles organizam o contato com diferentes órgãos por um canal telefônico comum, apoiado na infraestrutura das centrais responsáveis #cite("nena911", "eena112"). A proposta aqui investigada atua como uma camada de apoio anterior ao contato, sem implementar uma central universal ou substituir a estrutura pública de atendimento.
-
 == Proposta e Objetivos
 
 === Objetivo Geral
@@ -81,18 +75,28 @@ O fluxo geral de interação entre usuário, servidor e inteligência artificial
 
 === Objetivos Específicos
 
-+ definir o fluxo de interação e os requisitos de uma interface para relatos em texto, áudio e imagem;
-+ implementar o servidor responsável pelo recebimento das solicitações e pela integração com os serviços externos;
-+ incorporar localização geográfica e horário ao contexto enviado aos modelos;
-+ estruturar os prompts e o tratamento da resposta nos campos de serviço, telefone e resumo da ocorrência;
-+ comparar sete modelos em quatro cenários padronizados, considerando compatibilidade, estrutura da resposta, interpretação, tempo e custo;
-+ identificar limitações observadas nas execuções e possibilidades de composição com modelos auxiliares.
+- definir o fluxo de interação e os requisitos de uma interface para relatos em texto, áudio e imagem;
+- implementar o servidor responsável pelo recebimento das solicitações e pela integração com os serviços externos;
+- incorporar localização geográfica e horário ao contexto enviado aos modelos;
+- estruturar os prompts e o tratamento da resposta nos campos de serviço, telefone e resumo da ocorrência;
+- comparar sete modelos em quatro cenários padronizados, considerando compatibilidade, estrutura da resposta, interpretação, tempo e custo;
+- identificar limitações observadas nas execuções e possibilidades de composição com modelos auxiliares.
+
+== Trabalhos Relacionados
+
+O #emph[RapidSOS] utiliza dados provenientes de dispositivos e aplicações para complementar as informações disponíveis às centrais de atendimento emergencial, incluindo localização e outros elementos contextuais #cite("rapidSOS2025"). Sua relação com este trabalho está no uso de informações adicionais para apoiar o atendimento. O Centro de Ajuda concentra-se na etapa de interpretação do relato e apresentação de uma recomendação ao usuário.
+
+Os sistemas 911 e 112, por sua vez, constituem referências de centralização do acesso aos serviços emergenciais. Eles organizam o contato com diferentes órgãos por um canal telefônico comum, apoiado na infraestrutura das centrais responsáveis #cite("nena911", "eena112"). A proposta aqui investigada atua como uma camada de apoio anterior ao contato, sem implementar uma central universal ou substituir a estrutura pública de atendimento.
 
 == Síntese dos Resultados
 
 O trabalho resultou na implementação do processamento no servidor e na avaliação de sete modelos por meio do OpenRouter. Nos quatro cenários utilizados, o Gemini 3.5 Flash foi o único modelo isolado que produziu respostas estruturadas e interpretações compatíveis com todas as combinações de entrada. Os demais apresentaram restrições de modalidade, erros de execução ou problemas de compreensão, detalhados no capítulo de análise dos resultados.
 
 Esses resultados sustentam a viabilidade técnica inicial da proposta nas condições avaliadas. Não comprovam a exatidão de todos os contatos recomendados, a eficácia em situações reais ou a conclusão integral da aplicação cliente. A análise de possíveis composições entre modelos complementa os testes, mas exige validação experimental própria antes de permitir conclusões sobre desempenho.
+
+== Estrutura do Texto
+
+O capítulo 2 reúne os fundamentos conceituais. O capítulo 3 apresenta o método, a seleção dos modelos e o procedimento experimental. O capítulo 4 delimita os componentes implementados e a arquitetura. O capítulo 5 examina os resultados e suas limitações. O capítulo 6 retoma as contribuições e as possibilidades de continuidade.
 
 = Revisão Bibliográfica
 
@@ -120,7 +124,7 @@ As redes neurais artificiais consistem em modelos computacionais inspirados no f
 
 Segundo #prose("goodfellow2016"), uma das principais características das redes neurais é sua capacidade de aprender representações hierárquicas dos dados. Isso significa que diferentes camadas da rede conseguem identificar níveis progressivamente mais complexos de informação. Em reconhecimento de imagens, por exemplo, camadas iniciais podem identificar linhas e bordas simples, enquanto camadas mais profundas passam a reconhecer formas, objetos e relações contextuais completas.
 
-Dessa forma, o termo #emph[deep learning], também conhecido como aprendizado profundo, refere-se à utilização de redes neurais compostas por múltiplas camadas ocultas. O aumento da profundidade dessas arquiteturas permitiu avanços significativos no desempenho de modelos de inteligência artificial,bespecialmente em aplicações envolvendo grandes volumes de dados. Diferentemente de métodos tradicionais, nos quais características relevantes precisavam ser definidas manualmente, modelos de aprendizado profundo conseguem aprender automaticamente representações internas diretamente a partir dos dados utilizados durante o treinamento.
+Dessa forma, o termo #emph[deep learning], também conhecido como aprendizado profundo, refere-se à utilização de redes neurais compostas por múltiplas camadas ocultas. O aumento da profundidade dessas arquiteturas permitiu avanços significativos no desempenho de modelos de inteligência artificial,especialmente em aplicações envolvendo grandes volumes de dados. Diferentemente de métodos tradicionais, nos quais características relevantes precisavam ser definidas manualmente, modelos de aprendizado profundo conseguem aprender automaticamente representações internas diretamente a partir dos dados utilizados durante o treinamento.
 
 Eventualmente, diferentes arquiteturas de redes neurais passaram a ser desenvolvidas para resolver problemas específicos. Entre os principais exemplos estão as redes neurais convolucionais (#abbrev("CNNs", long: "Convolutional Neural Networks")amplamente utilizadas em tarefas de visão computacional e reconhecimento de imagens, e as redes neurais recorrentes (#abbrev("RNNs", long:"Recurrent Neural Networks")) desenvolvidas para lidar com dados sequenciais, como textos e traduções automáticas #cite("goodfellow2016").
 
@@ -201,13 +205,13 @@ Arquiteturas modernas baseadas em #emph[Transformers] multimodais demonstraram e
 
 Este trabalho apresenta uma pesquisa aplicada, de caráter exploratório, voltada ao desenvolvimento e à avaliação de uma prova de conceito. A análise combina medidas quantitativas de tempo, custo e consumo de tokens com a avaliação qualitativa da interpretação das ocorrências e das recomendações produzidas.
 
-A metodologia utilizada neste trabalho consiste na análise de requisitos para o desenvolvimento de uma prova de conceito funcional de um sistema inteligente voltado ao auxílio no redirecionamento de solicitações emergenciais. A proposta envolve a construção de uma aplicação móvel integrada a um servidor responsável pelo recebimento, processamento e encaminhamento contextual das informações enviadas pelo usuário. O sistema foi estruturado utilizando arquitetura cliente-servidor, permitindo separar as responsabilidades relacionadas à interface da aplicação, processamento das requisições e integração com modelos de inteligência artificial. 
+A metodologia utilizada neste trabalho consiste na análise de requisitos para o desenvolvimento de uma prova de conceito funcional de um sistema inteligente voltado ao apoio à recomendação de serviços para solicitações emergenciais. A proposta envolve a construção de uma aplicação web, acessível por navegador, integrada a um servidor responsável pelo recebimento, processamento e encaminhamento contextual das informações enviadas pelo usuário. O sistema foi estruturado utilizando arquitetura cliente-servidor, permitindo separar as responsabilidades relacionadas à interface da aplicação, processamento das requisições e integração com modelos de inteligência artificial.
 
 == Critérios de Escolha para o(s) Modelo(s) LLM
 
 O funcionamento da proposta apresentada neste trabalho depende diretamente da integração entre o servidor #emph[backend] e modelos de inteligência artificial responsáveis pela interpretação contextual das solicitações enviadas pelos usuários. Dessa forma, tornou-se necessário analisar diferentes modelos de linguagem de grande porte capazes de processar informações multimodais e fornecer respostas contextualizadas adequadas ao cenário emergencial proposto pelo sistema Centro de Ajuda.
 
-Considerando as necessidades da aplicação, foram definidos critérios técnicos para a seleção dos modelos avaliados. O primeiro critério foi a capacidade de processamento de diferentes modalidades de entrada, incluindo texto, áudio e imagem. Essa característica é necessária porque o sistema foi projetado para permitir que o usuário relate uma ocorrência utilizando diferentes formas de comunicação, conforme a situação enfrentada. Em um cenário de emergência, por exemplo, um usuário pode enviar apenas uma fotografia do local, um áudio descrevendo os acontecimentos ou uma mensagem textual, tornando indispensável que o modelo seja capaz de interpretar qualquer uma dessas modalidades.
+Considerando as necessidades da aplicação, foram definidos critérios técnicos para a seleção dos modelos avaliados. O primeiro critério foi a capacidade de processamento de diferentes modalidades de entrada, incluindo texto, áudio e imagem. Essa característica é necessária porque o sistema foi projetado para permitir que o usuário relate uma ocorrência utilizando diferentes formas de comunicação, conforme a situação enfrentada. Em um cenário de emergência, por exemplo, um usuário pode enviar apenas uma fotografia do local, um áudio descrevendo os acontecimentos ou uma mensagem textual, tornando necessário avaliar o suporte efetivo a cada modalidade.
 
 Outro critério analisado foi a disponibilidade de utilização em infraestrutura de nuvem. Essa característica foi considerada devido às limitações técnicas associadas à execução local de modelos de linguagem de grande porte. Modelos multimodais modernos demandam elevada capacidade computacional, grande quantidade de memória e, em muitos casos, aceleradores gráficos especializados, recursos que normalmente não estão disponíveis em computadores pessoais convencionais. Dessa forma, a disponibilização dos modelos por meio de #abbrev("APIs", long: "Application Programming Interfaces") em nuvem permite que todo o processamento seja realizado em infraestrutura especializada, tornando sua utilização viável na aplicação proposta sem exigir #emph[hardware] de alto desempenho no servidor ou nos dispositivos dos usuários. 
 
@@ -296,7 +300,7 @@ Segundo #prose("gemini35flash"), o Gemini 3.5 Flash oferece suporte nativo ao pr
 
 No que se refere à interpretação multimodal, o Gemini 3.5 Flash foi projetado para correlacionar simultaneamente informações provenientes das modalidades suportadas, possibilitando uma compreensão contextual unificada das entradas recebidas. Essa característica atende integralmente ao requisito de multimodalidade definido para o sistema proposto. #cite("gemini35flash")
 
-Além dos modelos anteriores, a documentação da Google também informa que o Gemini 3.5 Flash é disponibilizado por meio de #abbrev("APIs") executadas em infraestrutura de nuvem e está disponível em plataformas intermediárias. \cite#cite("geminiAPI")
+Além dos modelos anteriores, a documentação da Google também informa que o Gemini 3.5 Flash é disponibilizado por meio de #abbrev("APIs") executadas em infraestrutura de nuvem e está disponível em plataformas intermediárias.  #cite("geminiAPI")
 
 Além disso, o Gemini 3.5 Flash disponibiliza recursos nativos de pesquisa na internet por meio das ferramentas da plataforma Gemini, permitindo consultar informações atualizadas durante o processamento das solicitações. Essa funcionalidade atende ao critério de acesso a informações externas estabelecido para a avaliação dos modelos. #cite("gemini35flash")
 
@@ -334,30 +338,11 @@ A infraestrutura #emph[frontend] da aplicação foi definida considerando os ele
 
 A interface do usuário é responsável pela apresentação visual da aplicação e pela coleta das informações fornecidas pelo usuário. A compatibilidade multiplataforma possibilita o acesso à aplicação em diferentes dispositivos e sistemas operacionais. Já a comunicação cliente-servidor realiza a troca de informações entre o #emph[frontend] e os serviços executados no #emph[backend], permitindo o envio dos dados coletados e o recebimento dos resultados gerados pelo sistema.
 
-=== Interface do Usuário
+=== Interface e Acesso pelo Navegador
 
-A construção da interface da aplicação foi realizada utilizando HTML, CSS e JavaScript, tecnologias consolidadas como padrão para o desenvolvimento de aplicações web. Sua adoção ocorreu devido à ampla compatibilidade entre navegadores, à extensa documentação disponível, ao ecossistema consolidado de ferramentas e à possibilidade de reutilização do código em soluções híbridas para dispositivos móveis, reduzindo o esforço de desenvolvimento e manutenção da aplicação.
+O cliente foi concebido como uma aplicação web, com acesso por navegadores em computadores e dispositivos móveis. O fluxo visual foi representado em protótipo no Figma; as listagens em HTML e JavaScript exemplificam a captura e o envio das entradas. A interface completa, sua usabilidade e o funcionamento em diferentes dispositivos não foram validados nesta etapa.
 
-Nesse contexto, o HTML foi empregado para estruturar semanticamente a interface, o CSS para definir sua apresentação visual e adaptação a diferentes tamanhos de tela, enquanto o JavaScript foi utilizado para implementar a lógica da aplicação, gerenciar eventos, manipular dinamicamente os elementos da interface e realizar a comunicação com os serviços disponibilizados pelo #emph[backend].
-
-=== Compatibilidade Multiplataforma
-
-A compatibilidade multiplataforma da aplicação é proporcionada pela utilização de tecnologias web, permitindo que a interface seja acessada em diferentes dispositivos e sistemas operacionais por meio de navegadores compatíveis. Essa abordagem evita a necessidade de desenvolver uma versão específica da aplicação para cada plataforma.
-
-Além disso, a aplicação pode ser disponibilizada como uma #abbrev("PWA", long: "Progressive Web App"). Uma #abbrev("PWA") consiste em uma aplicação web que incorpora características de aplicações instaláveis, podendo ser adicionada à tela inicial do dispositivo e executada em uma janela própria. Sua configuração básica utiliza recursos como um arquivo de manifesto, responsável por definir informações como nome, ícone e aparência da aplicação, e um #emph[Service Worker], que pode gerenciar o armazenamento de recursos e determinadas funcionalidades em segundo plano.
-
-Essa abordagem mostrou-se adequada à prova de conceito por permitir sua utilização em computadores e dispositivos móveis sem depender de tecnologias de empacotamento nativo, preservando uma única base de código desenvolvida com HTML, CSS e JavaScript.
-
-=== Comunicação Cliente-Servidor
-
-A comunicação entre #emph[frontend] e #emph[backend] foi implementada utilizando a #abbrev("API") Fetch, interface nativa disponibilizada pelos navegadores modernos para a realização de requisições HTTP assíncronas. Conforme apresentado em @fig:fetch-api, ao executar a função fetch(), a aplicação inicia a requisição HTTP e recebe imediatamente uma Promise, inicialmente em estado pendente. Enquanto a requisição é processada, a execução da interface permanece disponível, sem precisar aguardar de forma bloqueante pela resposta do servidor. Quando a comunicação é concluída com sucesso, a Promise é resolvida, permitindo o acesso à resposta e às informações retornadas pelo #emph[backend]. Caso ocorra uma falha que impeça a conclusão da requisição, a Promise é rejeitada, possibilitando que a aplicação identifique e trate o erro. Dessa forma, o uso da #abbrev("APIs") Fetch contribui para uma experiência de utilização mais fluida e responsiva.
-
-#figura(
-  image("assets/imagens/fetch-api.png", width: 80%),
-  caption: [Fluxo da API Fetch com Promise],
-) <fig:fetch-api>
-
-Nesse contexto, a #abbrev("API") Fetch é responsável pelo envio das informações fornecidas pelo usuário, incluindo dados textuais, arquivos multimídia e informações contextuais, bem como pelo recebimento das respostas geradas pelos serviços de processamento executados no #emph[backend].
+A comunicação prevista utiliza uma requisição HTTP ao servidor e uma resposta JSON. A instalação como #abbrev("PWA", long: "Progressive Web App") é uma possibilidade futura; não foram entregues manifesto, service worker ou empacotamento nativo como parte desta prova de conceito.
 
 == Requisitos do Backend
 
@@ -440,13 +425,25 @@ O procedimento experimental foi organizado nas seguintes etapas:
 + registrar a resposta ou o erro de cada execução, juntamente com as métricas disponíveis;
 + verificar a estrutura retornada e comparar seu conteúdo com o cenário, aplicando os critérios definidos em @sec:metodos-avaliacao.
 
-A comparação principal abrange sete modelos e quatro cenários, totalizando 28 combinações previstas. Uma combinação sem resposta aproveitável permanece registrada como tal; não é convertida em sucesso nem excluída silenciosamente da análise.
+A comparação descrita no trabalho abrange sete modelos e quatro cenários, totalizando 28 combinações previstas, das quais quatro dispõem de registro bruto localizado. Uma combinação sem resposta aproveitável permanece registrada como tal; não é convertida em sucesso nem excluída silenciosamente da análise.
 
 Em uma etapa complementar, foram examinadas possibilidades de composição sequencial de modelos, nas quais um componente interpreta áudio ou imagem e encaminha uma representação textual ao classificador. Essa análise de viabilidade é apresentada separadamente, pois a disponibilidade de componentes não comprova o funcionamento, o custo ou a qualidade do fluxo completo.
 
+== Configuração e Rastreabilidade Experimental
+
+Neste trabalho, benchmark designa o conjunto exploratório de quatro cenários aplicado às rotas selecionadas, com uma execução descrita por combinação de modelo e cenário. Não se trata de uma base pública padronizada, de uma comparação estatística ou de validação de segurança. O objetivo é observar compatibilidade e interpretação nas condições testadas.
+
+Os arquivos disponíveis preservam o endpoint de chat completions do OpenRouter, `stream: false`, o acréscimo do sufixo `:online` ao identificador e mensagens nos papéis `system`, `assistant` e `user`. Não há parâmetros explícitos de temperatura, `top_p`, semente ou limite de tokens; permanecem os padrões do provedor. Não foi preservado um identificador imutável dos pesos ou uma configuração fixa do provedor resolvido. O sufixo de busca não comprova que os contatos tenham sido verificados.
+
+A configuração principal disponível contém somente `google/gemini-3.5-flash`. A configuração complementar contém os identificadores `openai/gpt-5.5`, `anthropic/claude-opus-4.8`, `meta-llama/llama-4-maverick`, `qwen/qwen3.6-plus`, `google/gemini-3.5-flash` e `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free`, além de componentes auxiliares. Ela não permite confirmar a rota histórica de cada execução; o identificador exato usado para North não foi localizado.
+
+A análise documental é datada no texto em 10 de junho de 2026; essa data não identifica quando as requisições ocorreram. Há log de atividade do projeto em 23 de setembro de 2026, sem vínculo inequívoco com cada resposta preservada. O arquivo bruto não registra a data real das quatro respostas. Os horários dos cenários são dados simulados, inclusive o de novembro de 2026, posterior à data de banca indicada na capa. Não devem ser interpretados como datas dos testes.
+
+O único registro bruto localizado contém quatro respostas identificadas como Gemini. Os resultados dos demais modelos são preservados como análise relatada no trabalho, sem confirmação integral pelos arquivos disponíveis. Essa lacuna limita a auditoria e impede afirmar reprodução exata do conjunto de 28 combinações. O repositório reúne as entradas completas, arquivos e hashes, prompts e código históricos disponíveis, critérios e um procedimento de registro para novas execuções. Uma nova execução produz novos resultados, sem preencher retroativamente a evidência ausente.
+
 == Limitações do Estudo
 
-A avaliação utiliza quatro cenários e não apresenta uma série de repetições suficiente para estimar variabilidade, intervalos de confiança ou diferenças estatisticamente significativas. Os resultados são exploratórios e restritos aos modelos, rotas e condições de execução descritos. O tempo observado inclui comunicação e processamento remoto, e pode variar com a disponibilidade e a carga dos provedores.
+A avaliação utiliza quatro cenários, com uma execução descrita por modelo e cenário, e não apresenta repetições suficientes para estimar variabilidade, intervalos de confiança ou diferenças estatisticamente significativas. Os resultados são exploratórios e restritos aos modelos, rotas e condições de execução descritos. O tempo observado inclui comunicação e processamento remoto, e pode variar com a disponibilidade e a carga dos provedores.
 
 Não foi estabelecido um conjunto de respostas de referência validado por profissionais de atendimento emergencial. A adequação foi examinada a partir do conteúdo dos cenários e das respostas, sem validação independente de todos os serviços e telefones locais. Assim, coerência textual e conformidade com o JSON não equivalem à segurança da recomendação para uso real.
 
@@ -457,348 +454,50 @@ O levantamento de recursos de pesquisa na internet e de modelos auxiliares não 
 // ========== DESENVOLVIMENTO ==========
 = Desenvolvimento
 
-Neste capítulo são apresentados os detalhes de desenvolvimento do sistema Centro de Ajuda. São descritas as decisões de projeto, as tecnologias utilizadas, o funcionamento do aplicativo cliente e do servidor, a construção dos prompts enviados aos modelos de linguagem e o processo de avaliação por meio do #emph[benchmark]. O objetivo deste capítulo é fornecer uma visão completa de como a solução foi implementada e como os componentes interagem para entregar ao usuário a recomendação do serviço de emergência mais adequado à situação descrita.
+O desenvolvimento concentrou-se no servidor que organiza o relato, complementa a localização e consulta o modelo de linguagem. O cliente foi representado pelo fluxo visual e por listagens de captura e comunicação. Essa delimitação distingue o processamento implementado da interface completa, que não foi concluída nem avaliada com usuários.
 
-== Abordagem Geral
+== Arquitetura e Fluxo dos Dados
 
-O desenvolvimento do sistema foi dividido em duas camadas principais: a aplicação cliente, responsável pela interação com o usuário, e a aplicação servidora, encarregada do processamento das solicitações e da comunicação com os modelos de linguagem. Essa separação permite isolar as responsabilidades de cada componente, facilitando a manutenção, a evolução da arquitetura e a substituição de tecnologias sem impactar os demais módulos.
-
-Nesta prova de conceito, o foco do desenvolvimento concentrou-se na implementação do #emph[backend] e na validação do fluxo completo de processamento das solicitações de emergência. A parte responsável pelo #emph[frontend] do cliente móvel foi representada por um protótipo funcional de interface elaborado no Figma, utilizado para definir o fluxo de interação do usuário e demonstrar o comportamento esperado da aplicação. Dessa forma, embora as telas e a arquitetura do cliente tenham sido projetadas, sua implementação completa não fez parte do escopo desta etapa do trabalho.
-
-== Implementação da Aplicação Cliente
-
-O desenvolvimento da aplicação cliente teve como principal objetivo fornecer uma interface simples, intuitiva e acessível para o registro de ocorrências de emergência. Considerando que o usuário pode estar em uma situação de estresse ou risco, buscou-se reduzir ao máximo a quantidade de interações necessárias para realizar uma solicitação.
-
-A aplicação foi projetada para dispositivos móveis e organizada em módulos responsáveis pela interface com o usuário, captura das diferentes formas de entrada e envio das informações ao servidor. Dessa forma, cada componente possui uma responsabilidade específica, facilitando tanto a manutenção quanto futuras expansões da aplicação.
-
-=== Arquitetura do Cliente
-
-A arquitetura da aplicação cliente foi organizada de acordo com o fluxo de interação do usuário, abrangendo a coleta das informações, a preparação da solicitação, a comunicação com o servidor e a apresentação do resultado.
-
-Inicialmente, a tela de entrada permite que o usuário registre o relato por texto, áudio ou imagem. A aplicação também obtém as informações adicionais necessárias para contextualizar a ocorrência, como a localização geográfica e o horário da solicitação. Os dados coletados são encaminhados ao módulo de comunicação, responsável por organizá-los e enviá-los ao #emph[backend].
-
-Durante o processamento da solicitação pelo servidor, a aplicação apresenta uma tela de espera, que informa ao usuário que a ocorrência está sendo analisada. Após o recebimento da resposta, o fluxo é direcionado à tela de resultado, na qual são apresentados o serviço de emergência recomendado, o número de telefone correspondente, o resumo do contexto identificado e a opção de iniciar a ligação.
-
-Conforme a @fig:diagrama_desenvolvimento_frontend_arquitetura, esses componentes foram organizados de maneira sequencial, acompanhando as etapas realizadas desde o registro da ocorrência até a apresentação da recomendação ao usuário.
+A @fig:arquitetura-sistema apresenta os componentes e os limites da solução. A aplicação é web e utiliza arquitetura cliente-servidor. O navegador reúne as entradas; o servidor valida os dados, consulta a geocodificação reversa e prepara o contexto encaminhado ao OpenRouter. O provedor selecionado retorna o conteúdo que será convertido em recomendação.
 
 #figura(
-  image("assets/imagens/arquitetura-cliente.png", width: 90%),
-  caption: [Arquitetura da aplicação cliente],
-) <fig:diagrama_desenvolvimento_frontend_arquitetura>
+  image("assets/imagens/arquitetura-sistema.svg", width: 100%),
+  caption: [Arquitetura da prova de conceito, integrações externas e persistência experimental],
+) <fig:arquitetura-sistema>
 
-=== Tecnologias da Aplicação Cliente
+O protótipo não utiliza banco de dados, autenticação de usuários ou catálogo validado de contatos. Na rota de atendimento, as informações são processadas em memória. A persistência em arquivos pertence ao procedimento experimental do benchmark e não representa um histórico de ocorrências da aplicação. A ausência de armazenamento local não elimina a transmissão ou a eventual retenção pelos fornecedores externos.
 
-A interface da aplicação foi desenvolvida com tecnologias consolidadas no desenvolvimento web. O HTML5 foi utilizado na estruturação das telas, enquanto o CSS3 foi empregado na estilização dos componentes. O JavaScript foi responsável pelo gerenciamento das interações, pela captura dos dados, pelo controle da navegação entre as telas e pela comunicação com o servidor.
+== Cliente Web e Delimitação da Interface
 
-O framework Bootstrap foi utilizado para padronizar os elementos visuais e auxiliar na construção de uma interface responsiva, adequada às diferentes dimensões de tela dos dispositivos móveis.
+O fluxo projetado contém entrada do relato, espera e apresentação do resultado. As modalidades de entrada são texto, gravação de áudio e imagem, acompanhadas de coordenadas e horário. As listagens exemplificam a coleta, a conversão dos arquivos e a comunicação, mas dependem de elementos de interface e de integração para formar uma aplicação completa.
 
-A comunicação entre a aplicação cliente e o #emph[backend] foi implementada por meio da Fetch #abbrev("API"). Após a coleta das informações da ocorrência, o JavaScript organiza os dados e realiza uma requisição HTTP ao servidor. A resposta recebida é interpretada pelo cliente e utilizada para preencher a tela de resultado.
+O design e a implementação integral das telas ficaram fora da entrega de código. Também não foram concluídos uma PWA instalável, testes de acessibilidade, ensaios de uso em campo ou validação com usuários. A ação prevista com o esquema `tel:` apenas abre o discador quando suportado; não efetua despacho nem ligação automática.
 
-==== Implementação PWA
+== Processamento no Servidor
 
-Com o objetivo de facilitar o acesso ao sistema em dispositivos móveis, a aplicação cliente foi implementada como uma #abbrev("PWA") básica. Essa abordagem permite que o sistema seja executado diretamente pelo navegador e adicionado à tela inicial do dispositivo, oferecendo uma experiência semelhante à de uma aplicação instalada, sem exigir seu empacotamento como aplicativo nativo.
+O servidor utiliza Node.js e Express para receber uma solicitação com ao menos uma modalidade de relato. As coordenadas são verificadas antes da geocodificação. O endereço aproximado resultante é combinado com o horário do cenário e com a entrada original, permitindo contextualizar a ocorrência sem atribuir ao modelo a responsabilidade de resolver coordenadas por conta própria.
 
-A implementação da #abbrev("PWA") foi realizada por meio da inclusão de um arquivo de manifesto e de um #emph[Service Worker]. O arquivo manifest.json fornece ao navegador informações de identificação e apresentação da aplicação, como nome, ícones, cores, endereço inicial e modo de exibição. Entre suas configurações, a propriedade display, definida como standalone, permite que a aplicação seja executada em uma janela independente, sem os elementos convencionais de navegação do navegador. Os ícones especificados no manifesto são utilizados na tela inicial do dispositivo e em outros elementos de identificação da aplicação.
+A requisição multimodal preserva a natureza de cada entrada: texto, conteúdo visual ou áudio. O suporte efetivo depende da rota do provedor. O aceite do arquivo, por si só, não significa compreensão do relato, distinção que fundamenta a avaliação do capítulo seguinte.
 
-Complementarmente, o #emph[Service Worker] consiste em um script executado em segundo plano pelo navegador. Na aplicação desenvolvida, ele é responsável pelo armazenamento local dos arquivos essenciais da interface, possibilitando que esses recursos sejam recuperados sem a necessidade de serem baixados novamente a cada acesso. Em conjunto, o manifesto e o #emph[Service Worker] fornecem as funcionalidades necessárias para que a aplicação web apresenta características semelhantes às de uma aplicação instalada no dispositivo.
+== Prompts e Contrato de Resposta
 
-=== Tela Inicial
+O prompt de sistema define a tarefa de recomendação, a prioridade para serviços oficiais, a escolha de um serviço e a proibição de inventar contatos ou fornecer orientações clínicas. O contexto é enviado em uma mensagem com papel `assistant`, e as entradas em uma mensagem com papel `user`. Essa organização é uma decisão da implementação, não uma condição necessária para todas as aplicações baseadas em modelos de linguagem.
 
-A tela inicial da aplicação concentra todas as funcionalidades necessárias para o registro da ocorrência, sendo projetada em um design minimalista para minimizar a quantidade de interações exigidas do usuário em uma situação de emergência. 
+O retorno esperado contém `service_name`, `phone_number` e `emergency_context`. A validação estrutural verifica esses campos, mas não comprova a existência do serviço nem a atualidade do telefone. A instrução para pesquisar também não comprova que fontes oficiais tenham sido consultadas. Contatos locais e ambiguidades exigem validação própria, além da resposta gerada.
 
-Conforme a @fig:diagrama_desenvolvimento_frontend_entrada apresenta, a interface adota um tema escuro com elementos de destaque em azul, priorizando contraste visual e facilidade de identificação das ações principais. Na parte superior da tela é apresentado o nome da aplicação, acompanhado de uma breve instrução orientando o usuário a descrever a ocorrência.
+== Código Disponível e Continuidade
 
-A região central da interface é composta por um campo destinado à descrição textual da emergência e por botões para captura de áudio e imagem, permitindo que diferentes tipos de informação sejam enviados ao sistema. Na parte inferior encontra-se o botão "Pedir Ajuda", responsável por iniciar o envio da solicitação ao servidor.
+O código da aplicação e os trechos do cliente estão disponíveis em #link("https://github.com/nectaroads/centro-de-ajuda")[github.com/nectaroads/centro-de-ajuda]. As listagens completas foram mantidas no repositório, permitindo que este capítulo se concentre nas decisões de projeto e no escopo da prova de conceito.
 
-A organização desses elementos foi definida com o objetivo de reduzir a navegação entre telas e concentrar todos os recursos de entrada de dados em uma única interface, tornando o processo de solicitação mais rápido e intuitivo.
+A organização do código para disponibilização inclui correções na rota HTTP e no tratamento das respostas, além de um registrador para novas execuções. Essas correções não são atribuídas retroativamente ao benchmark histórico. Os prompts históricos e os revisados permanecem identificados separadamente; resultados produzidos por versões distintas requerem comparação própria.
 
-#figura(
-  image("assets/imagens/tela-inicial.png", width: 70%),
-  caption: [Tela inicial do Centro de Ajuda],
-) <fig:diagrama_desenvolvimento_frontend_entrada>
+== Dados Pessoais e Limites de Uso
 
-==== Captura de texto
+Relatos podem conter nomes, vozes, rostos, localização e informações de saúde. Estas últimas são dados pessoais sensíveis; a finalidade acadêmica preserva a aplicação dos arts. 7º e 11 da #abbrev("LGPD", long: "Lei Geral de Proteção de Dados Pessoais") #cite("lgpd2018").
 
-A entrada textual foi implementada por meio de um elemento HTML do tipo <textarea>, no qual o usuário pode descrever a ocorrência em linguagem natural. O componente permite a inserção de textos com múltiplas linhas e limita o relato a 2.000 caracteres, evitando o envio de conteúdos excessivamente longos. 
+A geocodificação transmite coordenadas ao Google; o OpenRouter e o provedor recebem o relato e o contexto. Antes de uso real, será necessário definir base legal, finalidade, minimização, transparência, retenção, descarte e mecanismos de exercício dos direitos. Devem ser examinados os contratos, a segurança e as condições de transferência internacional. A permissão do navegador não resolve essas obrigações. A proteção da vida é hipótese prevista em lei, mas não autoriza automaticamente todos os testes ou usos posteriores #cite("lgpd2018").
 
-#codigo(
-  lang: "html",
-  caption: [Campo de texto da ocorrência],
-  filename: "occurrence.html",
-  read("assets/codigos/occurrence.html"),
-) <code:textarea>
-
-O campo não foi definido como obrigatório porque a aplicação também permite o envio de solicitações compostas apenas por áudio ou imagem. A verificação da presença de pelo menos uma forma de entrada é realizada posteriormente, antes do envio da solicitação.
-
-Quando o usuário confirma o envio, o conteúdo do campo é acessado pelo JavaScript por meio da Document Object Model (DOM). O método document.getElementById() localiza o elemento a partir de seu identificador, enquanto a propriedade value recupera o texto inserido. Em seguida, o método trim() remove espaços em branco desnecessários do início e do final do relato.
-
-#codigo(
-  lang: "javascript",
-  caption: [Captura de texto via DOM],
-  filename: "capture.js",
-  read("assets/codigos/capture.js"),
-)
-
-Quando o campo está vazio ou contém apenas espaços, a função retorna null. Caso exista conteúdo válido, o texto é retornado para posteriormente ser incorporado à solicitação encaminhada ao servidor. 
-
-==== Captura de áudio
-
-A captura de áudio foi implementada com a MediaDevices #abbrev("API"). Quando o usuário inicia a gravação, o método `navigator.mediaDevices.getUserMedia()` solicita autorização para acessar o microfone do dispositivo. Caso a permissão seja concedida, o navegador fornece um fluxo de mídia, representado por um objeto MediaStream, que é disponibilizado para a aplicação. 
-
-#codigo(
-  lang: "javascript",
-  caption: [Solicitação de acesso ao microfone],
-  filename: "audio.js",
-  read("assets/codigos/audio.js"),
-)
-
-Caso o usuário recuse a permissão ou o dispositivo não possua um microfone disponível, a função retorna null, permitindo que a aplicação informe o erro sem interromper as demais formas de entrada.
-
-A gravação é realizada por meio da MediaRecorder #abbrev("API"), que recebe o fluxo fornecido pelo microfone. Durante a gravação, os dados de áudio são disponibilizados em pequenos blocos, denominados #emph[chunks], e armazenados temporariamente em um vetor. Quando a gravação é encerrada, esses blocos são reunidos em um objeto #emph[blob], preservando o formato de áudio selecionado pelo navegador.
-
-#codigo(
-  lang: "javascript",
-  caption: [Gravação de áudio com MediaRecorder],
-  filename: "recorder.js",
-  read("assets/codigos/recorder.js"),
-)
-
-O objeto audioBlob resultante permanece armazenado na aplicação até a confirmação do envio. Posteriormente, ele pode ser anexado diretamente à solicitação por meio da interface FormData, juntamente com as demais informações da ocorrência. 
-
-==== Captura de imagens
-
-A captura de imagens foi implementada com os recursos disponibilizados pelo próprio navegador, sem a utilização de plugins ou integração direta com código nativo. Para isso, foi utilizado um campo de seleção de arquivos configurado para aceitar somente imagens.
-
-Esse campo de seleção possui o atributo `capture="environment"`, que indica ao navegador a preferência pelo uso da câmera traseira do dispositivo. Entretanto, seu comportamento pode variar de acordo com o navegador e o sistema operacional, que também podem permitir a escolha de uma imagem já armazenada no dispositivo.Após a captura ou seleção, o navegador disponibiliza a imagem como um objeto do tipo `File`. O JavaScript obtém esse arquivo por meio da propriedade files do campo de entrada e verifica se o conteúdo selecionado corresponde a uma imagem.
-
-A #abbrev("API") `FileReader` é utilizada para gerar uma representação da imagem no formato `Data URI`, permitindo sua exibição na interface antes do envio. O arquivo original, contudo, permanece armazenado no objeto `imageFile` e será posteriormente anexado à solicitação por meio da interface `BodyParser`.
-
-#codigo(
-  lang: "javascript",
-  caption: [Captura de imagem],
-  filename: "image.js",
-  read("assets/codigos/image.js"),
-)
-
-==== Envio da solicitação
-
-Após a coleta das informações fornecidas pelo usuário, a aplicação reúne os dados da ocorrência em uma única solicitação destinada ao servidor. Dependendo das formas de entrada utilizadas, a solicitação pode conter um relato textual, um arquivo de áudio, uma imagem ou uma combinação desses conteúdos.
-
-Os dados são organizados por meio da interface `BodyParser`, adequada ao envio conjunto de campos textuais e arquivos. O texto é adicionado somente quando estiver preenchido, enquanto o áudio e a imagem são anexados diretamente como objetos Blob e File, respectivamente.
-
-A comunicação entre a aplicação cliente e o #emph[backend] é realizada por meio da Fetch #abbrev("API"), utilizando uma requisição HTTP do tipo POST. O objeto que representa a ocorrência é convertido para JSON com o método `JSON.stringify()`. Nesse caso, o cabeçalho Content-Type deve ser definido como `application/json`, informando ao servidor o formato do corpo da requisição.
-
-Antes do envio, a aplicação verifica se pelo menos uma forma de entrada foi fornecida. Caso não exista texto, áudio ou imagem, a solicitação é interrompida e uma mensagem é apresentada ao usuário. Uma variável de controle também impede que uma nova requisição seja iniciada enquanto a anterior ainda estiver em processamento.
-
-#codigo(
-  lang: "javascript",
-  caption: [Envio da ocorrência ao servidor],
-  filename: "submit.js",
-  read("assets/codigos/submit.js"),
-)
-
-Após o envio da solicitação pela aplicação cliente, o #emph[backend] recebe o corpo da requisição em formato JSON. O middleware `bodyParser`.json() é responsável por interpretar esse conteúdo e disponibilizá-lo no objeto req.body. O limite de tamanho aceito pelo middleware foi ampliado devido à presença dos arquivos de áudio e imagem codificados em Base64, representação que aumenta o volume de dados transmitidos.
-
-Depois da interpretação do corpo da requisição, o endpoint extrai de req.body os dados enviados pela aplicação cliente. Esses dados incluem o relato textual, o áudio, a imagem, as coordenadas geográficas e o horário da ocorrência.
-
-=== Tela de Espera
-
-Após o envio da solicitação, a aplicação redireciona o usuário para uma tela intermediária, ilustrada em @fig:tela_espera. Essa tela tem como objetivo fornecer um retorno visual imediato de que a requisição foi recebida e está sendo processada pelo servidor, evitando que o usuário interprete a ausência de resposta como uma falha na aplicação.
-
-A interface apresenta uma animação de carregamento acompanhada de uma mensagem informando que a ocorrência está sendo analisada. Durante esse período, novas interações relacionadas à solicitação são bloqueadas, impedindo o envio duplicado da mesma ocorrência e garantindo que apenas uma requisição permaneça em processamento.
-
-A tela permanece visível até que o servidor retorne uma resposta contendo a recomendação do serviço de emergência ou informe a ocorrência de algum erro durante o processamento da solicitação.
-
-#figura(
-  image("assets/imagens/tela-espera.png", width: 70%),
-  caption: [Tela de espera],
-) <fig:tela_espera>
-
-=== Tela de Resposta
-
-Após o processamento da solicitação, a aplicação apresenta ao usuário a tela de resposta, ilustrada na @fig:diagrama_desenvolvimento_frontend_resultado. Essa interface foi projetada para que destaque as informações mais relevantes da recomendação gerada, permitindo que o usuário identifique rapidamente qual serviço de emergência deve ser acionado.
-
-A tela exibe o nome do serviço recomendado, seu respectivo número telefônico e um resumo da ocorrência interpretada pelo sistema, oferecendo ao usuário uma justificativa simplificada da decisão tomada. Além disso, é apresentado um aviso informando que a recomendação foi produzida por um modelo de inteligência artificial e deve ser utilizada como um recurso de apoio, não substituindo a avaliação do próprio usuário diante da situação de emergência.
-
-#figura(
-  image("assets/imagens/tela-resultado.png", width: 70%),
-  caption: [Tela de resposta com recomendação],
-) <fig:diagrama_desenvolvimento_frontend_resultado>
-
-==== Recebimento da Resposta
-
-O recebimento da resposta ocorre após a conclusão da requisição HTTP iniciada durante o envio da solicitação. Quando o servidor conclui o processamento, a aplicação interpreta o corpo da resposta por meio do método response.json(), que converte o conteúdo JSON recebido em um objeto JavaScript.
-
-Uma resposta válida deve conter os campos `service_name`, `phone_number` e `emergency_context`, correspondentes, respectivamente, ao serviço de emergência recomendado, ao número de telefone e ao resumo da ocorrência identificado pelo modelo. Antes de apresentar o resultado, a aplicação verifica a existência e o tipo desses campos.
-
-Caso a resposta seja válida, os elementos da interface são atualizados dinamicamente e a aplicação realiza a transição da tela de espera para a tela de resposta. Se o servidor retornar um erro ou se o conteúdo recebido não apresentar a estrutura esperada, a aplicação exibe uma mensagem informando que não foi possível concluir a análise e retorna o usuário à tela inicial.
-
-#codigo(
-  lang: "javascript",
-  caption: [Tratamento da resposta do servidor],
-  filename: "handle.js",
-  read("assets/codigos/handle.js"),
-)
-
-==== Redirecionamento para Ligação
-
-Após a apresentação da recomendação, o usuário pode iniciar o contato com o serviço de emergência por meio do botão “Ligar Agora”. A funcionalidade utiliza o esquema de URI tel:, reconhecido pelos navegadores e pelos dispositivos móveis.
-
-Ao acionar o botão, a aplicação abre o discador do dispositivo com o número recomendado previamente preenchido. A ligação não é realizada automaticamente, pois ainda depende da confirmação do usuário no aplicativo de chamadas.
-
-O endereço do botão é definido somente após o recebimento e a validação da resposta do servidor. Antes de construir a URI, caracteres que não representam dígitos são removidos do número recebido. 
-
-#codigo(
-  lang: "javascript",
-  caption: [Redirecionamento para ligação],
-  filename: "call.js",
-  read("assets/codigos/call.js"),
-)
-
-Essa abordagem elimina a necessidade de memorizar ou digitar manualmente o número recomendado, reduzindo o tempo necessário para acessar o serviço e a possibilidade de erros de discagem. Após o encerramento da ligação, o usuário pode retornar à aplicação e iniciar uma nova solicitação, caso seja necessário. 
-
-== Implementação do Servidor
-
-O servidor foi estruturado de forma modular, separando a inicialização da aplicação, o gerenciamento das requisições HTTP, o processamento das ocorrências, a comunicação com serviços externos e as funções auxiliares. Essa organização permite que cada parte do sistema seja modificada de maneira relativamente independente, reduzindo a concentração da lógica em um único arquivo e facilitando a identificação das responsabilidades de cada componente.
-
-A inicialização do sistema ocorre no arquivo principal da aplicação, responsável por carregar o módulo HTTP e iniciar o servidor na porta 27020. O serviço é configurado para aceitar conexões em todas as interfaces de rede disponíveis, por meio do endereço 0.0.0.0, possibilitando o acesso ao #emph[backend] a partir de outros dispositivos conectados à rede ou de uma infraestrutura remota.
-
-A camada de comunicação HTTP foi implementada com o framework Express. Nela são configurados os middlewares responsáveis pela interpretação dos corpos das requisições nos formatos JSON e URL encoded. Também foi habilitado o Cross-Origin Resource Sharing (CORS), permitindo que aplicações executadas em origens distintas realizem requisições ao servidor. Essa configuração é necessária porque a aplicação cliente e o #emph[backend] podem ser executados em dispositivos ou endereços diferentes.
-
-#codigo(
-  lang: "javascript",
-  caption: [Inicialização do servidor],
-  filename: "main.js",
-  read("assets/codigos/main.js"),
-)
-
-#codigo(
-  lang: "javascript",
-  caption: [Inicialização do servidor],
-  filename: "main.js",
-  read("assets/codigos/express.js"),
-)
-
-Os endpoints da aplicação são carregados automaticamente a partir do diretório destinado às rotas do servidor. Durante a inicialização, o sistema percorre os arquivos JavaScript presentes nesse diretório, importa seus respectivos módulos e registra uma rota HTTP do tipo POST com o mesmo nome de cada arquivo. Dessa forma, o arquivo help.js é disponibilizado como o endpoint /help, responsável pelo recebimento e pelo processamento das solicitações de emergência.
-
-Antes de encaminhar a requisição ao endpoint correspondente, a camada Express 
-registra o endereço de origem da conexão, verifica a existência do corpo da requisição e define o tipo de conteúdo da resposta como JSON com codificação UTF-8. Após essas verificações, o controle é transferido ao módulo responsável pela rota solicitada.
-
-#codigo(
-  lang: "javascript",
-  caption: [Handler de Endpoints],
-  filename: "main.js",
-  read("assets/codigos/handleendpoint.js"),
-)
-
-O endpoint /help concentra a coordenação do fluxo de atendimento. Esse módulo recebe os dados enviados pelo cliente, valida a presença das coordenadas geográficas, obtém a localização aproximada da ocorrência, organiza as informações em uma estrutura de contexto, constrói os prompts e solicita o processamento ao modelo de linguagem. Ao final, o resultado estruturado é devolvido à aplicação cliente por meio da resposta HTTP.
-
-A comunicação com o serviço de geocodificação foi isolada em um módulo responsável pelas requisições de rede. Esse componente realiza a consulta à #abbrev("API") Google Reverse Geocoding, utilizada para converter as coordenadas geográficas da ocorrência em informações textuais de localização. Esse processo permite complementar os dados de latitude e longitude com elementos de endereço mais compreensíveis e relevantes para a análise da ocorrência.
-
-Para realizar a consulta, o servidor insere as coordenadas recebidas no endereço da #abbrev("API") e envia uma requisição HTTP. Após o recebimento da resposta em formato JSON, os dados são encaminhados à função extractLocation(), responsável por percorrer os componentes do endereço e identificar os campos utilizados pelo sistema, como rua, bairro, cidade, estado, país e código postal. Ao final do processamento, essas informações são organizadas em um objeto e posteriormente incorporadas ao contexto da ocorrência.
-
-#codigo(
-  lang: "javascript",
-  caption: [Geocodificação reversa],
-  filename: "geocode.js",
-  read("assets/codigos/geocode.js"),
-)
-
-Na comunicação com a plataforma de distribuição de modelos, o servidor organiza a requisição de acordo com o formato de mensagens utilizado pela #abbrev("API"). São incluídas uma mensagem de sistema, uma mensagem de contextualização e uma mensagem contendo os dados fornecidos pelo usuário. Quando arquivos de imagem ou áudio estão presentes, eles são lidos do diretório de recursos, convertidos para Base64 e incorporados ao conteúdo multimodal da requisição.
-
-A resposta retornada pelo modelo também é tratada nessa camada. Além do conteúdo gerado, o módulo registra informações relacionadas à execução, como tempo de resposta, quantidade de tokens de entrada e saída e custo informado pela #abbrev("API"). O conteúdo produzido pelo modelo é encaminhado à função extraction(), responsável por remover eventuais marcações de bloco de código e convertê-lo em um objeto JSON válido.
-
-As funções utilitárias também foram reunidas em um módulo próprio. Entre elas estão a criação e localização de arquivos, o registro persistente de logs, a formatação das mensagens exibidas no terminal, a conversão de arquivos para Base64, a extração de objetos JSON e a interpretação dos dados retornados pelo serviço de geocodificação.
-
-A função fileToBase64() realiza a leitura síncrona do arquivo e converte seu conteúdo para uma sequência Base64. A função extractJson(), por sua vez, tenta interpretar diretamente a resposta como JSON. Caso existam textos ou marcações adicionais, a função localiza o primeiro objeto delimitado por chaves e realiza uma nova tentativa de conversão.
-
-#codigo(
-  lang: "javascript",
-  caption: [Para Base64],
-  filename: "tobase64.js",
-  read("assets/codigos/tobase64.js"),
-)
-
-A @fig:arquitetura-geral apresenta a relação entre os principais componentes da arquitetura. A aplicação cliente envia a solicitação ao endpoint /help, que coordena o processamento e utiliza os módulos de prompt, geocodificação e comunicação com o modelo. Após a interpretação e validação da resposta, o resultado estruturado é devolvido ao cliente
-
-#figura(image("assets/imagens/arquitetura-geral.png", width: 90%), caption: [Arquitetura geral do sistema]) <fig:arquitetura-geral>
-
-A separação adotada também evita que as credenciais de acesso sejam expostas na aplicação cliente, uma vez que as chaves utilizadas pelo Google Maps e pelo modelo IA permanecem armazenadas nas variáveis de ambiente do servidor. Além disso, a centralização das integrações no #emph[backend] permite alterar o modelo de linguagem, os prompts ou os serviços externos sem exigir modificações diretas na interface da aplicação.
-
-== Construção do Prompt
-
-Antes de realizar a comunicação com o modelo de linguagem, o servidor constrói o conjunto de mensagens que será encaminhado à #abbrev("API") do Open Router. Esse conjunto, denominado prompt, define tanto o comportamento esperado do modelo quanto às informações específicas da ocorrência que deverão ser consideradas durante a classificação.
-
-Em vez de encaminhar apenas o relato fornecido pelo usuário, o sistema complementa a solicitação com informações contextuais obtidas automaticamente durante o processamento, como localização geográfica e horário da ocorrência. Essa estratégia reduz ambiguidades e fornece ao modelo mais elementos para identificar o serviço de emergência adequado.
-
-Na implementação desenvolvida, o prompt é organizado em três componentes: System Prompt, Assistant Prompt e mensagem do usuário. Cada componente é enviado com um papel diferente na estrutura de mensagens utilizada pela #abbrev("API").
-
-O System Prompt estabelece a função do modelo, o processo de análise, as restrições da classificação e o formato obrigatório da resposta. Entre as regras definidas estão a consideração conjunta das modalidades de entrada, a escolha de apenas um serviço, a priorização de órgãos oficiais, a proibição de inventar informações e a exigência de uma resposta em JSON.
-
-#codigo(lang: "javascript", caption: [System Prompt], filename: "systemprompt.js", read("assets/codigos/systemprompt.js"))
-
-O segundo componente corresponde ao Assistant Prompt, gerado dinamicamente para cada requisição. Diferentemente do System Prompt, esse componente apresenta informações específicas da ocorrência, como horário, rua, bairro, cidade, estado, país e código postal.
-
-Essas informações são obtidas a partir do objeto de contexto construído pelo endpoint /help. Dessa forma, cada solicitação recebe sua própria contextualização antes de ser encaminhada ao modelo.
-
-#codigo(lang: "javascript", caption: [Assistant Prompt contextual], filename: "assistantprompt.js", read("assets/codigos/assistantprompt.js"))
-
-O terceiro componente corresponde à mensagem do usuário. Ela reúne o conteúdo efetivamente fornecido pela aplicação cliente e pode conter texto, imagem, áudio ou uma combinação dessas modalidades.
-
-O relato textual é inserido como conteúdo do tipo text. As imagens são convertidas para Base64 e incorporadas como `Data URI` no campo image_url. Os arquivos de áudio também são convertidos para Base64 e adicionados como conteúdo do tipo input_audio, acompanhado da identificação de seu formato.
-
-#codigo(lang: "javascript", caption: [Criação do content], filename: "buildcontent.js", read("assets/codigos/buildcontent.js"))
-
-Após a preparação dos três componentes, as mensagens são organizadas conforme os papéis esperados pela #abbrev("API"). As regras de classificação são enviadas com o papel system, a contextualização da ocorrência com o papel assistant e os dados fornecidos pelo usuário com o papel user.
-
-=== Contextualização da Ocorrência
-
-Uma característica importante da implementação é que o modelo de linguagem não recebe apenas o relato informado pelo usuário. Antes da comunicação com a #abbrev("API"), o servidor realiza uma etapa de enriquecimento da solicitação, incorporando informações adicionais obtidas durante o processamento da requisição.
-
-Entre esses dados encontram-se a latitude e longitude fornecidas pelo dispositivo móvel, o endereço aproximado obtido por meio do Google Reverse Geocoding e o horário em que a solicitação foi realizada. Essas informações são reunidas no objeto de contexto da aplicação e utilizadas para compor o Assistant Prompt.
-
-A inclusão desse contexto permite reduzir ambiguidades presentes em descrições curtas ou incompletas. Por exemplo, um usuário pode informar apenas "há um incêndio próximo de casa". Embora essa descrição indique a natureza da ocorrência, ela não fornece qualquer informação sobre sua localização. Ao incorporar automaticamente o endereço aproximado da ocorrência, o servidor fornece ao modelo elementos adicionais para interpretar a situação de maneira mais consistente e selecionar o serviço de emergência adequado.
-
-Além das informações geográficas, o sistema também encaminha os conteúdos multimodais presentes na solicitação. Quando imagens ou gravações de áudio são fornecidas, esses arquivos são preparados pelo servidor e enviados juntamente com as mensagens textuais, permitindo que modelos compatíveis realizem uma análise conjunta das diferentes modalidades de entrada.
-
-=== Formato de Saída (JSON)
-
-Após concluir a análise da ocorrência, o modelo deve produzir uma resposta estruturada em formato JSON. A utilização de um formato padronizado elimina a necessidade de interpretar respostas em linguagem natural e reduz a possibilidade de ambiguidades durante a comunicação entre o servidor e a aplicação cliente.
-
-O System Prompt instrui explicitamente o modelo a responder exclusivamente com um objeto JSON válido, sem comentários, blocos de código ou qualquer texto adicional. Essa restrição simplifica o processamento realizado pelo servidor, que pode converter diretamente a resposta recebida em um objeto da aplicação.
-
-Na implementação atual, o JSON contém três campos obrigatórios: `service_name`, responsável por identificar o órgão de atendimento recomendado; `phone_number`, contendo o número telefônico correspondente; e `emergency_context`, que apresenta um resumo objetivo da interpretação realizada pelo modelo.
-
-Após o recebimento da resposta, o servidor verifica se esses campos estão presentes antes de encaminhar o resultado à aplicação cliente. Caso a estrutura não esteja de acordo com o formato esperado, a resposta é considerada inválida e uma mensagem de erro é retornada ao cliente. Essa validação reduz falhas de integração e garante que apenas respostas compatíveis com a arquitetura da aplicação sejam utilizadas durante o atendimento das ocorrências.
-
-== Integração com Modelos de Linguagem
-
-Para realizar a integração com Modelos de Linguagem, foi utilizado o OpenRouter, uma plataforma que centraliza o acesso a modelos de inteligência artificial desenvolvidos e disponibilizados por diferentes provedores. Por meio de uma interface de programação unificada, a plataforma atua como intermediária entre a aplicação e os modelos selecionados, padronizando o formato das requisições e respostas.
-
-Essa abordagem simplifica a implementação do servidor, uma vez que as requisições seguem uma estrutura comum independentemente do modelo selecionado. Além disso, a interface unificada facilita a substituição ou inclusão de novos modelos durante o desenvolvimento e a realização dos experimentos.
-
-A comunicação com os modelos é inteiramente realizada no servidor. Dessa forma, as credenciais de acesso à #abbrev("API") permanecem protegidas e não são expostas na aplicação cliente, reduzindo os riscos de utilização indevida e permitindo maior controle sobre os modelos empregados pelo sistema.
-
-=== Comunicação com o OpenRouter
-A comunicação com o OpenRouter é realizada por meio de uma requisição HTTP do tipo POST para o endpoint de modelos conversacionais disponibilizado pela plataforma. O corpo da requisição é transmitido em formato JSON e segue a estrutura de mensagens definida pela #abbrev("API").
-
-Após a construção dos prompts e a preparação dos conteúdos multimodais, o servidor organiza a requisição com o identificador do modelo selecionado, as mensagens correspondentes aos papéis system, assistant e user e a indicação de que a resposta não deve ser transmitida de forma fragmentada. A autenticação é realizada por meio de uma chave de acesso armazenada nas variáveis de ambiente do servidor.
-
-#codigo(lang: "javascript", caption: [Criação do content], filename: "requestopenrouter.js", read("assets/codigos/requestopenrouter.js"))
-
-A chave utilizada na autenticação não é incorporada diretamente ao código-fonte. Ela é obtida por meio do pacote dotenv, que carrega as variáveis definidas no ambiente de execução do servidor. Essa abordagem evita que a credencial seja exposta na aplicação cliente ou registrada diretamente nos arquivos da aplicação. 
-
-Após o processamento realizado pelo modelo, o OpenRouter retorna um objeto JSON contendo o conteúdo gerado e informações relacionadas à execução da requisição. O servidor registra o tempo decorrido entre o envio e o recebimento da resposta, além da quantidade de tokens de entrada, saída e total, e do custo informado pela #abbrev("API").
-
-Essas informações são armazenadas juntamente com o resultado e utilizadas durante o #emph[benchmark] para comparar o comportamento dos modelos avaliados. O tempo registrado representa a duração total observada pelo servidor durante a comunicação, incluindo o processamento remoto e a transmissão da resposta.
-
-#codigo(lang: "javascript", caption: [Criação do content], filename: "openrouteres.js", read("assets/codigos/openrouteres.js"))
-
-Antes de encaminhar a recomendação à aplicação cliente, o servidor verifica se o conteúdo retornado foi convertido em um objeto JSON e se apresenta os três campos obrigatórios: `service_name`, `phone_number` e `emergency_context`.
-
-Caso a resposta não possua a estrutura esperada, o resultado é considerado inválido e o servidor retorna uma mensagem de erro. Quando a validação é concluída com sucesso, somente os campos necessários à tela de resposta são encaminhados ao cliente.
-
-#codigo(lang: "javascript", caption: [Criação do content], filename: "validateopenrouter.js", read("assets/codigos/validateopenrouter.js"))
+O protótipo não comprova conformidade jurídica. Para novos experimentos, propõe-se utilizar dados sintéticos ou autorizados, limitar a localização, retirar identificadores e restringir os registros. A divulgação de vozes e imagens históricas depende da confirmação de sua origem e autorização, ausentes nos arquivos examinados. Essas medidas são requisitos de continuidade, não resultados validados.
 
 = Análise dos Resultados
 
@@ -838,27 +537,44 @@ O terceiro cenário utiliza apenas áudio, simulando o relato de um atropelament
 
 O quarto cenário combina áudio e imagem, representando uma residência sendo invadida pela água durante fortes chuvas. Esse cenário foi desenvolvido para avaliar a capacidade dos modelos de integrar simultaneamente informações provenientes de diferentes modalidades durante a classificação da ocorrência. Todos os cenários também incluem coordenadas geográficas e horário da ocorrência, permitindo que o servidor complemente automaticamente o contexto antes da comunicação com o modelo de linguagem.
 
+=== Entradas Completas dos Cenários
+
+As coordenadas abaixo estão em graus decimais, e os horários em ISO 8601 com fuso UTC−03:00. Os relatos são cenários de teste; não representam atendimentos reais validados.
+
+*C1, texto:* “Meu carro quebrou na estrada, estou no acostamento com minha mãe idosa e está escurecendo. Não sei se é seguro ficar aqui.” Latitude −13.006421; longitude −41.370269; horário de contexto 2026-07-03T18:46:00-03:00. Não há áudio ou imagem.
+
+*C2, texto e imagem:* “Uma árvore caiu em cima de fios elétricos depois da chuva. Está soltando faísca e bloqueando a rua.” Imagem `images/fio_arvore.jpg`; latitude −11.303889; longitude −41.855833; horário de contexto 2026-11-22T06:57:00-03:00. Não há áudio.
+
+*C3, áudio:* arquivo `audios/socorro_gato.ogg`; latitude −12.978299; longitude −39.248689; horário de contexto 2026-04-30T02:27:00-03:00. Não há texto ou imagem. A descrição temática adotada no trabalho é um pedido de ajuda para um gato atropelado; não foi preservada uma transcrição literal validada.
+
+*C4, áudio e imagem:* arquivos `audios/alagamento_casa.ogg` e `images/alagamento_casa.jpg`; latitude −13.86; longitude −40.083; horário de contexto 2026-04-09T03:41:00-03:00. Não há texto. A descrição temática é a entrada de água em uma residência após chuva; também não há transcrição literal validada.
+
+Os arquivos binários completos são mantidos no material experimental do repositório, com hashes SHA-256 para identificação. Não são substituídos pelas descrições temáticas. A origem das imagens e a autorização de divulgação das vozes não estão documentadas nos arquivos de origem e precisam ser confirmadas antes de sua publicação pública. A ausência de transcrição impede conferir a fala somente pela leitura deste capítulo.
+
 == Coleta de Resultados
 
-Ao término de cada execução, o #emph[benchmark] registra integralmente os dados utilizados durante a solicitação e a resposta produzida pelo modelo. Inicialmente essas informações são armazenadas no arquivo `benchmark.txt`, preservando tanto os dados de entrada quanto o objeto retornado pela integração com o OpenRouter.
+O código histórico grava solicitações e respostas em `benchmark.txt`, incluindo localização resolvida e as métricas informadas pelo provedor. O arquivo preservado contém quatro entradas do Gemini. Para os demais modelos, não foram localizados os registros brutos correspondentes às análises apresentadas nas próximas seções.
 
-Além da resposta produzida pelo modelo, também são registrados indicadores técnicos fornecidos pela #abbrev("API"), incluindo o tempo de resposta, o custo estimado da requisição e as quantidades de #emph[tokens] de entrada, de saída e total. Quando a execução não é concluída com sucesso, o código e a mensagem de erro retornados pelo provedor também são armazenados. A tabela abaixo reúne exemplos de métricas registradas para os sete modelos. Como ela não identifica o cenário correspondente a cada coluna nem apresenta repetições, seus valores são descritivos e não fundamentam um ranking de custo ou desempenho. 
+A @tab:metricas-preservadas mostra os valores diretamente conferíveis no registro disponível. Tempo é medido em milissegundos entre o envio ao OpenRouter e a leitura de sua resposta, sem incluir geocodificação. Custo é o valor informado em dólares dos Estados Unidos (USD), sem recálculo de tarifas. Tokens são contagens retornadas pela API. Os valores são observações individuais, não médias.
 
-#tabela(caption: [Exemplo de métricas por modelo], 
-  columns: (7fr, 2fr, 2fr, 2fr, 2fr, 3fr, 4fr, 1fr), 
-  align: (left, center),
-  font-size: 10pt, 
-  header: ([Parâmetro],[GPT-5.5],[Claude],[Llama],[Qwen],[Gemini],[Nemotron],[North]), 
-  [cost (dólares)],[0.107],[0.114],[0.006],[0.011],[0.012],[0.005],[0.005],
-  [response_time_ms (ms)],[44059],[11028],[2634],[47734],[10398],[3910],[6445],
-  [prompt_tokens (tokens)],[15370],[19821],[3658],[3837],[524],[3982],[3655],
-  [completion_tokens (tokens)],[972],[227],[48],[2496],[1336],[351],[497]) <tab:exemplo_retorno_nemotron>
+#tabela(
+  caption: [Métricas preservadas das quatro respostas do Gemini],
+  columns: (1fr, 1.5fr, 1.5fr, 1fr, 1fr, 1fr),
+  font-size: 10pt,
+  header: ([Cenário], [Custo (USD)], [Tempo (ms)], [Entrada (tokens)], [Saída (tokens)], [Total (tokens)]),
+  [C1], [0.014301], [11348], [498], [1506], [2004],
+  [C2], [0.015819], [12157], [1564], [1497], [3061],
+  [C3], [0.012633], [21192], [633], [1269], [1902],
+  [C4], [0.015636], [10097], [1906], [1360], [3266],
+) <tab:metricas-preservadas>
+
+Não se incluem métricas dos outros modelos sem ligação verificável com cenários e respostas. Além disso, o código histórico preenche com zero as métricas de erros de API; esses zeros não representam medidas observadas de custo ou latência. O registrador revisado preserva a ausência de medidas e os retornos de erro, sem alterar o registro histórico.
 
 == Comparação por Critérios
 
 Nesta primeira análise, os modelos foram avaliados isoladamente, sem transcrição ou interpretação prévia por modelos auxiliares. Os resultados se referem às rotas e às requisições utilizadas no OpenRouter, e não a todas as funcionalidades disponíveis nas plataformas dos fabricantes.
 
-As classificações da @tab:comparacao_modelos foram atribuídas a partir das respostas, mensagens de erro e ausências de resultado descritas na análise individual, conforme as definições de @sec:metodos-avaliacao. “Sucesso” exige uma resposta que reconheça a ocorrência; “Falha” abrange erro de execução ou incompreensão do conteúdo; “Sem resultado” preserva a incerteza de um registro vazio. No critério JSON, a presença dos três campos obrigatórios é avaliada separadamente da correção de seus valores.
+As classificações da @tab:comparacao_modelos sintetizam as respostas, mensagens de erro e ausências de resultado relatadas na análise individual; somente as quatro respostas do Gemini dispõem de registro bruto localizado. As categorias seguem as definições de @sec:metodos-avaliacao. “Sucesso” exige uma resposta que reconheça a ocorrência; “Falha” abrange erro de execução ou incompreensão do conteúdo; “Sem resultado” preserva a incerteza de um registro vazio. No critério JSON, a presença dos três campos obrigatórios é avaliada separadamente da correção de seus valores.
 
 #tabela(
   caption: [Resultados por critério e cobertura das respostas — modelo isolado],
@@ -874,7 +590,7 @@ As classificações da @tab:comparacao_modelos foram atribuídas a partir das re
   [Cenários com interpretação compatível],[2/4],[1/4],[2/4],[2/4],[4/4],[2/4],[1/4],
 ) <tab:comparacao_modelos>
 
-Fonte: elaboração própria a partir das execuções descritas neste trabalho. A cobertura expressa o número de cenários com reconhecimento do conteúdo central da ocorrência; não representa uma taxa de acerto validada dos serviços ou dos telefones recomendados.
+Fonte: elaboração própria a partir das execuções relatadas neste trabalho, com registro bruto preservado apenas para Gemini. A cobertura expressa o número de cenários com reconhecimento do conteúdo central da ocorrência; não representa uma taxa de acerto validada dos serviços ou dos telefones recomendados.
 
 === Origem e Motivos das Falhas
 
@@ -979,7 +695,7 @@ O Gemini 3.5 Flash foi o único modelo que concluiu os quatro cenários e retorn
 
 No cenário textual, recomendou a Polícia Militar, por meio do número 190, considerando o veículo parado, o anoitecer, a presença da pessoa idosa e a insegurança relatada. A escolha foi considerada coerente por evitar assumir que a via era necessariamente estadual ou federal.
 
-No cenário de texto e imagem, indicou a Neoenergia Coelba e informou o número 116. O resumo identificou a árvore, os fios energizados, as faíscas e a obstrução da via. A resposta demonstrou integração entre o relato textual, a imagem e o contexto geográfico.
+No cenário de texto e imagem, indicou a Neoenergia Coelba e informou o número 116. O resumo identificou a árvore, os fios energizados, as faíscas e a obstrução da via. O resumo é compatível com o conteúdo enviado; sem testar separadamente cada modalidade, não se pode determinar a contribuição específica da imagem.
 
 No cenário exclusivamente sonoro, o modelo identificou que o áudio relatava um gato atropelado e recomendou um hospital veterinário de Santo Antônio de Jesus. O conteúdo foi semanticamente compatível com a gravação e demonstrou processamento efetivo da fala. Entretanto, como o modelo apresentou um estabelecimento e um telefone locais específicos, essa informação deve ser verificada externamente antes de ser considerada factual. O #emph[benchmark] demonstra que o modelo produziu uma resposta contextualizada, mas não comprova, isoladamente, que o contato esteja atualizado.
 
@@ -1009,7 +725,7 @@ No cenário com imagem, o OpenRouter retornou o código 404 e a mensagem No endp
 
 O cenário exclusivamente sonoro retornou o código 404 com `No endpoints found that support input audio`. Já o cenário contendo áudio e imagem voltou a apresentar incompatibilidade com imagem. Dessa forma, o modelo demonstrou suporte apenas à entrada textual na integração utilizada.
 
-O North apresentou baixo custo e tempo de resposta relativamente curto na única execução concluída. Entretanto, sua natureza voltada principalmente para tarefas de código e sua ausência de compatibilidade multimodal tornaram o modelo inadequado aos requisitos centrais da aplicação.
+A análise relatada para North restringiu-se à entrada textual. Sem o registro bruto correspondente, não se sustentam comparações de custo ou latência; as falhas descritas nas entradas multimodais limitam sua aplicação ao fluxo proposto.
 
 Na segunda análise, não foram identificados no OpenRouter modelos do ecossistema Cohere capazes de processar imagens ou áudios para complementar o North Mini Code. Por isso, não foi possível construir um fluxo com modelos auxiliares que convertesse essas entradas em conteúdo textual. A avaliação do ecossistema não ampliou sua cobertura, que permaneceu restrita ao cenário composto exclusivamente por texto. 
 
@@ -1025,7 +741,7 @@ A análise dos ecossistemas identificou possibilidades de contornar algumas dess
 
 = Conclusão
 
-O Centro de Ajuda demonstrou viabilidade técnica inicial para interpretar relatos emergenciais e produzir recomendações estruturadas nas condições avaliadas. O servidor integrou entradas multimodais, geocodificação, prompts e OpenRouter para retornar os campos `service_name`, `phone_number` e `emergency_context`. O fluxo projetado da interface prevê o acesso ao discador por meio do esquema `tel:`, permanecendo a conclusão e a validação da aplicação cliente como etapas de continuidade.
+As execuções registradas sugerem potencial técnico do Centro de Ajuda para interpretar os cenários testados e produzir recomendações estruturadas. Essa observação não comprova eficácia ou segurança em ocorrências reais. O servidor integrou entradas multimodais, geocodificação, prompts e OpenRouter para retornar os campos `service_name`, `phone_number` e `emergency_context`. O fluxo projetado da interface prevê o acesso ao discador por meio do esquema `tel:`, permanecendo a conclusão e a validação da aplicação cliente como etapas de continuidade.
 
 == Avaliação dos Modelos
 
@@ -1034,7 +750,7 @@ Os testes também demonstraram que a disponibilidade de uma modalidade depende n
 
 == Propostas Futuras
 
-Embora os resultados obtidos tenham demonstrado a viabilidade da proposta, o Centro de Ajuda ainda possui possibilidades de aprimoramento antes de uma eventual utilização em situações reais. As propostas apresentadas a seguir envolvem a evolução técnica da aplicação, a ampliação do processo de avaliação, a investigação de outros modelos de linguagem e o desenvolvimento de mecanismos capazes de aumentar a confiabilidade das recomendações produzidas.
+Embora as observações sugiram potencial para a viabilidade técnica do protótipo, o Centro de Ajuda ainda possui possibilidades de aprimoramento antes de uma eventual utilização em situações reais. As propostas apresentadas a seguir envolvem a evolução técnica da aplicação, a ampliação do processo de avaliação, a investigação de outros modelos de linguagem e o desenvolvimento de mecanismos capazes de aumentar a confiabilidade das recomendações produzidas.
 
 === Aperfeiçoamento da aplicação
 
@@ -1062,8 +778,8 @@ A utilização contínua do sistema também poderia contribuir para a formação
 
 == Considerações Finais
 
-Dessa forma, os resultados obtidos indicam que o Centro de Ajuda é tecnicamente viável como uma ferramenta de apoio ao direcionamento de solicitações emergenciais. A avaliação demonstrou que os modelos de inteligência artificial podem interpretar as informações fornecidas e contribuir para a classificação e o direcionamento das ocorrências, embora sua utilização dependa da compatibilidade das interfaces, da validação dos contatos recomendados e da adoção de mecanismos para tratar erros e indisponibilidades.
-A prova de conceito demonstrou o processamento no servidor, a integração com os serviços de localização e os modelos de inteligência artificial, além de apresentar o fluxo previsto para a interface. Esses resultados atendem ao recorte de viabilidade técnica investigado, sem comprovar a conclusão e a validação integral da aplicação cliente. Entretanto, a solução não deve ser compreendida como substituta das centrais oficiais ou da avaliação humana, mas como um recurso intermediário destinado a reduzir dúvidas e facilitar o acesso ao serviço considerado mais adequado.
+Os testes sugerem potencial para a interpretação dos relatos e a geração de recomendações estruturadas no protótipo. Com quatro cenários, uma execução por combinação e avaliação qualitativa, não se pode generalizar o desempenho dos modelos nem afirmar eficácia ou segurança da recomendação em emergências reais, embora sua utilização dependa da compatibilidade das interfaces, da validação dos contatos recomendados e da adoção de mecanismos para tratar erros e indisponibilidades.
+A prova de conceito demonstrou o processamento no servidor, a integração com os serviços de localização e os modelos de inteligência artificial, além de apresentar o fluxo previsto para a interface. Esses resultados atendem ao recorte de viabilidade técnica investigado, sem comprovar a conclusão e a validação integral da aplicação cliente. Entretanto, a solução não deve ser compreendida como substituta das centrais oficiais ou da avaliação humana, mas como um recurso intermediário concebido para apoiar a escolha de um serviço; o benefício efetivo ao usuário ainda requer avaliação.
 Os resultados alcançados representam, portanto, uma etapa inicial do desenvolvimento da proposta. As possibilidades apresentadas para sua continuidade demonstram que o Centro de Ajuda ainda possui um amplo campo de evolução, tanto em sua implementação quanto na avaliação e na confiabilidade das recomendações. Assim, este trabalho estabelece uma base para novos estudos e aperfeiçoamentos que poderão aproximar a proposta de uma aplicação mais segura, abrangente e adequada a situações reais.
 
 #references()
